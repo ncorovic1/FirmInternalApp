@@ -1,0 +1,13 @@
+2017-03-22 00:44:11,854 [Worker-18] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.vacations:vacations:0.0.1-SNAPSHOT @ C:\Users\Irma\Desktop\FirmInternalApp\VacationsModule\pom.xml.
+2017-03-22 00:44:12,051 [Worker-28] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.vacations:vacations:0.0.1-SNAPSHOT @ C:\Users\Irma\Desktop\FirmInternalApp\VacationsModule\pom.xml.
+2017-03-22 00:44:17,588 [Worker-28] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-03-22 00:44:17,591 [Worker-28] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2017-03-22 00:44:17,664 [Worker-28] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2017-03-22 00:44:17,674 [Worker-28] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-03-22 00:44:17,674 [Worker-28] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Irma\Desktop\FirmInternalApp\VacationsModule\src\test\resources
+2017-03-22 00:44:20,276 [Worker-52] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.vacations:vacations:0.0.1-SNAPSHOT @ C:\Users\Irma\Desktop\FirmInternalApp\VacationsModule\pom.xml.
+2017-03-22 00:44:25,567 [Worker-40] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-03-22 00:44:25,570 [Worker-40] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2017-03-22 00:44:25,591 [Worker-40] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2017-03-22 00:44:25,595 [Worker-40] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-03-22 00:44:25,596 [Worker-40] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Irma\Desktop\FirmInternalApp\VacationsModule\src\test\resources
