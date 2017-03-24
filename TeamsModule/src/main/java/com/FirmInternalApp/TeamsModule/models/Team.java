@@ -2,21 +2,28 @@ package com.FirmInternalApp.TeamsModule.models;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 @Entity
 @Table(name = "teams")
 public class Team {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	
 	private String name;
 	private String info;
 	
+	protected Team() {}
+	
+	public Team(long id, String name, String info) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.info = info;
+	}
 	
 	public long getId() {
 		return id;
