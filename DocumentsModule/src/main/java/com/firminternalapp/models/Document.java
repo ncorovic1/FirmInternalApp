@@ -1,24 +1,53 @@
 package com.firminternalapp.models;
 
-import java.sql.Date;
+import java.util.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 @Entity
+@Table(name="documents")
 public class Document {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
+	@Column(nullable=true, length=100)
 	private String title;
+	
+	@Column(nullable=true, length=3000)
 	private String content;
-	private long created_by;
-	private Date created_at;
-	private Date modified_at;
-
+	
+	@Column(nullable=true)
+	private long createdBy;
+	
+	@Column(nullable=true)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+	private Date createdAt;
+	
+	@Column(nullable=true)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+	private Date modifiedAt;
+	
+	public Document() {
+		super();
+	}
+	
+	public Document(String t, String c, long cb, Date ca, Date ma) {
+		super();
+		this.setTitle(t);
+		this.setContent(c);
+		this.setCreatedBy(cb);
+		this.setCreatedAt(ca);
+		this.setModifiedAt(ma);
+	}
+	
 	public String getTitle() {
 		return title;
 	}
@@ -35,27 +64,27 @@ public class Document {
 		this.content = content;
 	}
 
-	public long getCreated_by() {
-		return created_by;
+	public long getCreatedBy() {
+		return createdBy;
 	}
 
-	public void setCreated_by(long created_by) {
-		this.created_by = created_by;
+	public void setCreatedBy(long createdBy) {
+		this.createdBy = createdBy;
 	}
 
-	public Date getCreated_at() {
-		return created_at;
+	public Date getCreatedAt() {
+		return createdAt;
 	}
 
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
 	}
 
-	public Date getModified_at() {
-		return modified_at;
+	public Date getModifiedAt() {
+		return modifiedAt;
 	}
 
-	public void setModified_at(Date modified_at) {
-		this.modified_at = modified_at;
+	public void setModifiedAt(Date modifiedAt) {
+		this.modifiedAt = modifiedAt;
 	}
 }
