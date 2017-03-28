@@ -1,10 +1,14 @@
 package com.vacations.models;
 
 import java.sql.Date;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Vacation {
@@ -15,10 +19,11 @@ public class Vacation {
 
 	private Date beginDate;
 	private Date endDate;
-
+	
 	public Date getBeginDate() {
 		return beginDate;
 	}
+
 
 	public void setBeginDate(Date beginDate) {
 		this.beginDate = beginDate;

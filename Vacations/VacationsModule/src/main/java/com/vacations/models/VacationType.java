@@ -9,7 +9,7 @@ public class VacationType {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private long vacationType_id;
 
 	private String description;
 	private int factor;
