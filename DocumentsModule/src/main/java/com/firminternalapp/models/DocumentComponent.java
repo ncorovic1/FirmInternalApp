@@ -29,8 +29,9 @@ public class DocumentComponent {
 		super();
 	}
 	
-	public DocumentComponent(short ty, String te) {
+	public DocumentComponent(Document d, short ty, String te) {
 		super();
+		this.setDocument(d);
 		this.setType(ty);
 		this.setText(te);
 	}

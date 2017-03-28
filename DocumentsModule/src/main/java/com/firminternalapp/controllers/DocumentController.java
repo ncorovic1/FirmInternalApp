@@ -1,7 +1,7 @@
 package com.firminternalapp.controllers;
 
 import com.firminternalapp.models.Document;
-import com.firminternalapp.repository.DocumentRepository;
+import com.firminternalapp.services.DocumentService;
 
 import java.util.List;
 
@@ -11,36 +11,46 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value = "/documents")
 public class DocumentController {
-	@Autowired
-    private DocumentRepository documentsRepository;
     
+	@Autowired
+	private DocumentService dS;
+	
     @RequestMapping(value= "", method = RequestMethod.GET)
     public List<Document> findAll() {
-    	List<Document> documents = documentsRepository.findAll();
-        return documents;
+        return dS.findAll();
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Document findOne(@PathVariable("id") long id) {
-    	Document document =  documentsRepository.findOne(id);
-        return document;
+        return dS.findOne(id);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @RequestMapping(value= "/author/{author}", method = RequestMethod.GET)
+    public List<Document> findBy(@PathVariable("author") int author) {
+        return dS.findByCreatedBy(author);
+    }
+    
+    @RequestMapping(value= "/page", method = RequestMethod.GET)
+    public Document findWithPageable(@RequestParam("size") int size, @RequestParam("page")int page) {
+    	return new Document();
+    	//return dS.findWithPageable(page, size);
+    }
+    
+    @RequestMapping(method = RequestMethod.POST)
     public boolean save(@RequestBody Document document){
         try
         {
-            documentsRepository.save(document);
+            dS.save(document);
             return true;
         } catch (Exception e){
             return false;
         }
     }
     
-    @RequestMapping(value = "", method= RequestMethod.PUT)
+    @RequestMapping(method= RequestMethod.PUT)
     public boolean update(@RequestBody Document document) {
         try {
-        	documentsRepository.save(document);
+        	dS.update(document);
         	return true;
         } catch (Exception e){
             return false;
@@ -50,7 +60,7 @@ public class DocumentController {
     @RequestMapping(value = "", method= RequestMethod.DELETE)
     public boolean deleteAll() {
         try {
-        	documentsRepository.deleteAll();
+        	dS.deleteAll();
         	return true;
         } catch (Exception e){
             return false;
@@ -60,7 +70,7 @@ public class DocumentController {
     @RequestMapping(value = "/{id}", method= RequestMethod.DELETE)
     public boolean deleteOne(@PathVariable long id) {
         try {
-        	documentsRepository.delete(id);
+        	dS.deleteOne(id);
         	return true;
         } catch (Exception e){
             return false;
@@ -69,10 +79,6 @@ public class DocumentController {
         
     @RequestMapping("/welcome")
 	public String welcome(@RequestParam(value="id", defaultValue="documents", required=false) String id) {
-        String format = "Hello, %s!";
-        String title = this.findOne(Integer.parseInt(id)).getTitle();
-		String message = "<br><div style='text-align:center;'>"
-				+ "<h3> Welcome to " + String.format(format, title) + "! </h3></div><br><br>";
-		return message;
+		return dS.welcome(id);
 	}
 }

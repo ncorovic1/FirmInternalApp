@@ -1,7 +1,9 @@
 package com.firminternalapp.controllers;
 
 import com.firminternalapp.models.DocumentComponent;
-import com.firminternalapp.repository.DocumentComponentRepository;
+import com.firminternalapp.services.DocumentComponentService;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -10,39 +12,55 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/documentComponents")
 public class DocumentComponentController {
 	@Autowired
-    private DocumentComponentRepository documentComponentsRepository;
+    private DocumentComponentService dCS;
 
-    @RequestMapping(value= "/", method = RequestMethod.GET)
-    public Iterable<DocumentComponent> findAll() {
-    	Iterable<DocumentComponent> documentComponents = documentComponentsRepository.findAll();
-        return documentComponents;
+    @RequestMapping(value= "", method = RequestMethod.GET)
+    public List<DocumentComponent> findAll() {
+        return dCS.findAll();
     }
     
     @RequestMapping(value = "/{id}", method= RequestMethod.GET)
     public DocumentComponent findOne(@PathVariable("id") long id) {
-    	DocumentComponent document =  documentComponentsRepository.findOne(id);
-        return document;
+        return dCS.findOne(id);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public boolean save(@RequestParam long document_id, long type, String text){
+    @RequestMapping(value = "/{document_id}", method = RequestMethod.POST)
+    public boolean save(@PathVariable long document_id, @RequestBody DocumentComponent documentComponent){
         try
         {
-        	DocumentComponent documentComponent = new DocumentComponent();
-            documentComponentsRepository.save(documentComponent);
-            return true;
+            return dCS.save(document_id, documentComponent);
         } 
         catch (Exception e){
-            return false;
+        	return false;
         }
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public boolean delete(@RequestParam long id) {
+    @RequestMapping(value = "/{id}", method= RequestMethod.PUT)
+    public boolean update(@PathVariable long id, @RequestBody DocumentComponent documentComponent) {
         try {
-        	documentComponentsRepository.delete(id);
+        	dCS.update(id, documentComponent);
         	return true;
-        }catch (Exception e){
+        } catch (Exception e){
+            return false;
+        }
+    }
+    
+    @RequestMapping(value = "", method= RequestMethod.DELETE)
+    public boolean deleteAll() {
+        try {
+        	dCS.deleteAll();
+        	return true;
+        } catch (Exception e){
+            return false;
+        }
+    }
+  
+    @RequestMapping(value = "/{id}", method= RequestMethod.DELETE)
+    public boolean deleteOne(@PathVariable long id) {
+        try {
+        	dCS.deleteOne(id);
+        	return true;
+        } catch (Exception e){
             return false;
         }
     }
