@@ -23,6 +23,14 @@ public class UsersService {
 		return usersRepository.findOne(id);
 	}
 	
+	public User getUserByName(String name) {
+		return usersRepository.findByName(name);
+	}
+	
+	public User getUserByEmail(String email) {
+		return usersRepository.findByEmail(email);
+	}
+	
 	public void addUser(User user) {
 		usersRepository.save(user);
 	}
