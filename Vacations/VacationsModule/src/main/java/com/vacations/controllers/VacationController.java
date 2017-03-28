@@ -18,29 +18,29 @@ public class VacationController {
 	@Autowired
 	private VacationsService vacationsService;
 
-	@RequestMapping(value = "/vacations", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public Iterable<Vacation> getAllVacatios() {
 		List<Vacation> vacations = new ArrayList<>();
 		vacationsService.getAllVacations().forEach(vacations::add);
 		return vacations;
 	}
 
-	@RequestMapping(value = "/vacations/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public Vacation getVacationById(@PathVariable Long id) {
 		return vacationsService.getVacationsById(id);
 	}
 
-	@RequestMapping(value = "/vacations", method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public void addVacation(@RequestBody Vacation vacation) {
 		vacationsService.addVacation(vacation);
 	}
 
-	@RequestMapping(value = "/vacations/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public void updateVacation(@PathVariable Long id, @RequestBody Vacation vacation) {
 		vacationsService.updateVacation(vacation);
 	}
 
-	@RequestMapping(value = "/vacations/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public void deleteVacation(@PathVariable Long id) {
 		vacationsService.deleteVacation(id);
 	}

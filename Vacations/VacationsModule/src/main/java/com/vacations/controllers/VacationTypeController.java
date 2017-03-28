@@ -1,5 +1,4 @@
 package com.vacations.controllers;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,29 +18,29 @@ public class VacationTypeController {
 	@Autowired
 	private VacationTypesService vacationTypesService;
 
-	@RequestMapping(value = "/vacationTypes", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public Iterable<VacationType> getAllVacatios() {
 		List<VacationType> vacationTypes = new ArrayList<>();
 		vacationTypesService.getAllVacationTypes().forEach(vacationTypes::add);
 		return vacationTypes;
 	}
 
-	@RequestMapping(value = "/vacationTypes/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public VacationType getVacationById(@PathVariable Long id) {
 		return vacationTypesService.getVacationTypeById(id);
 	}
 
-	@RequestMapping(value = "/vacationTypes", method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public void addVacation(@RequestBody VacationType vacationType) {
 		vacationTypesService.addVacationType(vacationType);
 	}
 
-	@RequestMapping(value = "/vacationTypes/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public void updateVacation(@PathVariable Long id, @RequestBody VacationType vacationType) {
 		vacationTypesService.updateVacationType(vacationType);
 	}
 
-	@RequestMapping(value = "/vacationTypes/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public void deleteVacation(@PathVariable Long id) {
 		vacationTypesService.deleteVacationType(id);
 	}

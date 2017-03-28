@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Vacation {
@@ -16,14 +17,22 @@ public class Vacation {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-
 	private Date beginDate;
 	private Date endDate;
+	private int vacationType;
+	protected Vacation() {}
 	
+	public long getId()
+	{
+		return id;
+	}
 	public Date getBeginDate() {
 		return beginDate;
 	}
-
+	public int getVacationType()
+	{
+		return vacationType;
+	}
 
 	public void setBeginDate(Date beginDate) {
 		this.beginDate = beginDate;
@@ -35,5 +44,12 @@ public class Vacation {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+	public Vacation(long id, Date beginDate, Date endDate, int vac) {
+		super();
+		this.id = id;
+		this.beginDate = beginDate;
+		this.endDate = endDate;
+		this.vacationType=vac;
 	}
 }
