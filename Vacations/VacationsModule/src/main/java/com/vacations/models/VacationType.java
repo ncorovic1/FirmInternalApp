@@ -1,19 +1,28 @@
 package com.vacations.models;
+import java.sql.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class VacationType {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long vacationType_id;
-
+	private long id;
 	private String description;
 	private int factor;
-
+	
+	protected VacationType() {}
+	
+	public long getId()
+	{
+		return id;
+	}
 	public String getDescription() {
 		return description;
 	}
@@ -27,6 +36,12 @@ public class VacationType {
 	}
 
 	public void setFactor(int factor) {
+		this.factor = factor;
+	}
+	public VacationType(long id, String description, int factor) {
+		super();
+		this.id = id;
+		this.description = description;
 		this.factor = factor;
 	}
 }
