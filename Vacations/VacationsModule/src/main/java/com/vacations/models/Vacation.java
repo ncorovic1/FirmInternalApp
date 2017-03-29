@@ -20,12 +20,9 @@ public class Vacation {
 	private Date beginDate;
 	private Date endDate;
 	private int vacationType;
+	
 	protected Vacation() {}
 	
-	public long getId()
-	{
-		return id;
-	}
 	public Date getBeginDate() {
 		return beginDate;
 	}
@@ -50,6 +47,5 @@ public class Vacation {
 		this.id = id;
 		this.beginDate = beginDate;
 		this.endDate = endDate;
-		this.vacationType=vac;
 	}
 }

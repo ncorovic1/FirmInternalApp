@@ -19,10 +19,6 @@ public class VacationType {
 	
 	protected VacationType() {}
 	
-	public long getId()
-	{
-		return id;
-	}
 	public String getDescription() {
 		return description;
 	}

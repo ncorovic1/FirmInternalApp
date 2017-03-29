@@ -1,5 +1,6 @@
 package com.vacations.services;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import com.vacations.repository.VacationsRepository;
 
 @Service
 public class VacationsService {
-	
+
 	@Autowired
 	private VacationsRepository vacationsRepository;
 
@@ -19,21 +20,30 @@ public class VacationsService {
 		vacationsRepository.findAll().forEach(vacations::add);
 		return vacations;
 	}
-	
+
 	public Vacation getVacationsById(Long id) {
 		return vacationsRepository.findOne(id);
 	}
-	
-	public void addVacation(Vacation user) {
-		vacationsRepository.save(user);
+
+	public void addVacation(Vacation vacation) {
+		vacationsRepository.save(vacation);
 	}
-	
-	public void updateVacation(Vacation user) {
-		vacationsRepository.save(user);
+
+	public void updateVacation(Vacation vacation) {
+		vacationsRepository.save(vacation);
 	}
-	
+
 	public void deleteVacation(Long id) {
 		vacationsRepository.delete(id);
 	}
-	
+
+	public Vacation getVacationByType(int id) {
+		return vacationsRepository.getVacationByType(id);
+	}
+
+	public Vacation getVacationByBeginDate(Date date) {
+		return vacationsRepository.getVacationByBeginDate(date);
+
+	}
+
 }
