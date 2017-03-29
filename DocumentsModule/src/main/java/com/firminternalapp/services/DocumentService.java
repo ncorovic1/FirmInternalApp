@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.firminternalapp.models.Author;
 import com.firminternalapp.models.Document;
 import com.firminternalapp.repositories.DocumentRepository;
 
@@ -15,6 +16,8 @@ import com.firminternalapp.repositories.DocumentRepository;
 public class DocumentService {
 	@Autowired
     private DocumentRepository documentRepository;
+	@Autowired
+	private AuthorService authorService;
 	
     public List<Document> findAll() {
     	List<Document> documents = documentRepository.findAll();
@@ -26,23 +29,25 @@ public class DocumentService {
         return document;
     }
 
-    public List<Document> findByCreatedBy(long author_id) {
-		return documentRepository.findByCreatedBy(author_id);
+    public List<Document> findByAuthorId(long author_id) {
+		return documentRepository.findByAuthorId(author_id);
 	}
     
     public Page<Document> findWithPageable(String columnName, String direction, int pageSize, int pageNumber) {
     	PageRequest request;
     	System.out.println(direction);
-    	if(direction == "asc")
-    		request = new PageRequest(pageNumber, pageSize, Direction.ASC, columnName);
-    	else
+    	if("desc".equals(direction))
     		request = new PageRequest(pageNumber, pageSize, Direction.DESC, columnName);
+    	else
+    		request = new PageRequest(pageNumber, pageSize, Direction.ASC, columnName);
 		return documentRepository.findAll(request);
 	}
 
-    public boolean save(Document document){
+    public boolean save(long author_id, Document document){
         try
         {
+        	Author a = authorService.findOne(author_id);
+        	document.setAuthor(a); 
             documentRepository.save(document);
             return true;
         } catch (Exception e){

@@ -26,9 +26,9 @@ public class DocumentController {
         return dS.findOne(id);
     }
 
-    @RequestMapping(value= "/author/{author}", method = RequestMethod.GET)
-    public List<Document> findBy(@PathVariable("author") int author) {
-        return dS.findByCreatedBy(author);
+    @RequestMapping(value= "/author/{author_id}", method = RequestMethod.GET)
+    public List<Document> findByAuthorId(@PathVariable("author_id") long author_id) {
+        return dS.findByAuthorId(author_id);
     }
     
     @RequestMapping(value= "/{columnName}/{direction}/{pageSize}/{pageNumber}", method = RequestMethod.GET)
@@ -37,11 +37,11 @@ public class DocumentController {
     	return dS.findWithPageable(columnName, direction, pageSize, pageNumber);
     }
     
-    @RequestMapping(method = RequestMethod.POST)
-    public boolean save(@RequestBody Document document){
+    @RequestMapping(value="{author_id}", method = RequestMethod.POST)
+    public boolean save(@PathVariable long author_id, @RequestBody Document document){
         try
         {
-            dS.save(document);
+            dS.save(author_id, document);
             return true;
         } catch (Exception e){
             return false;

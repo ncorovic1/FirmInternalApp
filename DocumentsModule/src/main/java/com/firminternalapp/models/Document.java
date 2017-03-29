@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
@@ -18,14 +19,14 @@ public class Document {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
+	@ManyToOne
+	private Author author;
+	
 	@Column(nullable=true, length=100)
 	private String title;
 	
 	@Column(nullable=true, length=3000)
 	private String content;
-	
-	@Column(nullable=true)
-	private long createdBy;
 	
 	@Column(nullable=true)
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
@@ -39,13 +40,21 @@ public class Document {
 		super();
 	}
 	
-	public Document(String t, String c, long cb, Date ca, Date ma) {
+	public Document(String t, String c, Author a, Date ca, Date ma) {
 		super();
+		this.setAuthor(a);
 		this.setTitle(t);
 		this.setContent(c);
-		this.setCreatedBy(cb);
 		this.setCreatedAt(ca);
 		this.setModifiedAt(ma);
+	}
+	
+	public Author getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(Author author) {
+		this.author = author;
 	}
 	
 	public long getId() {
@@ -70,14 +79,6 @@ public class Document {
 
 	public void setContent(String content) {
 		this.content = content;
-	}
-
-	public long getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(long createdBy) {
-		this.createdBy = createdBy;
 	}
 
 	public Date getCreatedAt() {

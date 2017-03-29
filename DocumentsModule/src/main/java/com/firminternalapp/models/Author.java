@@ -39,6 +39,15 @@ public class Author {
 		this.setSex(s);
 	}
 	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	
 	public String getName() {
 		return name;
 	}
@@ -70,5 +79,4 @@ public class Author {
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
-
 }

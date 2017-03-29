@@ -9,5 +9,5 @@ import com.firminternalapp.models.Document;
 
 @RepositoryRestResource
 public interface DocumentRepository extends JpaRepository<Document, Long> {
-	public List<Document> findByCreatedBy(long createdBy);
+	public List<Document> findByAuthorId(long author_id);
 }

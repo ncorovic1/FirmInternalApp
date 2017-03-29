@@ -23,6 +23,11 @@ public class DocumentComponentController {
     public DocumentComponent findOne(@PathVariable("id") long id) {
         return dCS.findOne(id);
     }
+    
+    @RequestMapping(value= "/document/{document_id}", method = RequestMethod.GET)
+    public List<DocumentComponent> findBy(@PathVariable("document_id") int document_id) {
+        return dCS.findByCreatedBy(document_id);
+    }
 
     @RequestMapping(value = "/{document_id}", method = RequestMethod.POST)
     public boolean save(@PathVariable long document_id, @RequestBody DocumentComponent documentComponent){
@@ -35,10 +40,10 @@ public class DocumentComponentController {
         }
     }
 
-    @RequestMapping(value = "/{id}", method= RequestMethod.PUT)
-    public boolean update(@PathVariable long id, @RequestBody DocumentComponent documentComponent) {
+    @RequestMapping(value = "", method= RequestMethod.PUT)
+    public boolean update(@RequestBody DocumentComponent documentComponent) {
         try {
-        	dCS.update(id, documentComponent);
+        	dCS.update(documentComponent);
         	return true;
         } catch (Exception e){
             return false;

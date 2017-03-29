@@ -26,6 +26,10 @@ public class DocumentComponentService {
         return documentComponent;
     }
 
+    public List<DocumentComponent> findByCreatedBy(long document_id) {
+		return documentComponentRepository.findByDocumentId(document_id);
+	}
+    
     public boolean save(long document_id, DocumentComponent documentComponent){
         try
         {
@@ -39,15 +43,9 @@ public class DocumentComponentService {
         }
     }
     
-    public boolean update(long id, DocumentComponent documentComponent) {
+    public boolean update(DocumentComponent documentComponent) {
         try {
-        	DocumentComponent dc = documentComponentRepository.findOne(id);
-        	
-        	dc.setDocument(documentComponent.getDocument());
-        	dc.setText(documentComponent.getText());
-        	dc.setType(documentComponent.getType());
-        	
-        	documentComponentRepository.save(dc);
+        	documentComponentRepository.save(documentComponent);
         	return true;
         } catch (Exception e){
             return false;

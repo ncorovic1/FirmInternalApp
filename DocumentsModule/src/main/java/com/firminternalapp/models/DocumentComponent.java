@@ -36,6 +36,14 @@ public class DocumentComponent {
 		this.setText(te);
 	}
 	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+	
 	public Document getDocument() {
 		return document;
 	}
