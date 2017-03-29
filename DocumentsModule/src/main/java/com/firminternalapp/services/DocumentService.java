@@ -3,9 +3,9 @@ package com.firminternalapp.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.data.domain.Page;
-//import org.springframework.data.domain.PageRequest;
-//import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.firminternalapp.models.Document;
@@ -30,9 +30,15 @@ public class DocumentService {
 		return documentRepository.findByCreatedBy(author_id);
 	}
     
-//    public Page<Document> findWithPageable(int page, int size) {
-//		return documentRepository.findAll(new PageRequest(page, size, Direction.DESC, "id"));
-//	}
+    public Page<Document> findWithPageable(String columnName, String direction, int pageSize, int pageNumber) {
+    	PageRequest request;
+    	System.out.println(direction);
+    	if(direction == "asc")
+    		request = new PageRequest(pageNumber, pageSize, Direction.ASC, columnName);
+    	else
+    		request = new PageRequest(pageNumber, pageSize, Direction.DESC, columnName);
+		return documentRepository.findAll(request);
+	}
 
     public boolean save(Document document){
         try

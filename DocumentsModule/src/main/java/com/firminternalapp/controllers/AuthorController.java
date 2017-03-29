@@ -36,7 +36,7 @@ public class AuthorController {
         }
     }
     
-    @RequestMapping(method= RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.PUT)
     public boolean update(@RequestBody Author author) {
         try {
         	aS.update(author);

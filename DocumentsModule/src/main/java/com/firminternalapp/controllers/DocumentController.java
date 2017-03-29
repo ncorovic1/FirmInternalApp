@@ -6,6 +6,7 @@ import com.firminternalapp.services.DocumentService;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -30,10 +31,10 @@ public class DocumentController {
         return dS.findByCreatedBy(author);
     }
     
-    @RequestMapping(value= "/page", method = RequestMethod.GET)
-    public Document findWithPageable(@RequestParam("size") int size, @RequestParam("page")int page) {
-    	return new Document();
-    	//return dS.findWithPageable(page, size);
+    @RequestMapping(value= "/{columnName}/{direction}/{pageSize}/{pageNumber}", method = RequestMethod.GET)
+    public Page<Document> findWithPageable(@PathVariable String columnName, @PathVariable String direction,
+    										@PathVariable Integer pageSize, @PathVariable Integer pageNumber) { 	
+    	return dS.findWithPageable(columnName, direction, pageSize, pageNumber);
     }
     
     @RequestMapping(method = RequestMethod.POST)
