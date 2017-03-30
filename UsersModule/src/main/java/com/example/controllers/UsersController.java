@@ -19,7 +19,7 @@ public class UsersController {
 
 	@RequestMapping("/hellouser")
 	public String hello() {
-		return "Hello usehahar!";
+		return "Hello user!";
 	}
 
 	@RequestMapping(value = "/users", method = RequestMethod.GET)

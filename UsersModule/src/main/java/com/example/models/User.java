@@ -6,31 +6,33 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="uposlenik")
 public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	private String name;
+	private String ime;
 
-	private String lastName;
+	private String prezime;
 
 	private String email;
 
-	private String sex;
+	private String spol;
 
-	private String phone;
+	private String telefon;
 
-	private String address;
+	private String adresa;
 
-	private Date dateOfBirth;
+	private Date datumRodjenja;
 
-	private Integer daysOfVacation;
+	private Integer danaOdmora;
 
-	private String role;
+	private String rola;
 	
 	
 	
@@ -45,22 +47,22 @@ public class User {
 
 
 	public String getName() {
-		return name;
+		return ime;
 	}
 
 
 	public void setName(String name) {
-		this.name = name;
+		this.ime = name;
 	}
 
 
 	public String getLastName() {
-		return lastName;
+		return prezime;
 	}
 
 
 	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		this.prezime = lastName;
 	}
 
 
@@ -75,62 +77,62 @@ public class User {
 
 
 	public String getSex() {
-		return sex;
+		return spol;
 	}
 
 
 	public void setSex(String sex) {
-		this.sex = sex;
+		this.spol = sex;
 	}
 
 
 	public String getPhone() {
-		return phone;
+		return telefon;
 	}
 
 
 	public void setPhone(String phone) {
-		this.phone = phone;
+		this.telefon = phone;
 	}
 
 
 	public String getAddress() {
-		return address;
+		return adresa;
 	}
 
 
 	public void setAddress(String address) {
-		this.address = address;
+		this.adresa = address;
 	}
 
 
 	public Date getDateOfBirth() {
-		return dateOfBirth;
+		return datumRodjenja;
 	}
 
 
 	public void setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
+		this.datumRodjenja = dateOfBirth;
 	}
 
 
 	public Integer getDaysOfVacation() {
-		return daysOfVacation;
+		return danaOdmora;
 	}
 
 
 	public void setDaysOfVacation(Integer daysOfVacation) {
-		this.daysOfVacation = daysOfVacation;
+		this.danaOdmora = daysOfVacation;
 	}
 
 
 	public String getRole() {
-		return role;
+		return rola;
 	}
 
 
 	public void setRole(String role) {
-		this.role = role;
+		this.rola = role;
 	}
 	
 	public User() {}
