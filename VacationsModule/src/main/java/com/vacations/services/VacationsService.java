@@ -38,11 +38,11 @@ public class VacationsService {
 	}
 
 	public Vacation getVacationByType(int id) {
-		return vacationsRepository.getVacationByType(id);
+		return vacationsRepository.findByVacationType(id);
 	}
 
 	public Vacation getVacationByBeginDate(Date date) {
-		return vacationsRepository.getVacationByBeginDate(date);
+		return vacationsRepository.findByBeginDate(date);
 
 	}
 
