@@ -34,106 +34,77 @@ public class User {
 
 	private String rola;
 	
-	
-	
-	public long getId() {
-		return id;
-	}
+	public User() {}
 
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-
-	public String getName() {
+	public String getIme() {
 		return ime;
 	}
 
-
-	public void setName(String name) {
-		this.ime = name;
+	public void setIme(String ime) {
+		this.ime = ime;
 	}
 
-
-	public String getLastName() {
+	public String getPrezime() {
 		return prezime;
 	}
-
-
-	public void setLastName(String lastName) {
-		this.prezime = lastName;
+	
+	public void setPrezime(String prezime) {
+		this.prezime = prezime;
 	}
-
 
 	public String getEmail() {
 		return email;
 	}
 
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-
-	public String getSex() {
+	public String getSpol() {
 		return spol;
 	}
 
-
-	public void setSex(String sex) {
-		this.spol = sex;
+	public void setSpol(String spol) {
+		this.spol = spol;
 	}
 
-
-	public String getPhone() {
+	public String getTelefon() {
 		return telefon;
 	}
 
-
-	public void setPhone(String phone) {
-		this.telefon = phone;
+	public void setTelefon(String telefon) {
+		this.telefon = telefon;
 	}
 
-
-	public String getAddress() {
+	public String getAdresa() {
 		return adresa;
 	}
 
-
-	public void setAddress(String address) {
-		this.adresa = address;
+	public void setAdresa(String adresa) {
+		this.adresa = adresa;
 	}
 
-
-	public Date getDateOfBirth() {
+	public Date getDatumRodjenja() {
 		return datumRodjenja;
 	}
 
-
-	public void setDateOfBirth(Date dateOfBirth) {
-		this.datumRodjenja = dateOfBirth;
+	public void setDatumRodjenja(Date datumRodjenja) {
+		this.datumRodjenja = datumRodjenja;
 	}
 
-
-	public Integer getDaysOfVacation() {
+	public Integer getDanaOdmora() {
 		return danaOdmora;
 	}
 
-
-	public void setDaysOfVacation(Integer daysOfVacation) {
-		this.danaOdmora = daysOfVacation;
+	public void setDanaOdmora(Integer danaOdmora) {
+		this.danaOdmora = danaOdmora;
 	}
 
-
-	public String getRole() {
+	public String getRola() {
 		return rola;
 	}
 
-
-	public void setRole(String role) {
-		this.rola = role;
+	public void setRola(String rola) {
+		this.rola = rola;
 	}
-	
-	public User() {}
 }
