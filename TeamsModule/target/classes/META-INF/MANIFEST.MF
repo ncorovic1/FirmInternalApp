@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: TeamsModule
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: Irma
+Built-By: Amir
 Implementation-Vendor-Id: com.FirmInternalApp.TeamsModule
-Build-Jdk: 1.8.0_121
+Build-Jdk: 1.8.0_111
 Implementation-URL: http://projects.spring.io/spring-boot/teams-module
  /
 Created-By: Maven Integration for Eclipse
