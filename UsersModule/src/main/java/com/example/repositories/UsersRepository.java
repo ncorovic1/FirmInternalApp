@@ -7,7 +7,7 @@ import com.example.models.User;
 @RepositoryRestResource(collectionResourceRel = "usersrepository", path = "usersrepository")
 public interface UsersRepository extends JpaRepository<User, Long> {
 
-	User findByName(String name);
+	User findByIme(String name);
 	
 	User findByEmail(String email);
 }

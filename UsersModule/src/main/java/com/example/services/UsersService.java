@@ -23,8 +23,8 @@ public class UsersService {
 		return usersRepository.findOne(id);
 	}
 	
-	public User getUserByName(String name) {
-		return usersRepository.findByName(name);
+	public User getUserByIme(String name) {
+		return usersRepository.findByIme(name);
 	}
 	
 	public User getUserByEmail(String email) {
