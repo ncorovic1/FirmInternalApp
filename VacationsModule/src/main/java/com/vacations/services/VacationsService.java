@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.vacations.models.Vacation;
 import com.vacations.repository.VacationsRepository;
 
@@ -29,8 +28,13 @@ public class VacationsService {
 		vacationsRepository.save(vacation);
 	}
 
-	public void updateVacation(Vacation vacation) {
-		vacationsRepository.save(vacation);
+	public void updateVacation(Long id, Vacation vacation) {
+		Vacation vacationToBeUpdated = vacationsRepository.findOne(id);
+		vacationToBeUpdated.setVacationType(vacation.getVacationType());
+		vacationToBeUpdated.setBeginDate(vacation.getBeginDate());
+		vacationToBeUpdated.setEndDate(vacation.getEndDate());
+
+
 	}
 
 	public void deleteVacation(Long id) {
@@ -38,11 +42,11 @@ public class VacationsService {
 	}
 
 	public Vacation getVacationByType(int id) {
-		return vacationsRepository.getVacationByType(id);
+		return vacationsRepository.findByVacationType(id);
 	}
 
 	public Vacation getVacationByBeginDate(Date date) {
-		return vacationsRepository.getVacationByBeginDate(date);
+		return vacationsRepository.findByBeginDate(date);
 
 	}
 

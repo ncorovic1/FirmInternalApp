@@ -6,8 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.vacations.models.Vacation;
 public interface VacationsRepository extends JpaRepository<Vacation, Long> {
 
-	Vacation getVacationByBeginDate(Date date);
+	Vacation findByBeginDate(Date date);
 
-	Vacation getVacationByType(int id);
-
+	Vacation findByVacationType(int id);
 }

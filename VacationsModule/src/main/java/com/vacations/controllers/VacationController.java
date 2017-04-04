@@ -37,7 +37,7 @@ public class VacationController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public void updateVacation(@PathVariable Long id, @RequestBody Vacation vacation) {
-		vacationsService.updateVacation(vacation);
+		vacationsService.updateVacation(id, vacation);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
