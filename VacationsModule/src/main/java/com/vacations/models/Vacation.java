@@ -30,6 +30,10 @@ public class Vacation {
 	{
 		return vacationType;
 	}
+	public int setVacationType(int id)
+	{
+		return this.vacationType=id;
+	}
 
 	public void setBeginDate(Date beginDate) {
 		this.beginDate = beginDate;
