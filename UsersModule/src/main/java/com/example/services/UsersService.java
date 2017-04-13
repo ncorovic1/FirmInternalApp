@@ -54,15 +54,14 @@ public class UsersService {
 		
 		String url = "http://localhost:8084/users";
 		
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-		MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-		map.add("User", user);
-		map.add("Content-Type","application/json");
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+//		MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
+//		map.add("User", user);
 
 //		HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<MultiValueMap<String, Object>>(map, headers);
 
-		rt.postForEntity(url, map, String.class );
+		rt.postForObject(url, user, User.class );
 	}
 	
 	public void updateUser(User user) {
