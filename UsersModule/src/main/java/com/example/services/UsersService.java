@@ -50,21 +50,18 @@ public class UsersService {
 	
 	public void addUser(User user) {
 		usersRepository.save(user);
-		
+
 		String url = "http://localhost:8084/users";
 		RestTemplate rt = restInit();	
 		rt.postForObject(url, user, User.class );
 	}
 	
 	public void updateUser(User user) {
-		System.out.println(String.valueOf(user.getId()));
-		User u = usersRepository.save(user);
-		System.out.println("poslije");
-		System.out.println(String.valueOf(u.getId()));
-		user.setId(u.getId());
+		usersRepository.save(user);
+		
 		String url = "http://localhost:8084/users";
 		RestTemplate rt = restInit();	
-		rt.postForObject(url, user, User.class );
+		rt.put(url, user);
 	}
 	
 	public void deleteUser(Long id) {
