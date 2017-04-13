@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-import com.firminternalapp.models.Author;
+import com.firminternalapp.models.User;
 import com.firminternalapp.models.Document;
 import com.firminternalapp.repositories.DocumentRepository;
 
@@ -17,7 +17,7 @@ public class DocumentService {
 	@Autowired
     private DocumentRepository documentRepository;
 	@Autowired
-	private AuthorService authorService;
+	private UserService userService;
 	
     public List<Document> findAll() {
     	List<Document> documents = documentRepository.findAll();
@@ -46,7 +46,7 @@ public class DocumentService {
     public boolean save(long author_id, Document document){
         try
         {
-        	Author a = authorService.findOne(author_id);
+        	User a = userService.findOne(author_id);
         	document.setAuthor(a); 
             documentRepository.save(document);
             return true;
