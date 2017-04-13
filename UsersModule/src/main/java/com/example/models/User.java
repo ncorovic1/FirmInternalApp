@@ -2,10 +2,12 @@ package com.example.models;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,14 +17,17 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-
-	private String ime;
-
-	private String prezime;
+	
+	@Column(name="ime")
+	private String firstName;
+	
+	@Column(name="prezime")
+	private String lastName;
 
 	private String email;
-
-	private String spol;
+	
+	@Column(name="spol")
+	private String sex;
 
 	private String telefon;
 
@@ -31,25 +36,29 @@ public class User {
 	private Date datumRodjenja;
 
 	private Integer danaOdmora;
-
-	private String rola;
+	
+	@Column(name="rola")
+	private String role;
+	
+	@ManyToOne
+	private Team team;
 	
 	public User() {}
 
-	public String getIme() {
-		return ime;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setIme(String ime) {
-		this.ime = ime;
+	public void setFirstName(String fn) {
+		this.firstName = fn;
 	}
 
-	public String getPrezime() {
-		return prezime;
+	public String getLastName() {
+		return lastName;
 	}
 	
-	public void setPrezime(String prezime) {
-		this.prezime = prezime;
+	public void setLastName(String ln) {
+		this.lastName = ln;
 	}
 
 	public String getEmail() {
@@ -60,12 +69,12 @@ public class User {
 		this.email = email;
 	}
 
-	public String getSpol() {
-		return spol;
+	public String getSex() {
+		return sex;
 	}
 
-	public void setSpol(String spol) {
-		this.spol = spol;
+	public void setSex(String sex) {
+		this.sex = sex;
 	}
 
 	public String getTelefon() {
@@ -100,11 +109,19 @@ public class User {
 		this.danaOdmora = danaOdmora;
 	}
 
-	public String getRola() {
-		return rola;
+	public String getRole() {
+		return role;
 	}
 
-	public void setRola(String rola) {
-		this.rola = rola;
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public Team getTeam() {
+		return team;
+	}
+
+	public void setTeam(Team team) {
+		this.team = team;
 	}
 }

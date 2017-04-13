@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
 import com.example.models.User;
 import com.example.services.UsersService;
 
@@ -16,7 +18,7 @@ public class UsersController {
 
 	@Autowired
 	private UsersService usersService;
-
+	
 	@RequestMapping("/hellouser")
 	public String hello() {
 		return "Hello user!";
