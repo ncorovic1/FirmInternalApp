@@ -50,22 +50,21 @@ public class UsersService {
 	
 	public void addUser(User user) {
 		usersRepository.save(user);
-		RestTemplate rt = restInit();
 		
 		String url = "http://localhost:8084/users";
-		
-//		HttpHeaders headers = new HttpHeaders();
-//		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-//		MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-//		map.add("User", user);
-
-//		HttpEntity<MultiValueMap<String, Object>> request = new HttpEntity<MultiValueMap<String, Object>>(map, headers);
-
+		RestTemplate rt = restInit();	
 		rt.postForObject(url, user, User.class );
 	}
 	
 	public void updateUser(User user) {
-		usersRepository.save(user);
+		System.out.println(String.valueOf(user.getId()));
+		User u = usersRepository.save(user);
+		System.out.println("poslije");
+		System.out.println(String.valueOf(u.getId()));
+		user.setId(u.getId());
+		String url = "http://localhost:8084/users";
+		RestTemplate rt = restInit();	
+		rt.postForObject(url, user, User.class );
 	}
 	
 	public void deleteUser(Long id) {
