@@ -26,7 +26,6 @@ public class UsersService {
 		return new RestTemplate();
 	}
 
-
 	public List<User> getAllUsers() {
 		List<User> users = new ArrayList<>();
 		usersRepository.findAll().forEach(users::add);

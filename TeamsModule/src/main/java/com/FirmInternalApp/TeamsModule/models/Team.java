@@ -20,9 +20,17 @@ public class Team {
 
 	public Team(long id, String name, String info) {
 		super();
-		this.id = id;
+		this.setId(id);
 		this.name = name;
 		this.info = info;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 	public String getHandle() {
