@@ -1,4 +1,4 @@
-package com.vacations;
+package com.vacations.controllers;
 
 import java.util.List;
 

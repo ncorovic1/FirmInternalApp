@@ -2,14 +2,11 @@ package com.vacations.models;
 
 import java.sql.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Vacation {
@@ -20,6 +17,9 @@ public class Vacation {
 	private Date beginDate;
 	private Date endDate;
 	private int vacationType;
+	
+	@ManyToOne
+	private User user;
 	
 	protected Vacation() {}
 	
@@ -46,10 +46,19 @@ public class Vacation {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
-	public Vacation(long id, Date beginDate, Date endDate, int vac) {
+	public Vacation(long id, Date beginDate, Date endDate, int vac, User u) {
 		super();
 		this.id = id;
 		this.beginDate = beginDate;
 		this.endDate = endDate;
+		this.user = u;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 }
