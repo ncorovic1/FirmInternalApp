@@ -13,9 +13,13 @@ import org.springframework.web.client.RestTemplate;
 
 import com.example.models.User;
 import com.example.repositories.UsersRepository;
+import com.example.controllers.*;
 
 @Service
 public class UsersService {
+	
+	@Autowired
+	ServiceInstanceRestController sirc;
 	
 	@Autowired
 	private UsersRepository usersRepository;
@@ -47,8 +51,14 @@ public class UsersService {
 	public void addUser(User user) {
 		usersRepository.save(user);
 
-		String url = "http://localhost:8084/users";
-		String url2 = "http://localhost:8082/users";
+		String docClient = sirc.getService("documents-client"); 
+		String vacClient = sirc.getService("vacations-client");
+		
+		String url = docClient + "/users";
+		//String url = "http://localhost:8084/users";
+		
+		String url2 = vacClient + "/users";
+		//String url2 = "http://localhost:8082/users";
 		RestTemplate rt = restInit();	
 		rt.postForObject(url, user, User.class);
 		rt.postForObject(url2, user, User.class);
@@ -57,8 +67,17 @@ public class UsersService {
 	public void updateUser(User user) {
 		usersRepository.save(user);
 		
-		String url = "http://localhost:8084/users/{id}";
-		String url2 = "http://localhost:8082/users/{id}";
+		String docClient = sirc.getService("documents-client"); 
+		String vacClient = sirc.getService("vacations-client");
+		
+		String url = docClient + "/users/{id}";
+		//String url = "http://localhost:8084/users";
+		
+		String url2 = vacClient + "/users/{id}";
+		//String url2 = "http://localhost:8082/users";
+		
+		//String url = "http://localhost:8084/users/{id}";
+		//String url2 = "http://localhost:8082/users/{id}";
 		RestTemplate rt = restInit();
 		rt.put(url, user, user.getId());
 		rt.put(url2, user, user.getId());
@@ -67,8 +86,17 @@ public class UsersService {
 	public void deleteUser(Long id) {
 		usersRepository.delete(id);
 		
-		String url = "http://localhost:8084/users/{id}";
-		String url2 = "http://localhost:8082/users/{id}";
+		String docClient = sirc.getService("documents-client"); 
+		String vacClient = sirc.getService("vacations-client");
+		
+		String url = docClient + "/users/{id}";
+		//String url = "http://localhost:8084/users";
+		
+		String url2 = vacClient + "/users/{id}";
+		//String url2 = "http://localhost:8082/users";
+		
+		//String url = "http://localhost:8084/users/{id}";
+		//String url2 = "http://localhost:8082/users/{id}";
 	     
 	    Map<String, String> params = new HashMap<String, String>();
 	    params.put("id", String.valueOf(id));

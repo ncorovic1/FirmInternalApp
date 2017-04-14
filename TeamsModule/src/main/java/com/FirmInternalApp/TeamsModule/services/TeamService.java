@@ -13,9 +13,13 @@ import org.springframework.web.client.RestTemplate;
 
 import com.FirmInternalApp.TeamsModule.models.Team;
 import com.FirmInternalApp.TeamsModule.repositories.TeamRepository;
+import com.FirmInternalApp.TeamsModule.controllers.*;
 
 @Service
 public class TeamService {
+	
+	@Autowired
+	ServiceInstanceRestController sirc;
 	
 	@Autowired
 	private TeamRepository teamRepository;
@@ -47,7 +51,11 @@ public class TeamService {
 	public void addTeam(Team team) {
 		teamRepository.save(team);
 		
-		String url = "http://localhost:8085/teams";
+		String usersClient = sirc.getService("users-client");
+		
+		String url = usersClient + "/teams";
+		
+		//String url = "http://localhost:8085/teams";
 		RestTemplate rt = restInit();	
 		rt.postForObject(url, team, Team.class);
 	}
@@ -59,7 +67,11 @@ public class TeamService {
 		teamToBeUpdated.setInfo(team.getInfo());
 		teamRepository.save(teamToBeUpdated);
 		
-		String url = "http://localhost:8085/teams/{id}";
+		String usersClient = sirc.getService("users-client");
+		
+		String url = usersClient + "/teams/{id}";
+		
+		//String url = "http://localhost:8085/teams/{id}";
 		RestTemplate rt = restInit();
 		rt.put(url, team, team.getId());
 	}
@@ -67,7 +79,10 @@ public class TeamService {
 	public void deleteTeam(Long id) {
 		teamRepository.delete(id);
 		
-		String url = "http://localhost:8085/users/{id}";
+		String usersClient = sirc.getService("users-client");
+		String url = usersClient + "/teams/{id}";
+		
+	//	String url = "http://localhost:8085/users/{id}";
 	     
 	    Map<String, String> params = new HashMap<String, String>();
 	    params.put("id", String.valueOf(id));

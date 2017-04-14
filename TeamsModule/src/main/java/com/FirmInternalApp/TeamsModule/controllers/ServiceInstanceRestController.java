@@ -20,4 +20,9 @@ public class ServiceInstanceRestController {
             @PathVariable String applicationName) {
         return this.discoveryClient.getInstances(applicationName);
     }
+	
+	public String getService(String service) {
+		return discoveryClient.getInstances(service).get(0).getUri().toString();
+	}
+
 }

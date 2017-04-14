@@ -21,6 +21,14 @@ public class Team {
 		this.name = name;
 		this.info = info;
 	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 	
 	public String getHandle() {
 		return handle;
