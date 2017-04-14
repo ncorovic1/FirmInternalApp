@@ -44,6 +44,22 @@ public class User {
 	private Team team;
 	
 	public User() {}
+	
+	@Override
+    public String toString() {
+        return "{" +
+	                "id=" + this.id +
+	                ", firstName='" + this.firstName + '\'' +
+	                ", lastName='" + this.lastName + '\'' +
+	                ", email='" + this.email + '\'' +
+	                ", sex='" + this.sex + '\'' +
+	                ", telefon='" + this.telefon + '\'' +
+	                ", adresa='" + this.adresa + '\'' +
+	                ", datumRodjena=" + this.datumRodjenja +
+	                ", danaOdmora=" + this.danaOdmora +
+	                ", role=" + this.role + '\'' +
+                '}';
+    }
 
 	public String getFirstName() {
 		return firstName;
