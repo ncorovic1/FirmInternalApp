@@ -1,19 +1,14 @@
 package com.example.services;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import com.example.models.User;
@@ -66,20 +61,22 @@ public class UsersService {
 		String url = "http://localhost:8084/users/{id}";
 		String url2 = "http://localhost:8082/users/{id}";
 		RestTemplate rt = restInit();
-//		rt.put(url, request, uriVariables);
 		rt.put(url, user, user.getId());
 		rt.put(url2, user, user.getId());
-		
-		//MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
-		//headers.add("Content-Type", "application/json");
-
-		//HttpEntity<Object> entity = new HttpEntity<Object>(user, headers);
-
-		//ResponseEntity<User> response = rt.exchange(url, HttpMethod.PUT, entity, User.class);
 	}
 	
 	public void deleteUser(Long id) {
 		usersRepository.delete(id);
+		
+		String url = "http://localhost:8084/users/{id}";
+		String url2 = "http://localhost:8082/users/{id}";
+	     
+	    Map<String, String> params = new HashMap<String, String>();
+	    params.put("id", String.valueOf(id));
+	     
+	    RestTemplate restTemplate = new RestTemplate();
+	    restTemplate.delete(url,  params);
+	    restTemplate.delete(url2,  params);
 	}
 	
 }
