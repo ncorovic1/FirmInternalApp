@@ -54,24 +54,28 @@ public class UsersService {
 		usersRepository.save(user);
 
 		String url = "http://localhost:8084/users";
+		String url2 = "http://localhost:8082/users";
 		RestTemplate rt = restInit();	
-		rt.postForObject(url, user, User.class );
+		rt.postForObject(url, user, User.class);
+		rt.postForObject(url2, user, User.class);
 	}
 	
 	public void updateUser(User user) {
 		usersRepository.save(user);
 		
-		String url = "http://localhost:8084/authors";
-		RestTemplate rt = restInit();	
+		String url = "http://localhost:8084/users/{id}";
+		String url2 = "http://localhost:8082/users/{id}";
+		RestTemplate rt = restInit();
 //		rt.put(url, request, uriVariables);
-//		rt.put(url, user);
+		rt.put(url, user, user.getId());
+		rt.put(url2, user, user.getId());
 		
-		MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>(); 
-		headers.add("Content-Type", "application/json");
+		//MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
+		//headers.add("Content-Type", "application/json");
 
-		HttpEntity<Object> entity = new HttpEntity<Object>(user, headers); 
+		//HttpEntity<Object> entity = new HttpEntity<Object>(user, headers);
 
-		ResponseEntity<User> response = rt.exchange(url, HttpMethod.PUT, entity, User.class); 
+		//ResponseEntity<User> response = rt.exchange(url, HttpMethod.PUT, entity, User.class);
 	}
 	
 	public void deleteUser(Long id) {
