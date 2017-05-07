@@ -3,26 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "NwtWeb", "..\..\..\..\Documents\Visual Studio 2015\WebSites\NwtWeb\", "{52A66F5E-1403-42D6-BB5A-139E6D41C83B}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "NwtWeb(1)", "NwtWeb\", "{7C2ED278-AFEF-4D84-9DB7-14C2CC8930FE}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.2"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_56899"
-		Debug.AspNetCompiler.PhysicalPath = "..\..\..\..\Documents\Visual Studio 2015\WebSites\NwtWeb\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_56899\"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_58869"
+		Debug.AspNetCompiler.PhysicalPath = "NwtWeb\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_58869\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_56899"
-		Release.AspNetCompiler.PhysicalPath = "..\..\..\..\Documents\Visual Studio 2015\WebSites\NwtWeb\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_56899\"
+		Release.AspNetCompiler.VirtualPath = "/localhost_58869"
+		Release.AspNetCompiler.PhysicalPath = "NwtWeb\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_58869\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "56899"
-		SlnRelativePath = "..\..\..\..\Documents\Visual Studio 2015\WebSites\NwtWeb\"
-		DefaultWebSiteLanguage = "Visual C#"
+		VWDPort = "58869"
+		SlnRelativePath = "NwtWeb\"
 	EndProjectSection
 EndProject
 Global
@@ -30,8 +29,8 @@ Global
 		Debug|Any CPU = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{52A66F5E-1403-42D6-BB5A-139E6D41C83B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{52A66F5E-1403-42D6-BB5A-139E6D41C83B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C2ED278-AFEF-4D84-9DB7-14C2CC8930FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C2ED278-AFEF-4D84-9DB7-14C2CC8930FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

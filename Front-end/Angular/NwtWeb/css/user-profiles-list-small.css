@@ -1,0 +1,22 @@
+.search__list {
+    padding-top: 20px;
+}
+
+.search__item {
+    display: inline-block;
+    padding: 3px 5px;
+    border: 1px solid #f0f3f8;
+    background: #ffffff;
+    border-radius: 4px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+}
+.item__avatar {
+    display: inline-block;
+    margin-right: 5px;
+    width: 40px;
+    height: 40px;
+}
+.item__name {
+    display: inline-block;
+}
