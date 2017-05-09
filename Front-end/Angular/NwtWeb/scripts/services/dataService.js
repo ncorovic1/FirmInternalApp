@@ -4,7 +4,7 @@
 
     NwtWeb.factory("dataService", function ($http, $rootScope) {
 
-        var source = "http://localhost:8888/api/";
+        var source = "http://localhost:8082/api/";
 
         return {
 
