@@ -1,21 +1,21 @@
 ﻿(function () {
     var NwtWeb = angular.module('NwtWeb');
 
-    NwtWeb.controller('teamsController', ['$rootScope', '$scope', '$location', 'dataService', function ($rootScope, $scope, $location, dataService) {
+    NwtWeb.controller('teamsController', ['$rootScope', '$scope', '$location', 'teamService', function ($rootScope, $scope, $location, teamService) {
 
         $scope.loadUsers = function () {
             $scope.waitUsers = true;
-            dataService.list("users",
+            teamService.list("teams",
                 function(data) {
                     if (data) {
-                        $scope.users = data;
+                        $scope.teams = data;
                         $scope.waitUsers = false;
                     } else {
                         notificationsConfig.error("Error!");
                     }
                 });
         };
-
+        $scope.loadUsers();
     }]);
 
 }());
