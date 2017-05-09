@@ -44,14 +44,14 @@
                     </h1>
                 </div>
 
-                <nav class="navbar navbar-inverse navbar-fixed-top">
+                <nav class="navbar navbar-nav">
                     <!-- LINK TO OUR PAGES. ANGULAR HANDLES THE ROUTING HERE -->
                     <ul class="nav navbar-nav">
-                        <li><a ng-show="loggedIn && isAdmin" href="#/users"><strong>Users</strong></a></li>
-                        <li><a ng-show="loggedIn" href="#/vacations"><strong>Vacations</strong></a></li>
-                        <li><a ng-show="loggedIn" href="#/documents"><strong>Documents</strong></a></li>
-                        <li><a ng-show="loggedIn" href="#/teams"><strong>Teams</strong></a></li>
-                        <li><a ng-show="loggedIn" href="#/login" ng-click="loggedIn=false; isAdmin=false; console.log(loggedIn, isAdmin);"><strong>Logout</strong></a></li>                    
+                        <li><a href="#/users"><strong>Users</strong></a></li>
+                        <li><a href="#/vacations"><strong>Vacations</strong></a></li>
+                        <li><a href="#/documents"><strong>Documents</strong></a></li>
+                        <li><a href="#/teams"><strong>Teams</strong></a></li>
+                        <li><a href="#/login"><strong>Logout</strong></a></li>                    
                     </ul>
                 </nav>
                 <!-- ANGULAR DYNAMIC CONTENT -->
