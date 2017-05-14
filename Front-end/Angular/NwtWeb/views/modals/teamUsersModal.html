@@ -7,29 +7,11 @@
         <div class="modal-body">
             <div>
                 <div class="search__list">
-                    <div class="search__item">
+                    <div class="search__item" ng-repeat="user in users">
                         <div class="item__avatar">
-                            <img src="../images/avatars/1.jpg" alt="title" class="img-circle">
+                            <img src="{{user.profileImg}}" alt="title" class="img-circle">
                         </div><!--avatar -->
-                        <div class="item__name">Irma Karasoftic</div>
-                    </div>
-                    <div class="search__item">
-                        <div class="item__avatar">
-                            <img src="../images/avatars/2.jpg" alt="title" class="img-circle">
-                        </div><!--avatar -->
-                        <div class="item__name">Nino Corovic</div>
-                    </div>
-                    <div class="search__item">
-                        <div class="item__avatar">
-                            <img src="../images/avatars/3.jpg" alt="title" class="img-circle">
-                        </div><!--avatar -->
-                        <div class="item__name">Amra Hadziarapovic</div>
-                    </div>
-                    <div class="search__item">
-                        <div class="item__avatar">
-                            <img src="../images/avatars/4.jpg" alt="title" class="img-circle">
-                        </div><!--avatar -->
-                        <div class="item__name">Amir Sabanovic</div>
+                        <div class="item__name">{{user.name}}</div>
                     </div>
                 </div>
             </div>

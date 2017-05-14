@@ -1,11 +1,10 @@
 ﻿(function () {
-    'use strict';
 
     var NwtWeb = angular.module("NwtWeb");
 
-    NwtWeb.factory("teamService", function ($http, $rootScope) {
+    NwtWeb.factory("userService", function ($http, $rootScope) {
 
-        var source = "http://localhost:8083/";
+        var source = "http://localhost:8085/";
 
         return {
 
