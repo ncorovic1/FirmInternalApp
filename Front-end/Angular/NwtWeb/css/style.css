@@ -42,7 +42,7 @@ h1 {
 }
 
 h2 {
-    color: #ffffff;
+    color: #141414;
     font-size: 1rem;
 }
 
@@ -50,6 +50,7 @@ h3 {
     color: #444;
     font-size: 14px;
     letter-spacing: 4px;
+    position:center;
 }
 
 h5 {
@@ -164,7 +165,7 @@ nav {
         color: #333333;
     }
 
-.navbar {
+.navbar{
     background: transparent;
     height: 94px;
     max-height: 94px;
