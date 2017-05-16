@@ -6,7 +6,7 @@
         $scope.loadUsers = function () {
             $scope.waitUsers = true;
             teamService.list("teams",
-                function(data) {
+                function (data) {
                     if (data) {
                         $scope.teams = data;
                         $scope.waitUsers = false;

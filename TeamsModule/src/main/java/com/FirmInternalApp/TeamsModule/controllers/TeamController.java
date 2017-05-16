@@ -1,6 +1,7 @@
 package com.FirmInternalApp.TeamsModule.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ import com.FirmInternalApp.TeamsModule.models.*;
 import com.FirmInternalApp.TeamsModule.services.TeamService;
 
 @RestController
+@CrossOrigin
 @RequestMapping(value = "/teams")
 public class TeamController {
 	
