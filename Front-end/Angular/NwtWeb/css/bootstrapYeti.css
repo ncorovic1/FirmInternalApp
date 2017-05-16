@@ -1478,7 +1478,10 @@ img {
 }
 
 .img-circle {
-    border-radius: 50%;
+    /*border-radius: 50%;*/
+    height:180px;
+    width:180px;
+    margin-right:20px;
 }
 
 hr {
@@ -4902,7 +4905,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
         .nav > li > a {
             position: relative;
             display: block;
-            padding: 10px 15px;
+            padding: 0px 15px;
         }
 
             .nav > li > a:hover,
@@ -4918,7 +4921,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
             .nav > li.disabled > a:hover,
             .nav > li.disabled > a:focus {
                 color: #999999;
-                text-decoration: none;
+                text-decoration:none;
                 background-color: transparent;
                 cursor: not-allowed;
             }

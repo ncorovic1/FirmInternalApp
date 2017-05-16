@@ -2,7 +2,7 @@
 
     var NwtWeb = angular.module("NwtWeb");
 
-    NwtWeb.factory("dataService", function ($http, $rootScope) {
+    NwtWeb.factory("vacationService", function ($http, $rootScope) {
 
         var source = "http://localhost:8082/";
 

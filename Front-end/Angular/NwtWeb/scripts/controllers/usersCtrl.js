@@ -12,16 +12,30 @@
         [
         {
             name: "Amra",
-            username: "amrausername",
-            profileImg: "https://www.w3schools.com/bootstrap/cinqueterre.jpg",
-            id: 5,
+            username: "amra_h",
+            profileImg: "https://s-media-cache-ak0.pinimg.com/736x/cf/14/b7/cf14b78e20d69be326ff7a1302e9bd7d.jpg",
+            id: 1,
         },
         {
             name: "Irma",
-            id:3
+            username: "irma_k",
+            profileImg: "http://www4.pictures.zimbio.com/mp/NUJvHdoYW7gx.jpg",
+            id: 2,
+        },
+        {
+            name: "Nino",
+            username: "nino_c",
+            profileImg: "http://i.dailymail.co.uk/i/pix/2014/02/11/article-2557079-1B65993E00000578-579_306x423.jpg",
+            id: 3,
+        },
+        {
+            name: "Amir",
+            username: "amir_s",
+            profileImg: "https://s-media-cache-ak0.pinimg.com/736x/70/b6/6d/70b66d7968e7f6578d315d564781fed8.jpg",
+            id: 4,
         }
         ]
-        console.log($scope.users);
+        //console.log($scope.users);
         $scope.transferData = function (user) {
             $scope.editUser.id = user.id;
             $scope.editUser.name = user.name;
@@ -30,12 +44,12 @@
             console.log($scope.editUser);
 
         }
-        //$scope.loadUsers = function () {
-        //    dataService.list("users", function (data) {
-        //        if (data) {
-        //            $scope.users = data;
-        //        }
-        //    })
-        //};
+        $scope.loadUsers = function () {
+            dataService.list("users", function (data) {
+                if (data) {
+                    $scope.users = data;
+                }
+            })
+        };
     }]);
 }());

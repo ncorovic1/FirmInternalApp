@@ -24,6 +24,11 @@
                 templateUrl: "views/documents.html",
                 controller: "documentsController"
             })
+            .when("/admin",
+            {
+                templateUrl: "views/admin.html",
+                controller: "adminController"
+            })
             .when("/users",
             {
                 templateUrl: "views/users.html",
