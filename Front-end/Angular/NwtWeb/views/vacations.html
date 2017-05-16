@@ -1,3 +1,110 @@
-﻿<div ng-show="loggedIn">
-    
+﻿<!---------------------------------------------------------------------------------------------------------------------------
+Content
+----------------------------------------------------------------------------------------------------------------------------->
+<!-- Header -->
+<div class="header header-blue">
+    <div class="container">
+        <div class="title">
+            <div class="row text-center">
+                <h3>CALENDAR</h3>
+                <div class="col-md-2 col-xs-2 col-md-offset-5 col-xs-offset-5 border"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="container">
+    <div class="unit" style="align-content:center">
+        <!-- Create Request -->
+        <div class="row text-center">
+            <h4>Out of Office Request</h4>
+            <div class="col-md-2 col-xs-2 col-md-offset-5 col-xs-offset-5 border-blue"></div>
+        </div>
+        <div ng-show="!processingRequest">
+            <br />
+            <div class="col-md-12">
+                <div class="col-md-10 col-md-offset-1">
+
+                    <form role="form" name="requestForm" novalidate>
+                        <div class="row row-no-padding">
+                            <div class="col-md-2" ng-controller="datepickerController">
+                                <div class="form-group">
+                                    <input type="text" name="FromDate" class="form-control" placeholder="From"
+                                           datepicker-popup="{{format | date:'UTC'}}"
+                                           ng-model="requestItem.startDate"
+                                           is-open="popupStart.opened"
+                                           min-date="minDate"
+                                           max-date="maxDate"
+                                           datepicker-options="dateOptions"
+                                           date-disabled="disabled(date, mode)"
+                                           ng-required="true" close-text="Close"
+                                           ng-click="openStart()" readonly
+                                           style="background-color:#fff;" />
+                                </div>
+                            </div>
+                            <div class="col-md-2" ng-controller="datepickerController">
+                                <div class="form-group">
+                                    <input type="text" name="ToDate" class="form-control" placeholder="To"
+                                           datepicker-popup="{{format | date:'UTC'}}"
+                                           ng-model="requestItem.endDate"
+                                           is-open="popupEnd.opened"
+                                           min-date="minDate"
+                                           max-date="maxDate"
+                                           datepicker-options="dateOptions"
+                                           date-disabled="disabled(date, mode)"
+                                           ng-required="true" close-text="Close"
+                                           ng-click="openEnd()" readonly
+                                           style="background-color:#fff;" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" maxlength="50" name="RequestNote" class="form-control" ng-model="requestItem.note" placeholder="* Request Note" required />
+                            </div>
+                            <div class="col-md-2 input-group-btn">
+                                <button type="button" style="font-size:15px" ng-disabled="!requestItem.note || !requestItem.startDate || !requestItem.eventType" ng-click="createRequest(requestItem); clearRequest()" class="btn btn-primary">Send</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <br />
+            <br />
+        </div>
+        <!-- Absences -->
+        <div class="row text-center">
+            <h4>Out of Office</h4>
+            <div class="col-md-2 col-xs-2 col-md-offset-5 col-xs-offset-5 border-blue"></div>
+        </div>
+        <br />
+        <div class="pull-right form-inline" style="margin-bottom:20px;">
+            Filter by type:
+            <select name="filter" id="filter" ng-model="filter" ng-options="eventDescription.tag as eventDescription.description for eventDescription in eventDescriptions" ng-change="changeFilter()" class="form-control">
+                <option value="" selected>All</option>
+            </select>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Event</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Status</th>
+                    <th>Days Spent</th>
+                    <th>Days Left</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="myEvent in myEvents | filter: filter">
+                    <td>{{myEvent.description}}</td>
+                    <td>{{myEvent.startDate | date:'dd.MM.yyyy'}}</td>
+                    <td>{{myEvent.endDate | date:'dd.MM.yyyy'}}</td>
+                    <td>{{myEvent.status}}</td>
+                    <td>{{myEvent.numberOfDays}}</td>
+                    <td>{{myEvent.currentAvailableDays}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
 </div>
