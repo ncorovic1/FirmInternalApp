@@ -1,2 +1,2 @@
 # FirmInternalApp
-Back-end: Spring; Front-end: AngularJS, ReactJS
+Back-end: Spring; Front-end: AngularJS, VueJS
