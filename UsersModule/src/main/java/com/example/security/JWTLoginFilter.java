@@ -1,6 +1,7 @@
 package com.example.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,6 +17,11 @@ import java.io.IOException;
 import java.util.Collections;
 
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
+	
+	/*
+	@Autowired
+	MyUserDetailsService detailsService;
+	*/
 
 	public JWTLoginFilter(String url, AuthenticationManager authManager) {
 		super(new AntPathRequestMatcher(url));
@@ -33,6 +39,8 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 	@Override
 	protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain,
 			Authentication auth) throws IOException, ServletException {
-		TokenAuthenticationService.addAuthentication(res, auth.getName());
+		String rola = auth.getAuthorities().toArray()[0].toString();
+		//String role = usersRepository.findByUsername(auth.getName()).getRole();
+		TokenAuthenticationService.addAuthentication(res, auth.getName() + "," + rola);
 	}
 }

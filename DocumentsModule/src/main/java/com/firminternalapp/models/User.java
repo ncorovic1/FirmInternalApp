@@ -1,47 +1,41 @@
 package com.firminternalapp.models;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
-@Table(name="authors")
 public class User {
 
 	@Id
 	private long id;
 	
-	@Column(nullable=true, length=30)
+	//@Column(nullable=true, length=30)
 	private String firstName;
 
-	@Column(nullable=true, length=50)
+	//@Column(nullable=true, length=50)
 	private String lastName;
 
-	@Column(nullable=true, length=256)
+	//@Column(nullable=true, length=256)
 	private String email;
 
-	@Column(nullable=true, length=6)
-	private String sex;
+	//@Column(nullable=true, length=6)
+	private String gender;
 	
-	@Column(nullable=true, length=20)
+	//@Column(nullable=true, length=20)
 	private String role;
 	
-	public User() {
+	public User() {}
+		
+	public User(long id, String firstName, String lastName, String email, String gender, String role) {
 		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.gender = gender;
+		this.role = role;
 	}
-	
-	public User(String fn, String ln, String em, String s, String r) {
-		super();
-		this.setFirstName(fn);
-		this.setLastName(ln);
-		this.setEmail(em);
-		this.setSex(s);
-		this.setRole(r);
-	}
-	
+
 	public long getId() {
 		return id;
 	}
@@ -49,7 +43,6 @@ public class User {
 	public void setId(long id) {
 		this.id = id;
 	}
-
 	
 	public String getFirstName() {
 		return firstName;
@@ -75,12 +68,12 @@ public class User {
 		this.email = email;
 	}
 
-	public String getSex() {
-		return sex;
+	public String getGender() {
+		return gender;
 	}
 
-	public void setSex(String sex) {
-		this.sex = sex;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
 	public String getRole() {

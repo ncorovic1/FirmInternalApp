@@ -5,7 +5,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.example.models.*;
 
-@RepositoryRestResource(collectionResourceRel = "teamsrepository", path = "teamsrepository")
+@RepositoryRestResource
 public interface TeamRepository extends JpaRepository<Team, Long> {
 	
 	Team findByHandle(String handle);

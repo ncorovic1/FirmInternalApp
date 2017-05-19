@@ -13,17 +13,12 @@ public class Team {
 	private long id;
 	
 	private String handle;
+	
 	private String name;
+	
 	private String info;
 
-	protected Team() {}
-
-	public Team(long id, String name, String info) {
-		super();
-		this.setId(id);
-		this.name = name;
-		this.info = info;
-	}
+	public Team() {}
 
 	public long getId() {
 		return id;

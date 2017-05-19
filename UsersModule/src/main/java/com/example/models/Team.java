@@ -10,16 +10,13 @@ public class Team {
 	private long id;
 	
 	private String handle;
+	
 	private String name;
+	
 	private String info;
-
-	protected Team() {}
-
-	public Team(long id, String name, String info) {
+	
+	public Team() {
 		super();
-		this.id = id;
-		this.name = name;
-		this.info = info;
 	}
 
 	public long getId() {

@@ -6,5 +6,4 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import com.firminternalapp.models.User;
 
 @RepositoryRestResource
-public interface UserRepository extends JpaRepository<User, Long> {
-}
+public interface UserRepository extends JpaRepository<User, Long> {}

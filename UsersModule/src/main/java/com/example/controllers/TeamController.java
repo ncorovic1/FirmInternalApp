@@ -10,7 +10,7 @@ import com.example.models.*;
 import com.example.services.TeamService;
 
 @RestController
-@RequestMapping(value = "/teams")
+@RequestMapping(value = "/teamsController")
 public class TeamController {
 	
 	@Autowired

@@ -20,27 +20,38 @@ public class User {
 	private String email;
 
 	@Column(nullable=true, length=6)
-	private String sex;
+	private String gender;
+	
+	private Integer daysOfVacation;
 	
 	@Column(nullable=true, length=20)
 	private String role;
-	
-	private Integer danaOdmora;
 	
 	public User() {
 		super();
 	}
 	
-	public User(String fn, String ln, String em, String s, String r, Integer dod) {
+	/*@JsonCreator
+	public User(@JsonProperty("firstName") String firstName, @JsonProperty("lastName") String lastName, @JsonProperty("email") String email, @JsonProperty("gender") String gender, @JsonProperty("daysOfVacation") Integer daysOfVacation, @JsonProperty("role") String role) {
 		super();
-		this.setFirstName(fn);
-		this.setLastName(ln);
-		this.setEmail(em);
-		this.setSex(s);
-		this.setRole(r);
-		this.setDanaOdmora(dod);
-	}
+		this.setFirstName(firstName);
+		this.setLastName(lastName);
+		this.setEmail(email);
+		this.setGender(gender);
+		this.setDaysOfVacation(daysOfVacation);
+		this.setRole(role);
+	}*/
 	
+	/*public User(String firstName, String lastName, String email, String gender, Integer daysOfVacation,
+			String role) {
+		this.setFirstName(firstName);
+		this.setLastName(lastName);
+		this.setEmail(email);
+		this.setGender(gender);
+		this.setDaysOfVacation(daysOfVacation);
+		this.setRole(role);
+	}*/
+
 	public long getId() {
 		return id;
 	}
@@ -49,7 +60,6 @@ public class User {
 		this.id = id;
 	}
 
-	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -74,12 +84,20 @@ public class User {
 		this.email = email;
 	}
 
-	public String getSex() {
-		return sex;
+	public String getGender() {
+		return gender;
 	}
 
-	public void setSex(String sex) {
-		this.sex = sex;
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public Integer getDaysOfVacation() {
+		return daysOfVacation;
+	}
+
+	public void setDaysOfVacation(Integer daysOfVacation) {
+		this.daysOfVacation = daysOfVacation;
 	}
 
 	public String getRole() {
@@ -88,13 +106,5 @@ public class User {
 
 	public void setRole(String role) {
 		this.role = role;
-	}
-
-	public Integer getDanaOdmora() {
-		return danaOdmora;
-	}
-
-	public void setDanaOdmora(Integer danaOdmora) {
-		this.danaOdmora = danaOdmora;
 	}
 }

@@ -55,7 +55,6 @@ public class TeamService {
 		
 		String url = usersClient + "/teams";
 		
-		//String url = "http://localhost:8085/teams";
 		RestTemplate rt = restInit();	
 		rt.postForObject(url, team, Team.class);
 	}
