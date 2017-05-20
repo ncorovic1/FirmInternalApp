@@ -1,4 +1,4 @@
-package com.firminternalapp.security;
+package com.FirmInternalApp.TeamsModule.security;
 
 import org.springframework.context.annotation.Configuration;
 

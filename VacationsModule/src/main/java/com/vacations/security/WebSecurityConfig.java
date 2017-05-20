@@ -1,4 +1,4 @@
-package com.firminternalapp.security;
+package com.vacations.security;
 
 import org.springframework.context.annotation.Configuration;
 

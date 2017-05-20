@@ -24,45 +24,4 @@ public class UserController {
 	public User findOne(@PathVariable("id") long id) {
 		return uS.findOne(id);
 	}
-
-	@RequestMapping(method = RequestMethod.POST)
-	public boolean save(@RequestBody User user) {
-		try {
-			uS.save(user);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
-	@RequestMapping(method = RequestMethod.PUT)
-	public boolean update(@RequestBody User user) {
-		try {
-			uS.update(user);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
-	@RequestMapping(method = RequestMethod.DELETE)
-	public boolean deleteAll() {
-		try {
-			uS.deleteAll();
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public boolean deleteOne(@PathVariable long id) {
-		try {
-			uS.deleteOne(id);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
 }

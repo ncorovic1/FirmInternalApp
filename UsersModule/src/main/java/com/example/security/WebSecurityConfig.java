@@ -24,7 +24,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable().authorizeRequests()
 			.antMatchers("/").permitAll()
 			//.antMatchers("/").access("hasRole('ADMIN') or hasRole('HR') or hasRole('EMPLOYEE')")
-			.antMatchers("/service-instances/users-client").permitAll()
 			.anyRequest().authenticated()
 			.and()
 			.addFilterBefore(new JWTLoginFilter("/login", authenticationManager()),
