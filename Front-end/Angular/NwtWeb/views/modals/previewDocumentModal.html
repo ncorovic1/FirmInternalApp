@@ -1,0 +1,27 @@
+﻿<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header bg-info">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h2 class="modal-title">Preview document</h2>
+        </div><!--end modal header-->
+        <div class="modal-body">
+            <div class="container-fluid">
+                <ng-form class="panel-body">
+                    <p>Type: </p>
+                    <input type="text" name="name" class="form-control" ng-model="previewDocument.type" placeholder="Name" />
+                    <br />
+                    <p>Author: </p>
+                    <input type="text" name="name" class="form-control" ng-model="previewDcoument.author" placeholder="Username" />
+                    <br />
+                    <p>Content: </p><br />
+                    <p>{{previewDocument.content}}</p>
+                    
+                </ng-form>
+            </div>
+        </div><!--end modal body-->
+        <div class="modal-footer bg-info">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="createNewUser()">Save</button>
+            <button class="btn btn-default" data-dismiss="modal" ng-click="cancelUser()">Cancel</button>
+        </div><!--end modal footer-->
+    </div><!--end modal content-->
+</div><!--end modal dialog-->
