@@ -4,7 +4,7 @@
 
     NwtWeb.factory("documentService", function ($http, $rootScope) {
 
-        var source = "http://localhost:8082/";
+        var source = "http://localhost:8084/";
 
         return {
 

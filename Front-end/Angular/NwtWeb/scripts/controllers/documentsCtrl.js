@@ -1,7 +1,7 @@
 ﻿(function () {
     var NwtWeb = angular.module('NwtWeb');
 
-    NwtWeb.controller('documentsController', ['$rootScope', '$scope', '$location', 'dataService', function ($rootScope, $scope, $location, dataService) {
+    NwtWeb.controller('documentsController', ['$rootScope', '$scope', '$location', 'documentService', function ($rootScope, $scope, $location, documentService) {
         $scope.previewDocument = {
             id:0,
             type: "",
@@ -45,7 +45,7 @@
 
         }
         $scope.loadUsers = function () {
-            dataService.list("documents", function (data) {
+            documentService.list("documents", function (data) {
                 if (data) {
                     $scope.documents = data;
                 }

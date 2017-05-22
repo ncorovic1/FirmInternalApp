@@ -8,10 +8,10 @@
             <div class="container-fluid">
                 <ng-form class="panel-body">
                     <p>Type: </p>
-                    <input type="text" name="name" class="form-control" ng-model="previewDocument.type" placeholder="Name" />
+                    <p> {{previewDocument.type}}</p>
                     <br />
                     <p>Author: </p>
-                    <input type="text" name="name" class="form-control" ng-model="previewDcoument.author" placeholder="Username" />
+                    <p> {{previewDocument.type}}</p>
                     <br />
                     <p>Content: </p><br />
                     <p>{{previewDocument.content}}</p>
@@ -20,7 +20,7 @@
             </div>
         </div><!--end modal body-->
         <div class="modal-footer bg-info">
-            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="createNewUser()">Save</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="">Download</button>
             <button class="btn btn-default" data-dismiss="modal" ng-click="cancelUser()">Cancel</button>
         </div><!--end modal footer-->
     </div><!--end modal content-->
