@@ -2,7 +2,6 @@ package com.example.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,20 +34,4 @@ public class TeamController {
     public Team getTeamByName(@PathVariable String name) {
     	return teamService.getTeamByName(name);
     }
-    
-    @RequestMapping(method = RequestMethod.POST)
-    public void addTeam(@RequestBody Team team) {
-    	teamService.addTeam(team);
-    }
-    
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public void updateTeam(@PathVariable Long id, @RequestBody Team team) {
-    	teamService.updateTeam(id, team);
-    }
-    
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void deleteTeam(@PathVariable Long id) {
-    	teamService.deleteTeam(id);
-    }
-    
 }
