@@ -38,6 +38,10 @@
             $rootScope.isLoggedIn = true;
             $location.path('/users');
         }
+        $scope.reset = function (email) {
+            console.log(email);
+            
+        }
     }]);
 
 }());
