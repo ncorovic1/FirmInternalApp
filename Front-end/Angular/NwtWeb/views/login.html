@@ -12,7 +12,7 @@
             <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
         </div>
         <div class="form-actions"> 
-            <button type="submit" ng-disabled="form.$invalid || login.dataLoading" ng-click="login()" class="btn btn-primary">Login</button>
+            <button type="submit" ng-disabled="form.$invalid || login.dataLoading" ng-click="loginCheck(login.username, login.password)" class="btn btn-primary">Login</button>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="" data-toggle="modal" data-target="#forgotPasswordModal">Forgot Your password?</a>
         </div>
     </form>

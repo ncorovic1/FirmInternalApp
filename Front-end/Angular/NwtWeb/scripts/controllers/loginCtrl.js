@@ -1,7 +1,7 @@
 ﻿(function () {
     var NwtWeb = angular.module('NwtWeb');
 
-    NwtWeb.controller('loginController', ['$rootScope', '$scope', '$http', '$location', '$window', 'loginService', function ($rootScope, $scope, $http, $location, $window, loginService) {
+    NwtWeb.controller('loginController', ['$rootScope', '$scope', '$http', '$location', '$window', 'loginService', '$httpParamSerializer', function ($rootScope, $scope, $http, $location, $window, loginService, $httpParamSerializer) {
         $scope.login = {
             id: 0,
             username: "",
@@ -9,28 +9,39 @@
             name: "",
             isAdmin: false
         }
-        $scope.loginCheck = function () {
-            data = { "username": "irma", "password": "password" }
-            var a = $http({
-                url: 'http://localhost:8085/login',
+        $scope.loginCheck = function (un, pw) {
+            var req = {
                 method: 'POST',
+                url: "http://localhost:8085/login",
                 headers: {
-                    'Content-Type': 'application/json'
+                    "Content-type": "application/json; charset=utf-8"
                 },
-                data:
+                data: 
                 {
-                    "username": "irma",
-                    "password": "password"
-                },
-                transformResponse: undefined
-            }).then(function (response) {
-                return response.data;
+                    'username': 'irma',
+                    'password': 'password'
+                }
+            }
+            $http(req).then(function (data) {
+                $http.defaults.headers.common.Authorization =
+                  'Bearer ' + data.data.access_token;
+                $cookies.put("access_token", data.data.access_token);
+                window.location.href = "index";
             });
-            //loginService.create("login", function (data) {
-            //    if (data) {
-            //        $scope.users = data;
-            //    }
-            //})
+
+        }
+        function handleSuccess() {
+            return { success: true };
+        }
+
+        function handleSuccessUsera(response) {
+            return response.data;
+        }
+
+        function handleError(error) {
+            return function () {
+                return { success: false, message: error };
+            };
         }
         $scope.login = function () {
             var response = $scope.loginCheck();
