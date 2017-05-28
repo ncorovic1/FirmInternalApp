@@ -10,18 +10,22 @@
             isAdmin: false
         }
         $scope.loginCheck = function () {
-            data = {"username": "irma", "password": "password"}
+            data = { "username": "irma", "password": "password" }
             var a = $http({
-                    url: 'http://localhost:8085/login',
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    data: {"username":"irma", "password":"password"},
-                    transformResponse: undefined
-                }).then(function(response){
-                    return response.data;
-                });
+                url: 'http://localhost:8085/login',
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data:
+                {
+                    "username": "irma",
+                    "password": "password"
+                },
+                transformResponse: undefined
+            }).then(function (response) {
+                return response.data;
+            });
             //loginService.create("login", function (data) {
             //    if (data) {
             //        $scope.users = data;
@@ -38,9 +42,19 @@
             $rootScope.isLoggedIn = true;
             $location.path('/users');
         }
-        $scope.reset = function (email) {
-            console.log(email);
-            
+
+        $scope.sendResetPasswordEmail = function (email) {
+            loginService.create("users", email,
+                function (data) {
+                    if (data) {
+                        alert("Reset password email sent!");
+                    } else {
+                        alert("There was an error!");
+                    }
+                });
+        }
+        $scope.cancel = function () {
+            $scope.emailInput = "";
         }
     }]);
 

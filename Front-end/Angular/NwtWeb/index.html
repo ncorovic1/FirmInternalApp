@@ -46,20 +46,31 @@
                     <br />
                     <br />
                     <h1>
-                       NWT<br />
+                        NWT<br />
                         <small>Projekat</small>
                     </h1>
                 </div>
 
+
                 <nav class="navbar">
-                    <!-- LINK TO OUR PAGES. ANGULAR HANDLES THE ROUTING HERE -->
-                    <ul class="nav navbar-nav">
-                        <li><a href="#/users"><strong>Users</strong></a></li>
-                        <li><a href="#/vacations"><strong>Vacations</strong></a></li>
-                        <li><a href="#/documents"><strong>Documents</strong></a></li>
-                        <li><a href="#/teams"><strong>Teams</strong></a></li>
-                        <li><a href="#/login"><strong>Logout</strong></a></li>                    
-                    </ul>
+                    <div class="container-fluid">
+                        <ul class="nav navbar-nav">
+                            <li><a href="#/users"><strong>Users</strong></a></li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                                    <strong>Vacations</strong>
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#/vacations"><strong>All vacations</strong></a></li>
+                                    <li><a href="#/vacationsRequest">Send Vacation Request</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#/documents"><strong>Documents</strong></a></li>
+                            <li><a href="#/teams"><strong>Teams</strong></a></li>
+                            <li><a href="#/login"><strong>Logout</strong></a></li>
+                        </ul>
+                    </div>
                 </nav>
                 <!-- ANGULAR DYNAMIC CONTENT -->
                 <div ng-view></div>

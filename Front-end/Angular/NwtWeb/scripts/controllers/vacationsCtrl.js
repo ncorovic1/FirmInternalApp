@@ -3,20 +3,51 @@
 
     NwtWeb.controller('vacationsController', ['$rootScope', '$scope', '$location', 'vacationService', function ($rootScope, $scope, $location, vacationService) {
         $scope.vacationTypes =
-            [
-                {
-                    name: "Remote work",
-                    id: 1
-                },
-                {
-                    name: "Vacation",
-                    id: 2
-                },
-                {
-                    name: "Sick day",
-                    id: 3
-                },
-            ]
+        [
+            {
+                name: "Remote work",
+                id: 1
+            },
+            {
+                name: "Vacation",
+                id: 2
+            },
+            {
+                name: "Sick day",
+                id: 3
+            },
+        ];
+        $scope.vacations =
+        [
+            {
+                id: 1,
+                vacationType: "Bussines absence",
+                beginDate: "5/5/2015",
+                endDate: "5/5/2015",
+                user: "Irma"
+            },
+            {
+                id: 2,
+                vacationType: "Bussines absence",
+                beginDate: "5/5/2015",
+                endDate: "5/5/2015",
+                user: "Amra"
+            },
+            {
+                id: 3,
+                vacationType: "Bussines absence",
+                beginDate: "5/5/2015",
+                endDate: "5/5/2015",
+                user: "Amir"
+            },
+            {
+                id: 4,
+                vacationType: "Bussines absence",
+                beginDate: "5/5/2015",
+                endDate: "5/5/2015",
+                user: "Nino"
+            }
+        ];
         $scope.selectedType =
             {
                 name: "Remote work",
@@ -89,7 +120,7 @@
         };
 
 
-        $scope.getVacations();
+        //$scope.getVacations();
 
 
     }]);

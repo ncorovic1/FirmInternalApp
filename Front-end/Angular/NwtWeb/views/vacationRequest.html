@@ -1,0 +1,63 @@
+﻿<div class="container">
+    <div class="unit" style="align-content:center">
+        <!-- Create Request -->
+        <div class="row text-center">
+            <h4>Out of Office Request</h4>
+            <div class="col-md-2 col-xs-2 col-md-offset-5 col-xs-offset-5 border-blue"></div>
+        </div>
+        <br />
+        <div class="col-md-12">
+            <div class="col-md-10 col-md-offset-1">
+
+                <form role="form" name="requestForm" novalidate>
+                    <select class="form-control" style="width:40%; margin-left:30%" ng-model="selectedType.name" ng-options="vacationType.id as vacationType.name for vacationType in vacationTypes">
+                        <option value="">- Please Choose Vacation Type -</option>
+                    </select>
+                    <br />
+                    <div layout-gt-xs="row">
+                        <div flex-gt-xs">
+                            <p class="pull-left">
+                                Start date: <input class='form-control' style="width:270px; display:inline" type="date" ng-model="requestItem.startDate" placeholder="Enter date" />
+                            </p>
+                            <p class="pull-right">
+                                End date: <input class='form-control' style="width:270px; display:inline" type="date" ng-model="requestItem.endDate" placeholder="Enter date" />
+                                <br />
+                            </p>
+                            <input type="text" maxlength="50" name="RequestNote" class="form-control" ng-model="requestItem.note" placeholder="* Request Note" required />
+                        </div>
+                    </div>
+                    <br />
+                    <div style="margin-left:48%" class="col-md-2 input-group-btn">
+                        <button type="button" ng-disabled="!requestItem.note || !requestItem.startDate || !requestItem.eventType" ng-click="createRequest(requestItem); clearRequest()" class="btn btn-primary">Send</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <br />
+        <br />
+    </div>
+</div>
+<!-- Absences -->
+<div class="row text-center">
+    <h4>Out of Office</h4>
+    <div class="col-md-2 col-xs-2 col-md-offset-5 col-xs-offset-5 border-blue"></div>
+</div>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>Vacation Type ID</th>
+            <th>From</th>
+            <th>To</th>
+            <th>User</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="myEvent in vacations">
+            <td>{{myEvent.vacationType}}</td>
+            <td>{{myEvent.beginDate | date:'dd.MM.yyyy'}}</td>
+            <td>{{myEvent.endDate | date:'dd.MM.yyyy'}}</td>
+            <td>{{myEvent.user}}</td>
+        </tr>
+    </tbody>
+</table>
