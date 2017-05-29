@@ -9,33 +9,19 @@
             content: ""
         }
         $scope.documents =
-        [
-        {
-            id: 1,
-            type: "Pravilnik firme",
-            author: "amra_h",
-            content:"LALALALALAL"
-        },
-        {
-            id: 2,
-            type: "Skype directory",
-            author: "irma_k",
-            content: ""
-        },
-        {
-            id: 3,
-            type: "Discipline procedures",
-            author: "nino_c",
-            content: ""
-         
-        },
-        {
-            id: 4,
-            type: "Uposlenici",
-            author: "amir_s",
-            content: ""
-        }
-        ]
+       [
+       {
+           id: 1,
+           type: "Skype directory",
+           author: "XY",
+           content: "Neki sadržaj"
+       },
+       {
+           id: 2,
+           type: "Firm policy",
+           author: "Amra",
+           content: " OK "
+       }]
         $scope.transferContent = function (document) {
             $scope.previewDocument.id = document.id;
             $scope.previewDocument.type = document.type;
@@ -44,13 +30,15 @@
             console.log($scope.previewDocument);
 
         }
-        $scope.loadUsers = function () {
+        $scope.getDocuments = function () {
             documentService.list("documents", function (data) {
                 if (data) {
                     $scope.documents = data;
                 }
             })
         };
+        $scope.getDocuments();
+
     }]);
 
 }());

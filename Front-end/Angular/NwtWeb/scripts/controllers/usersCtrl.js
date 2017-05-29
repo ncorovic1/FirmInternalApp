@@ -30,8 +30,7 @@
             {
                 name: "Nino",
                 username: "nino_c",
-                profileImg:
-                    "http://i.dailymail.co.uk/i/pix/2014/02/11/article-2557079-1B65993E00000578-579_306x423.jpg",
+                profileImg:"http://i.dailymail.co.uk/i/pix/2014/02/11/article-2557079-1B65993E00000578-579_306x423.jpg",
                 id: 3,
             },
             {
