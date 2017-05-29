@@ -10,16 +10,16 @@ import com.example.services.UniqueRandomKeyService;
 @RestController
 @RequestMapping(value = "/urk")
 public class UniqueRandomKeyController {
-	
+
 	@Autowired
 	private UniqueRandomKeyService urkService;
-    
-    @RequestMapping(value = "/validate/{urk}/{email:.+}", method = RequestMethod.GET)
-    public String validateUrk(@PathVariable String urk, @PathVariable String email) {
-    	return urkService.validateUrk(urk, email);
-    }
-    
-    @RequestMapping(value = "/{email:.+}", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/validate/{urk}/{email:.+}", method = RequestMethod.GET)
+	public String validateUrk(@PathVariable String urk, @PathVariable String email) {
+		return urkService.validateUrk(urk, email);
+	}
+
+	@RequestMapping(value = "/{email:.+}", method = RequestMethod.POST)
     public String save(@PathVariable String email){
     	return urkService.save(email);
     }
