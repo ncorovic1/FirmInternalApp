@@ -73,19 +73,18 @@ public class UsersController {
 		usersService.deleteUser(header, id);
 	}
 	
-	@RequestMapping(value = "/{email}", method = RequestMethod.POST)
-	public void sendMail(@RequestHeader("Authorization") String header, @PathVariable String email) {
-		ApplicationContext context = new FileSystemXmlApplicationContext("application-context.xml");
-        
-        //Get the mailer instance
-        ApplicationMailer mailer = (ApplicationMailer) context.getBean("mailService");
-        String poruka=urks.save(email);
-        //Send a composed mail
-        if(poruka=="{\"success\":1}")
-        	u=usersService.getUserByEmail(email);
-        	urk=urks.findLastByUserId(u.getId());
-        	mailer.sendMail(email, "Reset Your Password", "Your new password is"+ urk.getValue());
-	
-	}
+//	@RequestMapping(value = "/{email}", method = RequestMethod.POST)
+//	public void sendMail(@RequestHeader("Authorization") String header, @PathVariable String email) {
+//		ApplicationContext context = new FileSystemXmlApplicationContext("application-context.xml");
+//        
+//        //Get the mailer instance
+//        ApplicationMailer mailer = (ApplicationMailer) context.getBean("mailService");
+//        String poruka=urks.save(email);
+//        //Send a composed mail
+//        if(poruka=="{\"success\":1}")
+//        	u=usersService.getUserByEmail(email);
+//        	urk=urks.findLastByUserId(u.getId());
+//        	mailer.sendMail(email, "Reset Your Password", "Your new password is"+ urk.getValue());
+//	}
 	
 }
