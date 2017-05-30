@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -11,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.models.UniqueRandomKey;
 import com.example.models.User;
+import com.example.services.ApplicationMailer;
+import com.example.services.UniqueRandomKeyService;
 import com.example.services.UsersService;
 
 @RestController
@@ -21,7 +26,10 @@ public class UsersController {
 
 	@Autowired
 	private UsersService usersService;
-
+	private UniqueRandomKeyService urks;
+	private User u;
+	private UniqueRandomKey urk;
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public Iterable<User> getAllUsers() {
 		List<User> users = new ArrayList<>();
@@ -64,4 +72,20 @@ public class UsersController {
 	public void deleteUser(@RequestHeader("Authorization") String header, @PathVariable Long id) {
 		usersService.deleteUser(header, id);
 	}
+	
+	@RequestMapping(value = "/{email}", method = RequestMethod.POST)
+	public void sendMail(@RequestHeader("Authorization") String header, @PathVariable String email) {
+		ApplicationContext context = new FileSystemXmlApplicationContext("application-context.xml");
+        
+        //Get the mailer instance
+        ApplicationMailer mailer = (ApplicationMailer) context.getBean("mailService");
+        String poruka=urks.save(email);
+        //Send a composed mail
+        if(poruka=="{\"success\":1}")
+        	u=usersService.getUserByEmail(email);
+        	urk=urks.findLastByUserId(u.getId());
+        	mailer.sendMail(email, "Reset Your Password", "Your new password is"+ urk.getValue());
+	
+	}
+	
 }
