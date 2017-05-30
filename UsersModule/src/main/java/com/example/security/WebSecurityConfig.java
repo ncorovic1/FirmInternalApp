@@ -2,7 +2,7 @@ package com.example.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,6 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable().authorizeRequests()
 			.antMatchers("/").permitAll()
 			.antMatchers("/urk/**").permitAll()
+			.antMatchers(HttpMethod.POST, "/login").permitAll()
 			//.antMatchers("/").access("hasRole('ADMIN') or hasRole('HR') or hasRole('EMPLOYEE')")
 			.anyRequest().authenticated()
 			.and()
