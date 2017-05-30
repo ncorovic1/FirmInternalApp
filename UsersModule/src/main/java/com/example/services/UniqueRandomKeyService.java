@@ -27,7 +27,6 @@ public class UniqueRandomKeyService {
     public UniqueRandomKey findByValue(String value) {
 		return urkRepository.findByValue(value);
 	}
-    
     public UniqueRandomKey findLastByUserId(long user_id) {
 		return urkRepository.findFirstByUserIdOrderByIdDesc(user_id);
 	}

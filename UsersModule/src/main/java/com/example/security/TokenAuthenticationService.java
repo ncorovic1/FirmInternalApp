@@ -30,6 +30,10 @@ class TokenAuthenticationService {
 				.setExpiration(new Date(System.currentTimeMillis() + EXPIRATIONTIME))
 				.signWith(SignatureAlgorithm.HS512, SECRET).compact();
 		res.addHeader(HEADER_STRING, TOKEN_PREFIX + " " + JWT);
+		res.addHeader("Access-Control-Allow-Origin", "*");
+	    res.addHeader("Access-Control-Allow-Methods", "POST,PUT, GET, OPTIONS, DELETE");
+	    res.addHeader("Access-Control-Max-Age", "3600");
+	    res.addHeader("Access-Control-Allow-Headers"," Origin, X-Requested-With, Content-Type, Accept,AUTH-TOKEN");;
 	}
 
 	static Authentication getAuthentication(HttpServletRequest request) {

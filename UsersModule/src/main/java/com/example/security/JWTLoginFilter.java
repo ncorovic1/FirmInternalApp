@@ -8,7 +8,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -16,7 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
-@CrossOrigin
+import java.util.Enumeration;
+
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 	
 	/*
@@ -32,6 +32,22 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res)
 			throws AuthenticationException, IOException, ServletException {
+		
+		System.out.println("HEADER=========================");
+		Enumeration<String> headerNames = req.getHeaderNames();
+		while(headerNames.hasMoreElements()) {
+		  String headerName = (String)headerNames.nextElement();
+		  System.out.println("Header Name - " + headerName + ", Value - " + req.getHeader(headerName));
+		}
+		System.out.println("PARAMS=========================");
+		Enumeration<String> params = req.getParameterNames(); 
+		while(params.hasMoreElements()){
+		 String paramName = (String)params.nextElement();
+		 System.out.println("Parameter Name - " + paramName + ", Value - " + req.getParameter(paramName));
+		}
+		System.out.println("END=========================");
+
+		
 		AccountCredentials creds = new ObjectMapper().readValue(req.getInputStream(), AccountCredentials.class);
 		return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(creds.getUsername(),
 				creds.getPassword(), Collections.emptyList()));
