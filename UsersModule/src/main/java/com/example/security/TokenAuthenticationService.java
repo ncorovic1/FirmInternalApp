@@ -23,9 +23,6 @@ class TokenAuthenticationService {
 	static final String HEADER_STRING = "Authorization";
 
 	static void addAuthentication(HttpServletResponse res, String username) {
-
-		//System.out.println(username);
-
 		String JWT = Jwts.builder().setSubject(username)
 				.setExpiration(new Date(System.currentTimeMillis() + EXPIRATIONTIME))
 				.signWith(SignatureAlgorithm.HS512, SECRET).compact();
@@ -33,7 +30,8 @@ class TokenAuthenticationService {
 		res.addHeader("Access-Control-Allow-Origin", "*");
 	    res.addHeader("Access-Control-Allow-Methods", "POST,PUT, GET, OPTIONS, DELETE");
 	    res.addHeader("Access-Control-Max-Age", "3600");
-	    res.addHeader("Access-Control-Allow-Headers"," Origin, X-Requested-With, Content-Type, Accept,AUTH-TOKEN");;
+	    res.addHeader("Access-Control-Allow-Headers"," Origin, X-Requested-With, Content-Type, Accept,AUTH-TOKEN");
+	    res.addHeader("Access-Control-Expose-Headers","Authorization");
 	}
 
 	static Authentication getAuthentication(HttpServletRequest request) {

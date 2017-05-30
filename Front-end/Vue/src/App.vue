@@ -1,28 +1,32 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <hello></hello>
-  </div>
+    <div id="app">
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <ul class="nav navbar-nav">
+                    <li><router-link to="/">      Message </router-link> </li>
+                    <li><router-link to="/login"> Login   </router-link> </li>
+                    <li><router-link to="/hello"> Hello   </router-link> </li>
+                </ul>
+            </div>    
+        </nav>
+        <!-- Router Link so index.html is not rendered every time and app state is not lost -->
+        <!-- use :to if parametar is variable and not full route -->
+        <div class="container">
+            <router-view></router-view>
+        </div>
+    </div>
 </template>
 
 <script>
-import Hello from './components/Hello'
 
 export default {
-  name: 'app',
-  components: {
-    Hello
+  data() {
+    return {
+    
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
