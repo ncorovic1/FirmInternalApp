@@ -1,26 +1,27 @@
 ﻿<div ng-hide="">
     <div class="documents" ng-show="!waitUsers">
         <h2><i class="fa fa-users"></i>  Documents Management</h2>
-        <!--<div class="pull-right"><a class="btn btn-primary" data-toggle="modal" data-target="#newDocumentsModal" ng-click="loadDocuments()"><strong>New Document</strong></a></div>-->
         <br /><br />
-        <!--<input type="text" class="form-control pull-left" style="width: 320px; margin-bottom: 0;" placeholder="Search Users" ng-model="usersFilter">-->
+        <input type="text" class="form-control pull-left" style="width: 320px; margin-bottom: 0;" placeholder="Search Documents" ng-model="documentsFilter">
+        <div class="pull-right"><a class="btn btn-primary" data-toggle="modal" data-target="#addDocument"><strong>New Document</strong></a></div>    
+        <br /><br /><br /><br /><br />
             <table class="table table-striped" align="right">
                 <thead>
                     <tr>
                         <th class="col-md-2" style="text-align:center"><h4>ID</h4></th>
-                        <th class="col-md-3" style="text-align:center"><h4>TYPE</h4></th>
-                        <th class="col-md-3" style="text-align:center"><h4>AUTHOR</h4></th>
-                        <th class="col-md-2" style="text-align:center"><h4>VIEW</h4></th>
+                        <th class="col-md-3" style="text-align:center"><h4>TITLE</h4></th>
+                        <th class="col-md-3" style="text-align:center"><h4>CREATED</h4></th>
+                        <th class="col-md-2" style="text-align:center"><h4>AUTHOR</h4></th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr ng-repeat="document in documents">
+                <tbody> 
+                    <tr ng-repeat="document in documents">   <!--filter:{title:documentsFilter}> | orderBy:'dcument.created_at':reverse">-->
                         <td class="col-md-2" style="text-align:center">{{document.id}}</td>
-                        <td class="col-md-3" style="text-align:center">{{document.type}}</td>
-                        <td class="col-md-3" style="text-align:center">{{document.author}}</td>
-                        <!--<td class="col-md-2" style="text-align:center"></td>-->
+                        <td class="col-md-3" style="text-align:center">{{document.title}}</td>
+                        <td class="col-md-3" style="text-align:center">{{document.created_at}}</td>
+                        <td class="col-md-3" style="text-align:center">{{document.author_id}}</td>
                         <td class="col-md-1" style="text-align:center"><button class="btn-primary" data-toggle="modal" data-target="#previewDocumentModal" ng-click="transferContent(document)">Preview</button></td>
-                  
+
                     </tr>
                 </tbody>
             </table>
@@ -48,5 +49,8 @@
     </div>
     <div id="previewDocumentModal" class="modal fade" role="dialog">
         <div ng-include="'views/modals/previewDocumentModal.html'"></div>
+    </div>
+    <div id="addDocument" class="modal fade" role="dialog">
+        <div ng-include="'views/modals/addDocument.html'"></div>
     </div>
 </div>
