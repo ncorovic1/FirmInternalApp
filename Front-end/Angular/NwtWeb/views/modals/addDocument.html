@@ -1,0 +1,30 @@
+﻿<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header bg-info">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h2 class="modal-title">Add New Document</h2>
+        </div><!--end modal header-->
+        <div class="modal-body">
+            <div class="container-fluid">
+                <ng-form class="panel-body">
+                    <p>Title: </p>
+                    <input type="text" name="name" class="form-control" ng-model="newDocument.title" placeholder="Title" />
+                    <br />
+                    <p>Username: </p>
+                    <input type="text" name="name" class="form-control" ng-model="newDocument.author_id" placeholder="Author" />
+                    <br />
+                    <p>Content: </p>
+                    <input type="text" name="name" class="form-control" ng-model="newDocument.content" placeholder="Content" />
+                    <br />
+                    <!--<img src="{{editUser.profileImg}}" class="krug img-circle" />
+                    <input ng-model="editUser.profileImg" placeholder="enter url" />-->
+                </ng-form>
+                <!--<input type="checkbox" ng-model="editUser.isAdmin" name="admin" value="admin">Make admin-->
+            </div>
+        </div><!--end modal body-->
+        <div class="modal-footer bg-info">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addDocument(newDocument)">Save</button>
+            <button class="btn btn-default" data-dismiss="modal" ng-click="cancelUser()">Cancel</button>
+        </div><!--end modal footer-->
+    </div><!--end modal content-->
+</div><!--end modal dialog-->
