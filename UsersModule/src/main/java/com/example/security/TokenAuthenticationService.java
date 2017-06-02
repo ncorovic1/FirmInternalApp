@@ -27,58 +27,55 @@ class TokenAuthenticationService {
 				.setExpiration(new Date(System.currentTimeMillis() + EXPIRATIONTIME))
 				.signWith(SignatureAlgorithm.HS512, SECRET).compact();
 		res.addHeader(HEADER_STRING, TOKEN_PREFIX + " " + JWT);
-		res.addHeader("Access-Control-Allow-Origin", "*");
-	    res.addHeader("Access-Control-Allow-Methods", "POST,PUT, GET, OPTIONS, DELETE");
-	    res.addHeader("Access-Control-Max-Age", "3600");
-	    res.addHeader("Access-Control-Allow-Headers"," Origin, X-Requested-With, Content-Type, Accept,AUTH-TOKEN");
 	    res.addHeader("Access-Control-Expose-Headers","Authorization");
 	}
 
 	static Authentication getAuthentication(HttpServletRequest request) {
 
 		String token = request.getHeader(HEADER_STRING);
+		System.out.println("Token: " + token);
 		if (token != null) {
 			// parse the token.
 			String user = Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token.replace(TOKEN_PREFIX, "")).getBody()
 					.getSubject();
-
+			
 			if (user != null) {
 				List<String> info = Arrays.asList(user.split(","));
-				// System.out.println(user);
-				//System.out.println(info.get(1));
+				System.out.println(user);
+				System.out.println(info.get(1));
 
 				// if (request.getMethod() != "GET")
-				//System.out.println(request.getMethod() + ": " + request.getRequestURI());
+				System.out.println(request.getMethod() + ": " + request.getRequestURI());
 
 				boolean access = false;
 
 				//System.out.println(request.getRequestURI().substring(0, 13));
 
 				if (request.getMethod().equals("GET")) {
-					//System.out.println("0");
+					System.out.println("0");
 					if (info.get(1).equals("HR") || info.get(1).equals("ADMIN")) {
 						access = true;
-						//System.out.println("1");
+						System.out.println("1");
 					}
 					// return user != null ? new
 					// UsernamePasswordAuthenticationToken(info.get(0), null,
 					// emptyList()) : null;
 					else if (request.getRequestURI().length() >= 13 && request.getRequestURI().substring(0, 13).equals("/users/byteam")) {
 						access = true;
-						//System.out.println("2");
+						System.out.println("2");
 					}
 				} else if (info.get(1).equals("ADMIN")) {
 					access = true;
-					//System.out.println("3");
+					System.out.println("3");
 				}	
 				//return new UsernamePasswordAuthenticationToken(info.get(0), null, emptyList());
-				//System.out.println("4");
+				System.out.println("4");
 				if (access) {
-					//System.out.println("5");
+					System.out.println("5");
 					return new UsernamePasswordAuthenticationToken(info.get(0), null, emptyList());
 				}
 				else {
-					//System.out.println("6");
+					System.out.println("6");
 					return new UsernamePasswordAuthenticationToken(info.get(0), null);
 				}
 			}

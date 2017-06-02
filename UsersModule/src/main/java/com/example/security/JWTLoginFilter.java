@@ -47,7 +47,10 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 		}
 		System.out.println("END=========================");
 
-		
+		res.addHeader("Access-Control-Allow-Origin", "*");
+	    res.addHeader("Access-Control-Allow-Methods", "POST,PUT, GET, OPTIONS, DELETE");
+	    res.addHeader("Access-Control-Max-Age", "3600");
+	    res.addHeader("Access-Control-Allow-Headers"," Origin, X-Requested-With, Content-Type, Accept,AUTH-TOKEN");
 		AccountCredentials creds = new ObjectMapper().readValue(req.getInputStream(), AccountCredentials.class);
 		return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(creds.getUsername(),
 				creds.getPassword(), Collections.emptyList()));
