@@ -1,5 +1,5 @@
 <template>
-    <div class="back-img">
+    <div class="container">
         <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">                    
             <div class="panel panel-info" >
                 <div class="panel-heading">
@@ -54,35 +54,12 @@
       },
       methods: {
         loginRequest(event) {    
-            this.$http.post('http://localhost:8085/login', 
-                            JSON.stringify(this.creds), 
-                            {
-                                headers: {
-                                    'Content-Type': 'text/plain'
-                                    }
-                            })
-                            .then(response => {
-                                console.log(response);
-                                console.log(response.status);
-                                console.log(response.headers);
-                                console.log(response.headers.get('Authorization'));
-                            }, error => {
-                                console.log(error)
-                            });
-            /*auth.login(this, JSON.stringify({username: this.creds.username, password: this.creds.password}), 'hello');*/
+            auth.login(this, JSON.stringify(this.creds), 'hello');
         }
       }
     }
 </script>
 
 <style scoped>    
-    .back-img {    
-        /* Full height */
-        height: 100%; 
 
-        /* Center and scale the image nicely */
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
 </style>

@@ -3,7 +3,7 @@ import {router} from '../../main'
 // URL and endpoint constants
 const API_URL = 'http://localhost:8085/'
 const LOGIN_URL = API_URL + 'login/'
-const SIGNUP_URL = API_URL + 'users/'
+const USERS_URL = API_URL + 'users/'
 
 export default {
 
@@ -13,49 +13,38 @@ export default {
   },
 
   // Send a request to the login URL and save the returned JWT
-  login(context, creds, redirect) {
-      context.$http.post(LOGIN_URL, creds);
-//    context.$http.post(LOGIN_URL, creds, (data) => {
-//      localStorage.setItem('id_token', data.id_token)
-//      localStorage.setItem('access_token', data.access_token)
-//
-//      this.user.authenticated = true
-//
-//      // Redirect to a specified route
-//      if(redirect) {
-//        router.go(redirect)        
-//      }
-//
-//    }).error((err) => {
-//      context.error = err
-//    })
+  login(context, creds, redirect) {  
+      context.$http.post('http://localhost:8085/login', 
+                        creds, 
+                        {
+                            headers: {
+                                'Content-Type': 'text/plain'
+                                }
+                        })
+                        .then(response => {
+                            if( response.headers.get('Authorization') != null) {
+                                localStorage.setItem('Authorization', response.headers.get('Authorization'));
+                                this.user.authenticated = true;
+                                window.location.href="/users";
+                            }
+                            else {
+                                this.user.authenticated = false;
+                            }
+                        }, error => {
+                            this.user.authenticated = false;
+                            context.error = "Credentials you've provided don't match our records!";
+                        });
   },
 
-  signup(context, creds, redirect) {
-    context.$http.post(SIGNUP_URL, creds, (data) => {
-      localStorage.setItem('id_token', data.id_token)
-      localStorage.setItem('access_token', data.access_token)
-
-      this.user.authenticated = true
-
-      if(redirect) {
-        router.go(redirect)        
-      }
-
-    }).error((err) => {
-      context.error = err
-    })
-  },
-
-  // To log out, we just need to remove the token
+  // Logging out
   logout() {
-    localStorage.removeItem('id_token')
-    localStorage.removeItem('access_token')
+    localStorage.removeItem('Authorization')
     this.user.authenticated = false
   },
-
+    
+  // Check if user valid logged with JWT 
   checkAuth() {
-    var jwt = localStorage.getItem('id_token')
+    var jwt = localStorage.getItem('Authorization')
     if(jwt) {
       this.user.authenticated = true
     }
@@ -64,10 +53,30 @@ export default {
     }
   },
 
-  // The object to be passed as a header for authenticated requests
+  // JWT Header
   getAuthHeader() {
     return {
-      'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+      'Authorization': localStorage.getItem('Authorization')
     }
+  },
+    
+  // Get user by username
+  getUser(username) {
+//    this.$http.get(USERS_URL, 
+//                   {
+//                        headers: {
+//                            getAuthHeader()
+//                        }
+//                    })
+//                    .then(response => {
+//                        console.log(response);
+//                    }, error => {
+//                        console.log(error)
+//                    });
+  },
+ 
+  // Signing up/Adding new user
+  signup(context, creds, redirect) {
+    //
   }
 }

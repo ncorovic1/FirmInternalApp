@@ -8,9 +8,13 @@ import App         from './App';
 import Message from './components/Message';
 import Hello   from './components/Hello';
 import Login   from './components/Login';
+import Users   from './components/user/Table';
+import Teams   from './components/team/Table';
 
 require('./assets/css/bootstrap.min.css');
 require('./assets/css/bootstrap-theme.min.css');
+require('./assets/js/jquery.min.js');
+require('./assets/js/bootstrap.min.js');
 
 Vue.config.productionTip = false;
 Vue.component('app-message', Message);
@@ -20,15 +24,31 @@ Vue.use(VueRouter);
 Vue.use(VueResource);
 Vue.http.options.emulateJSON = true;
 Vue.http.interceptors.push((request, next) => {
+//    request.headers.set('Access-Control-Allow-Origin', '*');
+//    request.headers.set('Access-Control-Allow-Methods', 'POST,PUT, GET, OPTIONS, DELETE');
+//    request.headers.set('Access-Control-Max-Age', '3600');
+//    request.headers.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept,AUTH-TOKEN');
+//    request.headers.set('Access-Control-Expose-Headers', 'Authorization');
+//    request.headers.set('Authorization', 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuaW5vLEFETUlOIiwiZXhwIjoxNDk3MTM0MDA5fQ.W6_iPBSj9VzTOtaLIhyZHoIdEGpCVyTIKSLE1xqOpAgXNBoQwDofTLYhNvtybDkXXgzNh_10Bv1eGMusWcwm6A');
+    //console.log(JSON.stringify(request));
+    console.log(request);
     next(response => {
-        //response.headers['Access-Control-Expose-Headers'] = 'Authentification'
     });
 });
+
+//Vue.config(function ($httpProvider) {
+//  $httpProvider.defaults.headers.common = {};
+//  $httpProvider.defaults.headers.post = {};
+//  $httpProvider.defaults.headers.put = {};
+//  $httpProvider.defaults.headers.patch = {};
+//});
 
 //routes is naming conveinance so it can be simply added to VueRouter
 const routes = [
     { path:'/hello/:name?', component: Hello },
     { path:'/login',        component: Login },
+    { path:'/users',        component: Users },
+    { path:'/teams',        component: Teams },
     { path:'/',             component: Message }
 ];
 

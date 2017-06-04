@@ -10,11 +10,11 @@
         //this is a simple way of handling code when parameters are changed
         watch: {
             '$route' (to, from) {
-                alert( 'Hello' + (to.params.name ? to.params.name : '') );
+                alert( 'Hello ' + (to.params.name ? to.params.name : '') );
             }
         },
         created() {
-            alert( 'Hello' + (this.$route.params.name ? this.$route.params.name : '') );
+            alert( 'Hello ' + (this.$route.params.name ? this.$route.params.name : 'Empty User') );
         }
     }
     // this.$router.push('Home') 
