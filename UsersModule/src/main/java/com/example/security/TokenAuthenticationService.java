@@ -33,51 +33,27 @@ class TokenAuthenticationService {
 	static Authentication getAuthentication(HttpServletRequest request) {
 
 		String token = request.getHeader(HEADER_STRING);
-		System.out.println("Token: " + token);
 		if (token != null) {
-			// parse the token.
 			String user = Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token.replace(TOKEN_PREFIX, "")).getBody()
 					.getSubject();
 			
 			if (user != null) {
 				List<String> info = Arrays.asList(user.split(","));
-				System.out.println(user);
-				System.out.println(info.get(1));
-
-				// if (request.getMethod() != "GET")
-				System.out.println(request.getMethod() + ": " + request.getRequestURI());
-
 				boolean access = false;
 
-				//System.out.println(request.getRequestURI().substring(0, 13));
-
 				if (request.getMethod().equals("GET")) {
-					System.out.println("0");
-					if (info.get(1).equals("HR") || info.get(1).equals("ADMIN")) {
+					if (info.get(1).equals("HR") || info.get(1).equals("ADMIN")) 
 						access = true;
-						System.out.println("1");
-					}
-					// return user != null ? new
-					// UsernamePasswordAuthenticationToken(info.get(0), null,
-					// emptyList()) : null;
-					else if (request.getRequestURI().length() >= 13 && request.getRequestURI().substring(0, 13).equals("/users/byteam")) {
+					else if (request.getRequestURI().length() >= 13 && request.getRequestURI().substring(0, 13).equals("/users/byteam")) 
 						access = true;
-						System.out.println("2");
-					}
 				} else if (info.get(1).equals("ADMIN")) {
 					access = true;
-					System.out.println("3");
-				}	
-				//return new UsernamePasswordAuthenticationToken(info.get(0), null, emptyList());
-				System.out.println("4");
-				if (access) {
-					System.out.println("5");
+				}
+				
+				if (access) 
 					return new UsernamePasswordAuthenticationToken(info.get(0), null, emptyList());
-				}
-				else {
-					System.out.println("6");
+				else 
 					return new UsernamePasswordAuthenticationToken(info.get(0), null);
-				}
 			}
 		}
 		return null;

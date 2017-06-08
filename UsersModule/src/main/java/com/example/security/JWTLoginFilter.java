@@ -15,15 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.Enumeration;
 
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 	
-	/*
-	@Autowired
-	MyUserDetailsService detailsService;
-	*/
-
 	public JWTLoginFilter(String url, AuthenticationManager authManager) {
 		super(new AntPathRequestMatcher(url));
 		setAuthenticationManager(authManager);
@@ -32,26 +26,14 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res)
 			throws AuthenticationException, IOException, ServletException {
-		
-		System.out.println("HEADER=========================");
-		Enumeration<String> headerNames = req.getHeaderNames();
-		while(headerNames.hasMoreElements()) {
-		  String headerName = (String)headerNames.nextElement();
-		  System.out.println("Header Name - " + headerName + ", Value - " + req.getHeader(headerName));
-		}
-		System.out.println("PARAMS=========================");
-		Enumeration<String> params = req.getParameterNames(); 
-		while(params.hasMoreElements()){
-		 String paramName = (String)params.nextElement();
-		 System.out.println("Parameter Name - " + paramName + ", Value - " + req.getParameter(paramName));
-		}
-		System.out.println("END=========================");
 
 		res.addHeader("Access-Control-Allow-Origin", "*");
 	    res.addHeader("Access-Control-Allow-Methods", "POST,PUT, GET, OPTIONS, DELETE");
 	    res.addHeader("Access-Control-Max-Age", "3600");
-	    res.addHeader("Access-Control-Allow-Headers"," Origin, X-Requested-With, Content-Type, Accept,AUTH-TOKEN");
-		AccountCredentials creds = new ObjectMapper().readValue(req.getInputStream(), AccountCredentials.class);
+	    res.addHeader("Access-Control-Allow-Headers"," Origin, X-Requested-With, Content-Type, Accept,AUTH-TOKEN, Authorization");
+	    
+	    AccountCredentials creds = new ObjectMapper().readValue(req.getInputStream(), AccountCredentials.class);
+	    
 		return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(creds.getUsername(),
 				creds.getPassword(), Collections.emptyList()));
 	}
@@ -60,7 +42,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 	protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain,
 			Authentication auth) throws IOException, ServletException {
 		String rola = auth.getAuthorities().toArray()[0].toString();
-		//String role = usersRepository.findByUsername(auth.getName()).getRole();
 		TokenAuthenticationService.addAuthentication(res, auth.getName() + "," + rola);
 	}
 }
+
