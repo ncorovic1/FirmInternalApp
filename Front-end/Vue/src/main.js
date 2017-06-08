@@ -5,11 +5,14 @@ import VueRouter   from 'vue-router';
 import VueResource from 'vue-resource';
 import App         from './App';
 
-import Message from './components/Message';
-import Hello   from './components/Hello';
-import Login   from './components/Login';
-import Users   from './components/user/Table';
-import Teams   from './components/team/Table';
+import Message   from './components/Message';
+import Hello     from './components/Hello';
+import Login     from './components/Login';
+import Users     from './components/user/Table';
+import Teams     from './components/team/Table';
+import Vacations from './components/vacation/Table';
+import Documents from './components/document/Table';
+import Profile   from './components/profile/Preview';
 
 require('./assets/css/bootstrap.min.css');
 require('./assets/css/bootstrap-theme.min.css');
@@ -24,14 +27,9 @@ Vue.use(VueRouter);
 Vue.use(VueResource);
 Vue.http.options.emulateJSON = true;
 Vue.http.interceptors.push((request, next) => {
-//    request.headers.set('Access-Control-Allow-Origin', '*');
-//    request.headers.set('Access-Control-Allow-Methods', 'POST,PUT, GET, OPTIONS, DELETE');
-//    request.headers.set('Access-Control-Max-Age', '3600');
-//    request.headers.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept,AUTH-TOKEN');
-//    request.headers.set('Access-Control-Expose-Headers', 'Authorization');
-//    request.headers.set('Authorization', 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuaW5vLEFETUlOIiwiZXhwIjoxNDk3MTM0MDA5fQ.W6_iPBSj9VzTOtaLIhyZHoIdEGpCVyTIKSLE1xqOpAgXNBoQwDofTLYhNvtybDkXXgzNh_10Bv1eGMusWcwm6A');
-    //console.log(JSON.stringify(request));
-    console.log(request);
+    if( request.url != 'http://localhost:8085/login') {
+        request.headers.set('Authorization', 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuaW5vLEFETUlOIiwiZXhwIjoxNDk3MTM0MDA5fQ.W6_iPBSj9VzTOtaLIhyZHoIdEGpCVyTIKSLE1xqOpAgXNBoQwDofTLYhNvtybDkXXgzNh_10Bv1eGMusWcwm6A');
+    }
     next(response => {
     });
 });
@@ -47,9 +45,13 @@ Vue.http.interceptors.push((request, next) => {
 const routes = [
     { path:'/hello/:name?', component: Hello },
     { path:'/login',        component: Login },
+    { path:'/',             component: Login },
     { path:'/users',        component: Users },
     { path:'/teams',        component: Teams },
-    { path:'/',             component: Message }
+    { path:'/vacations',    component: Vacations },
+    { path:'/documents',    component: Documents },
+    { path:'/profile',      component: Profile },
+    { path:'/Message',      component: Message }
 ];
 
 const router = new VueRouter({

@@ -8,7 +8,11 @@
                     </div>
                 
                     <div class="row" v-show="admin">
-                        <button @click="userFormToggle" class="btn btn-primary btn-block"> {{ formButton }} </button>
+                        <button @click="userFormToggle" class="btn btn-primary btn-block">
+                            <i class="glyphicon glyphicon-plus" style="float:left"></i>
+                                {{ formButton }} 
+                            <i class="glyphicon glyphicon-plus" style="float:right"></i>
+                        </button>
                         <div style="height: 30px;"></div>
                         <app-add v-show="showAdd" :noUsers="userList.length" @add="add($event)"></app-add>
                     </div>
@@ -76,18 +80,18 @@
                             </thead>
                             <tbody>
                                 <tr v-for="(u, key) in filteredUserList">
-                                    <th>{{ key + 1     }}</th>
-                                    <td>{{ u.firstname }}</td>
-                                    <td>{{ u.lastname  }}</td>
-                                    <td>{{ u.address   }}</td>
-                                    <td>{{ u.dateob    }}</td>
-                                    <td>{{ u.daysov    }}</td>
-                                    <td>{{ u.gender    }}</td>
-                                    <td>{{ u.role      }}</td>
-                                    <td>{{ u.email     }}</td>
-                                    <td>{{ u.contact   }}</td>
-                                    <td>{{ u.team      }}</td>
-                                    <td>{{ u.username  }}</td>
+                                    <th>{{ key + 1             }}</th>
+                                    <td>{{ u.firstName         }}</td>
+                                    <td>{{ u.lastName          }}</td>
+                                    <td>{{ u.address           }}</td>
+                                    <td>{{ userDate(key)       }}</td>
+                                    <td>{{ u.daysOfVacation    }}</td>
+                                    <td>{{ u.gender            }}</td>
+                                    <td>{{ u.role              }}</td>
+                                    <td>{{ u.email             }}</td>
+                                    <td>{{ u.telephone         }}</td>
+                                    <td>{{ u.team.id           }}</td>
+                                    <td>{{ u.username          }}</td>
                                     <td v-show="admin">
                                         <p data-placement="top" data-toggle="tooltip" title="Edit">
                                             <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" @click="populateUser(key)"><span class="glyphicon glyphicon-pencil"></span></button>
@@ -128,19 +132,19 @@
     
     class User {
         constructor(id, fn, ln, add, dob, dov, g, r, em, c, t, user, pass) {
-            this.id        = id;
-            this.firstname = fn;
-            this.lastname  = ln;
-            this.address   = add;
-            this.dateob    = dob;
-            this.daysov    = dov;
-            this.gender    = g;
-            this.role      = r;
-            this.email     = em;
-            this.contact   = c;
-            this.team      = t;
-            this.username  = user;
-            this.password  = pass;       
+            this.id             = id;
+            this.firstName      = fn;
+            this.lastName       = ln;
+            this.address        = add;
+            this.dateOfBirth    = dob;
+            this.daysOfVacation = dov;
+            this.gender         = g;
+            this.role           = r;
+            this.email          = em;
+            this.telephone      = c;
+            this.team           = t;
+            this.username       = user;
+            this.password       = pass;       
       }
     }
     
@@ -162,39 +166,12 @@
                 activeModal: '0',
                 admin: true,
                 hr: false,
-                userList: [
-                    new User(
-                        '1',
-                        'Nino',
-                        'Corovic',
-                        'Cadordzina 45a',
-                        '27/01/1995',
-                        '24',
-                        'male',
-                        'ADMIN',
-                        'nino.corovic@gmail.com',
-                        '062/908-445',
-                        '1',
-                        'nino',
-                        '1234'
-                        ),
-                    new User(
-                        '2',
-                        'Dino',
-                        'Corovic',
-                        'Cadordzina 45a',
-                        '27/01/1995',
-                        '24',
-                        'male',
-                        'HR',
-                        'dino.corovic@gmail.etf.unsa.ba.com',
-                        '062/908-445',
-                        '2',
-                        'dino',
-                        '1234'
-                        )
-                ],
-                user: []
+                userList: [],
+                user: {
+                    team: {
+                        id: ''
+                    }
+                }     
             }
         },
         methods: {
@@ -206,15 +183,15 @@
                 this.activeModal = key;
                 this.user = new User(
                                      this.userList[key].id,
-                                     this.userList[key].firstname,
-                                     this.userList[key].lastname,
+                                     this.userList[key].firstName,
+                                     this.userList[key].lastName,
                                      this.userList[key].address,
-                                     this.userList[key].dateob,
-                                     this.userList[key].daysov,
+                                     this.userList[key].dateOfBirth,
+                                     this.userList[key].daysOfVacation,
                                      this.userList[key].gender,
                                      this.userList[key].role,
                                      this.userList[key].email,
-                                     this.userList[key].contact,
+                                     this.userList[key].telephone,
                                      this.userList[key].team,
                                      this.userList[key].username,
                                      this.userList[key].password
@@ -228,6 +205,12 @@
             add(args) {
                 this.userList.push(args);
                 this.userFormToggle();
+            },
+            userDate(i) {
+                var time = new Date(this.userList[i].dateOfBirth);
+                time.setHours(time.getHours() + 2);
+                this.userList[i].dateOfBirth = time.toISOString().substring(0, 10);
+                return this.userList[i].dateOfBirth;
             }
         },
         computed: {
@@ -252,7 +235,6 @@
                             return us.role.toLowerCase().includes(this.keyword);
                             break;
                         case 'Team': 
-                            //alert(JSON.stringify(us));
                             return us.team.toLowerCase().includes(this.keyword);
                             break;
                         case 'Gender': 
@@ -263,17 +245,19 @@
             }
         },
         created() {
-            this.$http.get('http://localhost:8085/users',
-                            {
-                                headers: {
-                                  'Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuaW5vLEFETUlOIiwiZXhwIjoxNDk3MTQyNjA5fQ.RR7l5033nLh3OZ9I3fUsX_B549d5GTZJROCXj678PrLavrFsVly1lnESDR9_GsqdWiGNzdLGgcMt4cmnaNCAaw',
-                                  'Accept': 'application/json'
-                                }
-                            }).then(response => {
-                                //console.log(response);
+            this.$http.get('http://localhost:8085/users')
+                            .then(response => {
+                                this.userList = response.body;
                             }, error => {
                                 //console.log(error)
                             });
         }
     }
 </script>
+
+<style>
+    .btn-sq-lg {
+          width: 150px !important;
+          height: 150px !important;
+        }
+</style>

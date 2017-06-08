@@ -9,9 +9,14 @@
                 <div class="modal-body">
                     <div style="margin-bottom: 25px" class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <select type="text" class="form-control" placeholder="handle" v-model="chosenUser" required>
+                        <select v-if="hasMembers" class="form-control" placeholder="handle" v-model="chosenUser" required>
                             <option v-for="(u, key) in usersWithoutMembers" :value="key">
                                     {{ u.firstname + ' ' + u.lastname }}
+                            </option>
+                        </select>
+                        <select v-else class="form-control" disabled>
+                            <option disabled>
+                                    {{ 'All users are in this team!' }}
                             </option>
                         </select>
                         <span class="input-group-addon" @click="addMemb()"> ADD </span>
@@ -39,7 +44,7 @@
         data() {
             return {
                 error: '',
-                chosenUser: '',
+                chosenUser: '0',
                 users: [
                     {
                         firstname: 'Zino',
@@ -72,8 +77,11 @@
         },
         methods: {
             addMemb() {
-                if(this.chosenUser)
+                if (this.hasMembers) {
                     this.members.push(this.users[this.chosenUser]);
+                    this.users.splice(this.chosenUser, 1); 
+                    this.chosenUser = '0';
+                }
             },
             removeMemb(index) {
                 this.users.push(this.members[index]); 
@@ -82,7 +90,11 @@
         },
         computed: {
             usersWithoutMembers() {
+                //Get Users by Team
                 return this.users;
+            },
+            hasMembers() {
+                return this.users.length > 0 ? true : false;
             }
         }
     }

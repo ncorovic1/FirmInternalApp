@@ -4,17 +4,17 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="row">
-                        <h2 class="text-center">Teams</h2>
+                        <h2 class="text-center">Documents</h2>
                     </div>
                     
                     <div class="row" v-show="admin || hr">
-                        <button @click="teamFormToggle" class="btn btn-warning btn-block">  
+                        <button @click="docFormToggle" class="btn btn-default btn-block"> 
                             <i class="glyphicon glyphicon-plus" style="float:left"></i>
                                 {{ formButton }} 
                             <i class="glyphicon glyphicon-plus" style="float:right"></i>
                         </button>
                         <div style="height: 30px;"></div>
-                        <app-add v-show="showAdd" :team="team" :noTeams="teamList.length" @add="add"></app-add>
+                        <app-add v-show="showAdd" :document="document" :noDocs="docList.length" @add="add"></app-add>
                     </div>
 
                     <div class="row">    
@@ -25,11 +25,8 @@
                                         <span id="search_concept">Filter by {{ filterBy }}</span> <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li @click="filterBy = 'Handle'"><a>Handle</a></li>
+                                        <li @click="filterBy = 'Author'"><a>Author</a></li>
                                             <li class="divider"></li>
-                                        <li @click="filterBy = 'Info'"><a>Info</a></li>
-                                            <li class="divider"></li>
-                                        <li @click="filterBy = 'Name'"><a>Name</a></li>
                                     </ul>
                                 </div>
                                 <input type="hidden" name="search_param" value="all" id="search_param">         
@@ -48,32 +45,25 @@
                         <table id="mytable" class="table table-bordred table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <th>No.      </th>
-                                    <th>Handle   </th>
-                                    <th>Info     </th>
-                                    <th>Name     </th>
-                                    <th>Members  </th>
+                                    <th>No.         </th>
+                                    <th>Title       </th>
+                                    <th>Author      </th>                                    
+                                    <th>Created At  </th>
+                                    <th>Modified At </th>
                                     <th v-show="admin || hr">Edit   </th>
                                     <th v-show="admin || hr">Delete </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(t, key) in filteredTeamList">
-                                    <td>{{ key + 1  }}</td>
-                                    <td>{{ t.handle }}</td>
-                                    <td>{{ t.info   }}</td>
-                                    <td>{{ t.name   }}</td>
-                                    <td>
-                                        <p data-placement="top" data-toggle="tooltip" title="Members">
-                                            <button class="btn btn-primary btn-xs" data-title="Members" data-toggle="modal" data-target="#members" @click="populateTeam(key)"><span class="glyphicon glyphicon-th-list"></span>
-                                            <span class="glyphicon glyphicon-th-list"></span>
-                                            <span class="glyphicon glyphicon-th-list"></span>
-                                            <span class="glyphicon glyphicon-th-list"></span></button>
-                                        </p>
-                                    </td>
+                                <tr v-for="(d, key) in filteredDocumentList">
+                                    <td>{{ key + 1       }}</td>
+                                    <td>{{ d.title       }}</td>
+                                    <td>{{ d.author      }}</td>                                    
+                                    <td>{{ d.created_at  }}</td>
+                                    <td>{{ d.modified_at }}</td>
                                     <td v-show="admin || hr">
                                         <p data-placement="top" data-toggle="tooltip" title="Edit">
-                                            <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" @click="populateTeam(key)"><span class="glyphicon glyphicon-pencil"></span></button>
+                                            <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" @click="populateDocument(key)"><span class="glyphicon glyphicon-pencil"></span></button>
                                         </p>
                                     </td>
                                     <td v-show="admin || hr">
@@ -99,89 +89,94 @@
                 </div>
             </div>
         </div>
-        <app-memb :team="team"></app-memb>
-        <app-eddel :team="team" @deleteTeam="teamList.splice(activeModal, 1)" @update="update"></app-eddel>
+        <app-eddel :document="document" @deleteDocument="docList.splice(activeModal, 1)" @update="update"></app-eddel>
     </div>
 </template>
 
 <script>
     import Add        from './AddForm';
-    import Members    from './Members';
     import EditDelete from './EditDeleteModal';
     import Auth       from '../../assets/auth';
     
-    class Team {
-        constructor(id, h, i, n) {
-            this.id     = id;
-            this.handle = h;
-            this.info   = i;
-            this.name   = n;
+    class Document {
+        constructor(id, c, cat, mat, t, a) {
+            this.id          = id;
+            this.content     = c;
+            this.created_at  = cat;
+            this.modified_at = mat;
+            this.title       = t;
+            this.author      = a;
       }
     }
     
     export default {
         components: {
             'app-add': Add,
-            'app-memb': Members,
             'app-eddel': EditDelete
             },
         data() {
             return {
                 showAdd: false,
-                formButton: 'Add Team',
+                formButton: 'Add Document',
                 formButtonValues: [
-                    'Add Team',
+                    'Add Document',
                     'Close Form'
                 ],
-                filterBy: 'Handle',
+                filterBy: 'Author',
                 keyword: '',
                 activeModal: '0',
                 admin: true,
                 hr: true,
-                teamList: [
-                    new Team(
+                docList: [
+                    new Document(
                         '1',
-                        '@alp',
-                        'Dobar tim',
-                        'Alpha'
+                        'Sadrzaj1',
+                        '2017-06-06 15:26:23',
+                        '2017-06-06 15:26:23',
+                        'Naslov1',
+                        'Nino'
                         ),
-                    new Team(
+                    new Document(
                         '2',
-                        '@bet',
-                        'Los tim',
-                        'Beta'
+                        'Sadrzaj2',
+                        '2017-06-06 15:26:23',
+                        '2017-06-06 15:26:23',
+                        'Naslov2',
+                        'Dino'
                         )
                 ],
-                team: []
+                document: []
             }
         },
         methods: {
-            teamFormToggle() {
+            docFormToggle() {
                 this.showAdd = !this.showAdd;
                 this.formButton = this.formButtonValues[this.showAdd ? 1 : 0];
             },
-            populateTeam(key) {
+            populateDocument(key) {
                 this.activeModal = key;
-                this.team = new Team(
-                                     this.teamList[key].id,
-                                     this.teamList[key].handle,
-                                     this.teamList[key].info,
-                                     this.teamList[key].name
+                this.document = new Document(
+                                     this.docList[key].id,
+                                     this.docList[key].content,
+                                     this.docList[key].created_at,
+                                     this.docList[key].modified_at,
+                                     this.docList[key].title,
+                                     this.docList[key].author
                                      );
             },
             update() {
-                this.teamList[this.activeModal] = this.team;
-                this.teamList.push();
-                this.team = [];
+                this.docList[this.activeModal] = this.document;
+                this.docList.push();
+                this.document = [];
             },
             add() {
-                this.teamList.push(this.team);
-                this.teamFormToggle();
-                this.team = [];
+                this.docList.push(this.document);
+                this.docFormToggle();
+                this.document = [];
             }
         },
         computed: {
-            filteredTeamList() {
+            filteredDocumentList() {
                 this.keyword = this.keyword.toLowerCase();
                 function compare(a, b) {
                     if (a.id < b.id)
@@ -190,16 +185,10 @@
                         return -1;
                   return 0;
                 }
-                return this.teamList.sort(compare).filter((te) => {
+                return this.docList.sort(compare).filter((doc) => {
                     switch(this.filterBy) {
-                        case 'Handle': 
-                            return te.handle.toLowerCase().includes(this.keyword);
-                            break;
-                        case 'Info': 
-                            return te.info.toLowerCase().includes(this.keyword);
-                            break;
-                        case 'Name': 
-                            return te.name.toLowerCase().includes(this.keyword);
+                        case 'Author': 
+                            return doc.author.toLowerCase().includes(this.keyword);
                             break;
                     }
                 })

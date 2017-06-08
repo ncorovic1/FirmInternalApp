@@ -69,7 +69,7 @@
                         
                         <div style="margin-bottom: 25px" class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-tags"></i></span>
-                            <select class="form-control" v-model="user.team" placeholder="team id" required>
+                            <select class="form-control" v-model="user.team.id" placeholder="team id" required>
                                 <option v-for="n in noTeams" :value="n"> {{ n }} </option>
                             </select>
                         </div>
@@ -114,16 +114,18 @@
                 },
                 user: {
                     id: '',
-                    firstname: '',
-                    lastname: '',
+                    firstName: '',
+                    lastName: '',
                     address: '',
-                    dateob: '',
-                    daysov: '0',
+                    dateOfBirth: '',
+                    daysOfVacation: '0',
                     gender: 'male',
                     role: 'EMPLOYEE',
                     email: '',
-                    contact: '',
-                    team: '1',
+                    telephone: '',
+                    team: {
+                        id: '1',
+                    },
                     username: '',
                     password: ''
                 },
@@ -166,8 +168,10 @@
             }
         },
         created() {
-            //povuci iz baze
-            this.noTeams = 2;
+            this.$http.get('http://localhost:8085/teams')
+                            .then(response => {
+                                this.noTeams = Object.keys(response.body._embedded.teams).length;
+                            });
         },
         computed: {
             mail() {

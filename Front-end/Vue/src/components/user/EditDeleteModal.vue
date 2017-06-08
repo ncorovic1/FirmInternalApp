@@ -14,12 +14,12 @@
                         
                         <div style="margin-bottom: 25px" class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-menu-left"></i></span>
-                            <input type="text" class="form-control" v-model="user.firstname" placeholder="firstname" required>                           
+                            <input type="text" class="form-control" v-model="user.firstName" placeholder="firstname" required>                           
                         </div>
                         
                         <div style="margin-bottom: 25px" class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-menu-right"></i></span>
-                            <input type="text" class="form-control" v-model="user.lastname" placeholder="lastname" required>                                        
+                            <input type="text" class="form-control" v-model="user.lastName" placeholder="lastname" required>                                        
                         </div>
                         
                         <div style="margin-bottom: 25px" class="input-group">
@@ -29,12 +29,12 @@
                         
                         <div style="margin-bottom: 25px" class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                            <input type="text" class="form-control" v-model="user.dateob" placeholder="date of birth" required>                                        
+                            <input type="date" class="form-control" v-model="user.dateOfBirth" placeholder="date of birth" required>                                        
                         </div>
                         
                         <div style="margin-bottom: 25px" class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-heart"></i></span>
-                            <input type="number" class="form-control" v-model="user.daysov" placeholder="days of vacation" min="0" required>
+                            <input type="number" class="form-control" v-model="user.daysOfVacation" placeholder="days of vacation" min="0" required>
                         </div>
                         
                         <div style="margin-bottom: 25px" class="input-group">
@@ -64,12 +64,12 @@
 
                         <div style="margin-bottom: 25px" class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-                            <input type="text" class="form-control" v-model="user.contact" placeholder="telephone" required> 
+                            <input type="text" class="form-control" v-model="user.telephone" placeholder="telephone" required> 
                         </div>
                         
                         <div style="margin-bottom: 25px" class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-tags"></i></span>
-                            <select class="form-control" v-model="user.team" placeholder="team id" required>
+                            <select class="form-control" v-model="user.team.id" placeholder="team id" required>
                                 <option v-for="n in noTeams" :value="n"> {{ n }} </option>
                             </select>
                         </div>
