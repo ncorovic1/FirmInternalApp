@@ -16,12 +16,12 @@
                         
                         <div style="margin-bottom: 25px" class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-menu-left"></i></span>
-                            <input type="text" class="form-control" v-model="user.firstname" placeholder="firstname" required> 
+                            <input type="text" class="form-control" v-model="user.firstName" placeholder="firstname" required> 
                         </div>
                         
                         <div style="margin-bottom: 25px" class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-menu-right"></i></span>
-                            <input type="text" class="form-control" v-model="user.lastname" placeholder="lastname" required>   
+                            <input type="text" class="form-control" v-model="user.lastName" placeholder="lastname" required>   
                         </div>
                         
                         <div style="margin-bottom: 25px" class="input-group">
@@ -31,12 +31,12 @@
                         
                         <div style="margin-bottom: 25px" class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                            <input type="date" class="form-control" v-model="user.dateob" placeholder="date of birth" required>   
+                            <input type="date" class="form-control" v-model="user.dateOfBirth" placeholder="date of birth" required>   
                         </div>
                         
                         <div style="margin-bottom: 25px" class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-heart"></i></span>
-                            <input type="number" class="form-control" v-model="user.daysov" placeholder="days of vacation" min="0" required>  
+                            <input type="number" class="form-control" v-model="user.daysOfVacation" placeholder="days of vacation" min="0" required>  
                         </div>
                         
                         <div style="margin-bottom: 25px" class="input-group">
@@ -64,7 +64,7 @@
                         
                         <div style="margin-bottom: 25px" class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-                            <input type="text" class="form-control" v-model="user.contact" placeholder="telephone" required> 
+                            <input type="text" class="form-control" v-model="user.telephone" placeholder="telephone" required> 
                         </div>
                         
                         <div style="margin-bottom: 25px" class="input-group">
@@ -162,8 +162,19 @@
         },
         methods: {
             addUser() {
-                this.user.id = this.noUsers + 1;
                 this.user.email = this.mail;
+                this.user.dateOfBirth = new Date(this.user.dateOfBirth).getTime();
+                
+                this.$http.post('http://localhost:8085/users', 
+                                JSON.stringify(this.user)
+                                ).then(response => {
+                            });
+                            
+                this.$http.get('http://localhost:8085/users/byemail/' + this.user.email)
+                            .then(response => {
+                                this.user.id = response.body.id;
+                            });
+                            
                 this.$emit('add', this.user);
             }
         },

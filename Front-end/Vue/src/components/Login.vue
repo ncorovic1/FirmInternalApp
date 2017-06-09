@@ -30,8 +30,6 @@
                               <a id="btn-login" @click="loginRequest" class="btn btn-success">Login  </a>
                             </div>
                         </div>
-                        <p> {{ creds.username }} </p>
-                        <p> {{ creds.password }} </p>
                     </form>     
                 </div>                     
             </div>  
@@ -54,7 +52,7 @@
       },
       methods: {
         loginRequest(event) {    
-            auth.login(this, JSON.stringify(this.creds), 'hello');
+            auth.login(this, this.creds, 'hello');
         }
       }
     }

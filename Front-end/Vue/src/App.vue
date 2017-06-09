@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <nav class="navbar navbar-default">
+        <nav class="navbar navbar-default" v-show="user.authenticated">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -34,11 +34,11 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Nino <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> {{ user.username }} <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><router-link to="/profile"> Profile </router-link></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#">Log out</a></li>
+                                <li><a href="#" @click="logout">Log out</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -53,14 +53,22 @@
 </template>
 
 <script>
+    import auth from './assets/auth'
 
-export default {
-  data() {
-    return {
-        'act': '1'
+    export default {
+        data() {
+            return {
+                'act': '4',
+                user: auth.user
+            }
+        },
+        methods: {
+            logout() {
+                auth.logout();
+                window.location.href="/login";
+            }
+        }
     }
-  }
-}
 </script>
 
 <style>

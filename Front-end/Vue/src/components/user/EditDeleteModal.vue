@@ -132,16 +132,6 @@
                 }, {
                     value: 'EMPLOYEE',
                     text: 'EMPLOYEE'
-                }],
-                roleList: [{
-                    value: 'ADMIN',
-                    text: 'ADMIN'
-                }, {
-                    value: 'HR',
-                    text: 'HR'
-                }, {
-                    value: 'EMPLOYEE',
-                    text: 'EMPLOYEE'
                 }]
             }
         },
@@ -190,8 +180,10 @@
             }
         },
         created() {
-            //povuci iz baze
-            this.noTeams = 2;
+            this.$http.get('http://localhost:8085/teams')
+                        .then(response => {
+                            this.noTeams = Object.keys(response.body._embedded.teams).length;
+                        });
         },
     }
 </script>

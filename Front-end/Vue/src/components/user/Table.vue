@@ -90,7 +90,7 @@
                                     <td>{{ u.role              }}</td>
                                     <td>{{ u.email             }}</td>
                                     <td>{{ u.telephone         }}</td>
-                                    <td>{{ u.team.id           }}</td>
+                                    <td>{{ u.team.name         }}</td>
                                     <td>{{ u.username          }}</td>
                                     <td v-show="admin">
                                         <p data-placement="top" data-toggle="tooltip" title="Edit">
@@ -161,10 +161,10 @@
                     'Add User',
                     'Close Form'
                 ],
-                filterBy: 'Firstname',
+                filterBy: 'Team',
                 keyword: '',
                 activeModal: '0',
-                admin: true,
+                admin: false,
                 hr: false,
                 userList: [],
                 user: {
@@ -226,16 +226,16 @@
                 return this.userList.sort(compare).filter((us) => {
                     switch(this.filterBy) {
                         case 'Firstname': 
-                            return us.username.toLowerCase().includes(this.keyword);
+                            return us.firstName.toLowerCase().includes(this.keyword);
                             break;
                         case 'Lastname': 
-                            return us.lastname.toLowerCase().includes(this.keyword);
+                            return us.lastName.toLowerCase().includes(this.keyword);
                             break;
                         case 'Role': 
                             return us.role.toLowerCase().includes(this.keyword);
                             break;
                         case 'Team': 
-                            return us.team.toLowerCase().includes(this.keyword);
+                            return us.team.name.toLowerCase().includes(this.keyword);
                             break;
                         case 'Gender': 
                             return us.gender.toLowerCase().includes(this.keyword);
@@ -245,12 +245,25 @@
             }
         },
         created() {
+            switch (localStorage.getItem('Role')) {
+                case 'ADMIN': 
+                    this.admin = 'true';
+                    break;
+                case 'HR':
+                    this.hr = 'true';
+                    break;
+            }
             this.$http.get('http://localhost:8085/users')
                             .then(response => {
                                 this.userList = response.body;
                             }, error => {
                                 //console.log(error)
                             });
+        },
+        route: {
+            canActivate() {
+                return false;
+          }
         }
     }
 </script>
