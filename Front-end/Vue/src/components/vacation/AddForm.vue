@@ -15,25 +15,25 @@
                         
                         <div style="margin-bottom: 25px" class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
-                            <input type="date" class="form-control" v-model="vacation.begin_date" placeholder="begin date" required>                                        
+                            <input type="date" class="form-control" v-model="vacation.beginDate" placeholder="begin date" required>                                        
                         </div>
                         
                         <div style="margin-bottom: 25px" class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-volume-up"></i></span>
-                            <input type="date" class="form-control" v-model="vacation.end_date" placeholder="end date" required>                         
+                            <input type="date" class="form-control" v-model="vacation.endDate" placeholder="end date" required>                         
                         </div>
                         
                         <div style="margin-bottom: 25px" class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
-                            <select type="text" class="form-control" v-model="vacation.vacation_type" placeholder="vacation type" required>   
+                            <select type="text" class="form-control" v-model="vacation.vacationType" placeholder="vacation type" required>   
                                 <option v-for="vt in vacTypeList" :value="vt.value">{{ vt.text }}</option>
                             </select>
                         </div>
                         
                         <div style="margin-bottom: 25px" class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-tower"></i></span>
-                            <select class="form-control" v-model="vacation.user_id" placeholder="user id" required> 
-                                <option v-for="n in noVacs" :value="n"> {{ n }} </option>
+                            <select class="form-control" v-model="vacation.user.id" placeholder="user id" required> 
+                                <option v-for="u in userList" :value="u.id"> {{ u.username }} </option>
                             </select>
                         </div>
 
@@ -61,21 +61,25 @@
         data() {
             return {
                 error: '',
+                noUsers: '',
                 vacation: {
                     id: '',
-                    begin_date: '',
-                    end_date: '',
-                    vacation_type: 'Remote Work',
-                    user_id: '1'
+                    beginDate: '',
+                    endDate: '',
+                    vacationType: '1',
+                    user: {
+                        id: '15'
+                    }
                 },
+                userList: '',
                 vacTypeList: [{
-                    value: 'Remote Work',
+                    value: '1',
                     text: 'Remote Work'
                 }, {
-                    value: 'Bonus Day',
+                    value: '1',
                     text: 'Bonus Day'
                 }, {
-                    value: 'Regular Vacation',
+                    value: '1',
                     text: 'Regular vacation'
                 }, {
                     value: 'Personal Day',
@@ -88,9 +92,24 @@
         },
         methods: {
             addVacation() {
-                this.vacation.id = this.noVacs + 1;
+                
+                this.$http.post('http://localhost:8082/vacations', 
+                    JSON.stringify(this.vacation)
+                ).then(response => {});
+                            
+                /*this.$http.get('http://localhost:8082/vacations')
+                            .then(response => {
+                                this.vacsList = response.body;
+                            });*/
+                
                 this.$emit('add', this.vacation);
             }
+        },
+        created() {
+            this.$http.get('http://localhost:8085/users')
+                .then(response => {
+                    this.userList = response.body;
+                });
         }
     }
 </script>

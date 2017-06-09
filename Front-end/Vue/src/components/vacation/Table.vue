@@ -29,7 +29,7 @@
                             <i class="glyphicon glyphicon-plus" style="float:right"></i>
                         </button>
                         <div style="height: 30px;"></div>
-                        <app-add v-show="showAdd" :vacation="vacation" :noVacs="vacList.length" @add="add"></app-add>
+                        <app-add v-show="showAdd" :vacation="vacation" :noVacs="vacList.length" @add="add($event)"></app-add>
                     </div>
 
                     <div class="row">    
@@ -72,10 +72,10 @@
                             <tbody>
                                 <tr v-for="(v, key) in filteredVacList">
                                     <td>{{ key + 1         }}</td>
-                                    <td>{{ v.begin_date    }}</td>
-                                    <td>{{ v.end_date      }}</td>
-                                    <td>{{ v.vacation_type }}</td>
-                                    <td>{{ v.user_id       }}</td>
+                                    <td>{{ v.beginDate    }}</td>
+                                    <td>{{ v.endDate      }}</td>
+                                    <td>{{ v.vacationType }}</td>
+                                    <td>{{ v.user.id       }}</td>
                                     <td v-show="admin || hr">
                                         <p data-placement="top" data-toggle="tooltip" title="Edit">
                                             <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" @click="populateVacation(key)"><span class="glyphicon glyphicon-pencil"></span></button>
@@ -120,14 +120,14 @@
             this.end_date      = ed;
             this.vacation_type = vt;
             this.user_id       = us;
-      }
+        }
     }
     
     export default {
         components: {
             'app-add': Add,
             'app-eddel': EditDelete
-            },
+        },
         data() {
             return {
                 showAdd: false,
@@ -141,22 +141,7 @@
                 activeModal: '0',
                 admin: true,
                 hr: true,
-                vacList: [
-                    new Vacation(
-                        '1',
-                        '2017-01-01',
-                        '2017-01-01',
-                        'Remote Work',
-                        '1'
-                        ),
-                    new Vacation(
-                        '2',
-                        '2017-01-01',
-                        '2017-01-01',
-                        'Sick Day',
-                        '2'
-                        )
-                ],
+                vacList: [],
                 vacation: [],
                 vacTypeList: [{
                     value: 'Remote Work',
@@ -185,12 +170,12 @@
             populateVacation(key) {
                 this.activeModal = key;
                 this.vacation = new Vacation(
-                                     this.vacList[key].id,
-                                     this.vacList[key].begin_date,
-                                     this.vacList[key].end_date,
-                                     this.vacList[key].vacation_type,
-                                     this.vacList[key].user_id
-                                     );
+                    this.vacList[key].id,
+                    this.vacList[key].begin_date,
+                    this.vacList[key].end_date,
+                    this.vacList[key].vacation_type,
+                    this.vacList[key].user_id
+                );
             },
             update() {
                 this.vacList[this.activeModal] = this.vacation;
@@ -219,11 +204,18 @@
                 return this.vacList.sort(compare).filter((va) => {
                     switch(this.filterBy) {
                         case 'User': 
-                            return va.user_id.toLowerCase().includes(this.keyword);
+                            return va.user.id.toString().toLowerCase().includes(this.keyword);
                             break;
                     }
                 })
             }
+        },
+        created() {
+            this.$http.get('http://localhost:8082/vacations').then(response => {
+                this.vacList = response.body;
+            }, error => {
+                //console.log(error)
+            });
         }
     }
 </script>
