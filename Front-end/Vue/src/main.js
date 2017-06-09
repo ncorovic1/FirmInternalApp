@@ -3,6 +3,7 @@
 import Vue         from 'vue';
 import VueRouter   from 'vue-router';
 import VueResource from 'vue-resource';
+import VeeValidate from 'vee-validate';
 import App         from './App';
 
 import Message   from './components/Message';
@@ -27,6 +28,7 @@ Auth.checkAuth();
 //Vue.use for adding core functionality plugins and now it can be used on Vue instance
 Vue.use(VueRouter);
 Vue.use(VueResource);
+Vue.use(VeeValidate);
 Vue.http.options.emulateJSON = true;
 Vue.http.interceptors.push((request, next) => {
     if( request.url != 'http://localhost:8085/login') {
