@@ -70,7 +70,7 @@
                         <div style="margin-bottom: 25px" class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-tags"></i></span>
                             <select class="form-control" v-model="user.team.id" placeholder="team id" required>
-                                <option v-for="n in noTeams" :value="n"> {{ n }} </option>
+                                <option v-for="t in teamList" :value="t.id">{{ t.name }}</option>
                             </select>
                         </div>
                         
@@ -130,7 +130,7 @@
                     password: ''
                 },
                 error: '',
-                noTeams: '',
+                teamList: '',
                 genderList: [{
                     value: 'male',
                     text: 'male'
@@ -173,15 +173,15 @@
                 this.$http.get('http://localhost:8085/users/byemail/' + this.user.email)
                             .then(response => {
                                 this.user.id = response.body.id;
+                                this.$emit('add', this.user);
                             });
-                            
-                this.$emit('add', this.user);
+                
             }
         },
         created() {
-            this.$http.get('http://localhost:8085/teams')
+            this.$http.get('http://localhost:8083/teams')
                             .then(response => {
-                                this.noTeams = Object.keys(response.body._embedded.teams).length;
+                                this.teamList = response.body;
                             });
         },
         computed: {

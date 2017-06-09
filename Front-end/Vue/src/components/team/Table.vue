@@ -14,7 +14,7 @@
                             <i class="glyphicon glyphicon-plus" style="float:right"></i>
                         </button>
                         <div style="height: 30px;"></div>
-                        <app-add v-show="showAdd" :team="team" :noTeams="teamList.length" @add="add"></app-add>
+                        <app-add v-show="showAdd" :team="team" :noTeams="teamList.length" @add="add($event)"></app-add>
                     </div>
 
                     <div class="row">    
@@ -59,10 +59,10 @@
                             </thead>
                             <tbody>
                                 <tr v-for="(t, key) in filteredTeamList">
-                                    <td>{{ key + 1  }}</td>
-                                    <td>{{ t.handle }}</td>
-                                    <td>{{ t.info   }}</td>
-                                    <td>{{ t.name   }}</td>
+                                    <td>{{ key + 1        }}</td>
+                                    <td>{{ '@' + t.handle }}</td>
+                                    <td>{{ t.info         }}</td>
+                                    <td>{{ t.name         }}</td>
                                     <td>
                                         <p data-placement="top" data-toggle="tooltip" title="Members">
                                             <button class="btn btn-primary btn-xs" data-title="Members" data-toggle="modal" data-target="#members" @click="populateTeam(key)"><span class="glyphicon glyphicon-th-list"></span>
@@ -138,20 +138,7 @@
                 activeModal: '0',
                 admin: true,
                 hr: true,
-                teamList: [
-                    new Team(
-                        '1',
-                        '@alp',
-                        'Dobar tim',
-                        'Alpha'
-                        ),
-                    new Team(
-                        '2',
-                        '@bet',
-                        'Los tim',
-                        'Beta'
-                        )
-                ],
+                teamList: [],
                 team: []
             }
         },
@@ -174,10 +161,9 @@
                 this.teamList.push();
                 this.team = [];
             },
-            add() {
-                this.teamList.push(this.team);
+            add(args) {
+                this.teamList.push(args);
                 this.teamFormToggle();
-                this.team = [];
             }
         },
         computed: {
@@ -204,6 +190,14 @@
                     }
                 })
             }
+        },
+        created() {
+            this.$http.get('http://localhost:8083/teams')
+                            .then(response => {
+                                this.teamList = response.body;
+                            }, error => {
+                                //console.log(error)
+                            });
         }
     }
 </script>

@@ -10,24 +10,33 @@
                     <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>  
                     <form id="loginform" class="form-horizontal" role="form">
                         
-                        <div class="alert alert-danger" v-if="error">
-                            <p>{{ error }}</p>
+                        <div class="alert alert-danger" v-if="err.status">
+                            <p>{{ err.value }}</p>
                         </div>
                         
-                        <div style="margin-bottom: 25px" class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-volume-up"></i></span>
-                            <input type="text" class="form-control" v-model="team.handle" placeholder="handle" required>                           
-                        </div>
-                        
-                        <div style="margin-bottom: 25px" class="input-group">
+                        <div v-bind:class="['input-group', errors.has('handle') ? 'has-error' : 'space']">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                            <input type="text" class="form-control" v-model="team.info" placeholder="info" required>                                        
+                            <input type="text" class="form-control" v-model="team.handle" name="handle" v-validate="'required'" placeholder="handle" required>   
                         </div>
+                        <span class="help-block" v-show="errors.has('handle') != ''">
+                            <strong>{{ errors.first('handle') }}</strong>
+                        </span>
                         
-                        <div style="margin-bottom: 25px" class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
-                            <input type="text" class="form-control" v-model="team.name" placeholder="name" required>                                        
+                        <div v-bind:class="['input-group', errors.has('info') ? 'has-error' : 'space']">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                            <input type="text" class="form-control" v-model="team.info" name="info" v-validate="'required'" placeholder="info" required>   
                         </div>
+                        <span class="help-block" v-show="errors.has('info') != ''">
+                            <strong>{{ errors.first('info') }}</strong>
+                        </span>
+                        
+                        <div v-bind:class="['input-group', errors.has('name') ? 'has-error' : 'space']">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                            <input type="text" class="form-control" v-model="team.name" name="name" v-validate="'required'" placeholder="name" required>   
+                        </div>
+                        <span class="help-block" v-show="errors.has('name') != ''">
+                            <strong>{{ errors.first('name') }}</strong>
+                        </span>
 
                         <div style="margin-top:10px" class="form-group">
                             <div class="col-sm-12 controls">
@@ -48,19 +57,50 @@
 <script>
     export default {
         props: [
-            'team',
             'noTeams'
         ],
         data() {
             return {
-                error: ''
+                team: {
+                    id: '',
+                    handle: '',
+                    info: '',
+                    name: ''
+                },
+                err: {
+                    status: false,
+                    value: 'Empty fields are not allowed!'
+                }
             }
         },
         methods: {
             addTeam() {
-                this.team.id = this.noTeams + 1;
-                this.$emit('add', event.target.value);
+                if( this.errors.errors == '' ) {
+                    if( this.team.handle == '' || this.team.name == '' || this.team.name == '' ) {
+                        this.err.status = true;
+                        return;
+                    }
+                    else {
+                        this.$http.post('http://localhost:8083/teams', 
+                                        JSON.stringify(this.team)
+                                        ).then(response => {
+                                    });
+                            
+                        this.$http.get('http://localhost:8083/teams/byname/' + this.team.name)
+                                        .then(response => {
+                                            this.team.id = response.body.id;
+                                        });
+                        this.$emit('add', this.team);
+                    }
+                }
+                
             }
         }
     }
 </script>
+
+<style>
+    .space {
+        margin-bottom: 25px;
+    }
+</style>
