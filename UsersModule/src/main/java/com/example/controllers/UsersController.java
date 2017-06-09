@@ -46,8 +46,13 @@ public class UsersController {
 	public User getUserByName(@PathVariable String name) {
 	    return usersService.getUserByFirstName(name);
 	}
+	
+	@RequestMapping(value = "/byusername/{name}", method = RequestMethod.GET)
+	public User getUserByUsername(@PathVariable String name) {
+	    return usersService.getUserByUsername(name);
+	}
 	    
-	@RequestMapping(value = "/byemail/{email}", method = RequestMethod.GET)
+	@RequestMapping(value = "/byemail/{email:.+}", method = RequestMethod.GET)
 	public User getUserByEmail(@PathVariable String email) {
 	    	return usersService.getUserByEmail(email);
 	}
