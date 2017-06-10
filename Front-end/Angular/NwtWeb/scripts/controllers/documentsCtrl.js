@@ -41,14 +41,17 @@
             console.log($scope.previewDocument);
 
         }
+
+
         $scope.getDocuments = function () {
             documentService.list("documents", function (data) {
-                if (data) {
-                    $scope.documents = data;
+                if ($rootScope.isLoggedIn == true) {
+                    if (data) {
+                        $scope.documents = data;
+                    }
                 }
             })
         };
-        $scope.getDocuments();
 
         $scope.addDocument = function () {
             dataService.create("documents",
@@ -69,7 +72,6 @@
                     notificationsConfig.error($rootScope.message);
                 }
             });
-        }
-    }]);
-
-}());
+        };
+    }
+    ])})
