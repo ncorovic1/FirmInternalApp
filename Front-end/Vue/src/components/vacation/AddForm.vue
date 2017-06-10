@@ -25,14 +25,14 @@
                         
                         <div style="margin-bottom: 25px" class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
-                            <select type="text" class="form-control" v-model="vacation.vacationType" placeholder="vacation type" required>   
-                                <option v-for="vt in vacTypeList" :value="vt.value">{{ vt.text }}</option>
+                            <select type="text" class="form-control" v-model="vacation.vacationType.id" placeholder="vacation type" required>   
+                                <option v-for="vt in vacTypeList" :value="vt.id">{{ vt.description }}</option>
                             </select>
                         </div>
                         
                         <div style="margin-bottom: 25px" class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-tower"></i></span>
-                            <select class="form-control" v-model="vacation.user.id" placeholder="user id" required> 
+                            <select class="form-control" v-model="vacation.user.id" placeholder="u.id" required> 
                                 <option v-for="u in userList" :value="u.id"> {{ u.username }} </option>
                             </select>
                         </div>
@@ -66,49 +66,65 @@
                     id: '',
                     beginDate: '',
                     endDate: '',
-                    vacationType: '1',
+                    vacationType: {
+                        id: '',
+                        description: ''    
+                    },
                     user: {
-                        id: '15'
+                        id: '',
+                        firstName: '',
+                        lastName: ''
                     }
                 },
-                userList: '',
-                vacTypeList: [{
-                    value: '1',
-                    text: 'Remote Work'
-                }, {
-                    value: '1',
-                    text: 'Bonus Day'
-                }, {
-                    value: '1',
-                    text: 'Regular vacation'
-                }, {
-                    value: 'Personal Day',
-                    text: 'Personal Day'
-                }, {
-                    value: 'Sick Day',
-                    text: 'Sick Day'
-                }],
+                userList: [],
+                vacTypeList: []
             }
         },
         methods: {
             addVacation() {
-                
                 this.$http.post('http://localhost:8082/vacations', 
-                    JSON.stringify(this.vacation)
-                ).then(response => {});
+                                JSON.stringify(this.vacation))
+                                .then(response => {});
                             
                 /*this.$http.get('http://localhost:8082/vacations')
                             .then(response => {
                                 this.vacsList = response.body;
                             });*/
-                
+                            
+                var us = this.getUser(this.vacation.user.id);
+                var vt = this.getVacType(this.vacation.user.id);
+                this.vacation.user.firstName = us.firstName;
+                this.vacation.user.lastName  = us.lastName;
+                this.vacation.vacationType.description = vt.description;
+    
                 this.$emit('add', this.vacation);
+            },
+            getUser(id) {
+                for(var k in this.userList) {
+                    if (this.userList[k].id == id) {
+                        return this.userList[k];
+                    }
+                }
+            },
+            getVacType(id) {
+                for(var k in this.vacTypeList) {
+                    if (this.vacTypeList[k].id == id) {
+                        return this.vacTypeList[k];
+                    }
+                }
             }
         },
         created() {
             this.$http.get('http://localhost:8085/users')
                 .then(response => {
                     this.userList = response.body;
+                    this.vacation.user.id = this.userList[0].id;
+                });
+            
+            this.$http.get('http://localhost:8082/vacationTypes')
+                .then(response => {
+                    this.vacTypeList = response.body;
+                    this.vacation.vacationType.id = this.vacTypeList[0].id;
                 });
         }
     }

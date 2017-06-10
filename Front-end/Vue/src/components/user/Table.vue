@@ -122,6 +122,7 @@
             </div>
         </div>
         <app-modal :user="user" @deleteUser="userList.splice(activeModal, 1)" @update="update"></app-modal>
+        {{ userList }}
     </div>
 </template>
 

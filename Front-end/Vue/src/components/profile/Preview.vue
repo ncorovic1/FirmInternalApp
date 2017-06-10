@@ -10,7 +10,7 @@
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        {{ user.firstname + ' ' + user.lastname }}
+                        {{ user.firstName + ' ' + user.lastName }}
                     </h3>
                     <h3 class="panel-title subtitle">
                         {{ '@' + user.username }}
@@ -36,11 +36,11 @@
                                     </tr>
                                     <tr>
                                         <td>Days of Vacatioin:</td>
-                                        <td>{{ user.daysov }}</td>
+                                        <td>{{ user.daysOfVacation }}</td>
                                     </tr>
                                     <tr>
                                         <td>Date of Birth</td>
-                                        <td>{{ user.dateob }}</td>
+                                        <td>{{ user.dateOfBirth }}</td>
                                     </tr>
                                     <tr>
                                         <td>Gender</td>
@@ -56,7 +56,7 @@
                                     </tr>
                                     <tr>
                                         <td>Phone Number</td>
-                                        <td>{{ user.contact }}</td>
+                                        <td>{{ user.telephone }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -76,29 +76,13 @@
     export default {
         data() {
             return {
-                user: {
-                    id:        '1',
-                    firstname: 'Amra',
-                    lastname:  'Hadziarapovic',
-                    address:   'Cadordzina 45a',
-                    dateob:    '1994-01-01',
-                    daysov:    '22',
-                    gender:    'Female',
-                    role:      'ADMIN',
-                    email:     'amra.hadziarapovic@gmail.com',
-                    contact:   '062/908-445',
-                    team:      '1',
-                    username:  'amra',
-                    password:  '1234'
-                },
-                userr: []
+                user: []
             }
         },
         created() {
-            this.$http.get('http://localhost:8085/byusername/' + localStorage.getItem('Username'))
+            this.$http.get('http://localhost:8085/users/byusername/' + localStorage.getItem('Username'))
                             .then(response => {
-                                this.userr = response.body;
-                                alert(this.userr);
+                                this.user = response.body;
                             });
         }
     }

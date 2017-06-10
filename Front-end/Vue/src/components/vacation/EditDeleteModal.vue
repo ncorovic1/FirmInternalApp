@@ -14,18 +14,20 @@
                         
                         <div style="margin-bottom: 25px" class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
-                            <input type="date" class="form-control" v-model="vacation.begin_date" placeholder="begin date" required>                                        
+                            <input type="date" class="form-control" v-model="vacation.beginDate" placeholder="begin date" required>                                        
                         </div>
                         
                         <div style="margin-bottom: 25px" class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-volume-up"></i></span>
-                            <input type="date" class="form-control" v-model="vacation.end_date" placeholder="end date" required>                         
+                            <input type="date" class="form-control" v-model="vacation.endDate" placeholder="end date" required>                         
                         </div>
                         
                         <div style="margin-bottom: 25px" class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
-                            <select type="text" class="form-control" v-model="vacation.vacation_type" placeholder="vacation type" required>   
-                                <option v-for="vt in vacTypeList" :value="vt.value">{{ vt.text }}</option>
+                            <select type="text" class="form-control" id="vacTypeId" v-model="vacTypeId" placeholder="vacation type" required>   
+                                <option v-for="vt in vacTypeList" :value="vt.id">
+                                    {{ vt.description + ' - [' + vt.factor +']'}}
+                                </option>                            
                             </select>
                         </div>
                     </div>
@@ -65,33 +67,40 @@
         data() {
             return {
                 error: '',
-                vacTypeList: [{
-                    value: 'Remote Work',
-                    text: 'Remote Work'
-                }, {
-                    value: 'Bonus Day',
-                    text: 'Bonus Day'
-                }, {
-                    value: 'Regular Vacation',
-                    text: 'Regular vacation'
-                }, {
-                    value: 'Personal Day',
-                    text: 'Personal Day'
-                }, {
-                    value: 'Sick Day',
-                    text: 'Sick Day'
-                }],
+                vacTypeList: [],
             }
         },
         methods: {
             cancelUpdateVacation() {
             },
             updateVacation() {
+                var e = document.getElementById('vacTypeId');
+                var f = e.options[e.selectedIndex];
+                
+                this.vacation.vacationType.id = f.value;
+                this.vacation.vacationType.description = f.text.split('-')[0]; 
+                this.vacation.vacationType.factor = f.text.split('-')[1].split('[')[1].split(']')[0];
+                alert(JSON.stringify(this.vacation));
+                this.$http.put('http://localhost:8082/vacations/' + this.vacation.id, 
+                                JSON.stringify(this.vacation));
+                
                 this.$emit('update', event.target.value);
             },
             deleteVacation() {
+                this.$http.delete('http://localhost:8082/vacations/' + this.vacation.id)
                 this.$emit('deleteVacation', event.target.value);
             }
+        },
+        computed: {
+            vacTypeId() {
+                return this.vacation.vacationType != null ? this.vacation.vacationType.id : this.vacTypeList[0];
+            }
+        },
+        created() {
+            this.$http.get('http://localhost:8082/vacationTypes')
+                .then(response => {
+                    this.vacTypeList = response.body;
+                });
         }
     }
 </script>

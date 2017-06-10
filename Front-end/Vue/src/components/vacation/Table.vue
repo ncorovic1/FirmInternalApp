@@ -9,12 +9,19 @@
                     <div class="row">
                         <div class="col-md-4 col-md-offset-4">
                             <div style="margin-bottom: 5px" class="input-group">
-                                <input type="text" class="form-control" v-model="vacType" placeholder="new vacation type" required>     
+                                <input type="text" class="form-control" v-model="newVacType.description" placeholder="vacation type description" required>
+                                <input type="number" class="form-control" v-model="newVacType.factor" placeholder="vacation type factor" min="-1" max="1" required> 
                                 <span class="input-group-addon" @click="addVacType">ADD</span>
                             </div>
-                            <select type="text" class="form-control" placeholder="vacation type" required>   
-                                <option v-for="vt in vacTypeList" :value="vt.value">{{ vt.text }}</option>
-                            </select>
+                            <div style="margin-bottom: 5px" class="input-group">
+                                <span class="input-group-addon" @click="edVacType">E</span>
+                                <select type="text" v-model="chosenVT" id="chosenVt" class="form-control" placeholder="vacation type" required>   
+                                    <option v-for="vt in vacTypeList" :value="vt.id">
+                                        {{ vt.description + ' - [' + vt.factor +']'}}
+                                    </option>
+                                </select>
+                                <span class="input-group-addon" @click="delVacType">D</span>
+                            </div>
                         </div>
                         <div style="height: 30px;"></div>
                     </div>
@@ -60,22 +67,22 @@
                         <table id="mytable" class="table table-bordred table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <th>No.           </th>
-                                    <th>Begin date    </th>
-                                    <th>End date      </th>
-                                    <th>Vacation type </th>
-                                    <th>User id       </th>
+                                    <th>No.                  </th>
+                                    <th>Begin date           </th>
+                                    <th>End date             </th>
+                                    <th>Vacation description </th>
+                                    <th>User                 </th>
                                     <th v-show="admin || hr">Edit   </th>
                                     <th v-show="admin || hr">Delete </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="(v, key) in filteredVacList">
-                                    <td>{{ key + 1         }}</td>
-                                    <td>{{ v.beginDate    }}</td>
-                                    <td>{{ v.endDate      }}</td>
-                                    <td>{{ v.vacationType }}</td>
-                                    <td>{{ v.user.id       }}</td>
+                                    <td>{{ key + 1                                  }}</td>
+                                    <td>{{ v.beginDate                              }}</td>
+                                    <td>{{ v.endDate                                }}</td>
+                                    <td>{{ v.vacationType.description               }}</td>
+                                    <td>{{ v.user.firstName + ' ' + v.user.lastName }}</td>
                                     <td v-show="admin || hr">
                                         <p data-placement="top" data-toggle="tooltip" title="Edit">
                                             <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" @click="populateVacation(key)"><span class="glyphicon glyphicon-pencil"></span></button>
@@ -105,6 +112,7 @@
             </div>
         </div>
         <app-eddel :vacation="vacation" @deleteVacation="vacList.splice(activeModal, 1)" @update="update"></app-eddel>
+        {{ vacList }}
     </div>
 </template>
 
@@ -115,11 +123,11 @@
     
     class Vacation {
         constructor(id, bd, ed, vt, us) {
-            this.id            = id;
-            this.begin_date    = bd;
-            this.end_date      = ed;
-            this.vacation_type = vt;
-            this.user_id       = us;
+            this.id           = id;
+            this.beginDate    = bd;
+            this.endDate      = ed;
+            this.vacationType = vt;
+            this.user         = us;
         }
     }
     
@@ -143,23 +151,13 @@
                 hr: true,
                 vacList: [],
                 vacation: [],
-                vacTypeList: [{
-                    value: 'Remote Work',
-                    text: 'Remote Work'
-                }, {
-                    value: 'Bonus Day',
-                    text: 'Bonus Day'
-                }, {
-                    value: 'Regular Vacation',
-                    text: 'Regular vacation'
-                }, {
-                    value: 'Personal Day',
-                    text: 'Personal Day'
-                }, {
-                    value: 'Sick Day',
-                    text: 'Sick Day'
-                }],
-                vacType: ''
+                vacTypeList: [],
+                newVacType: {
+                    id: "",
+                    description: "",
+                    factor: 0
+                },
+                chosenVT: ''
             }
         },
         methods: {
@@ -171,11 +169,12 @@
                 this.activeModal = key;
                 this.vacation = new Vacation(
                     this.vacList[key].id,
-                    this.vacList[key].begin_date,
-                    this.vacList[key].end_date,
-                    this.vacList[key].vacation_type,
-                    this.vacList[key].user_id
+                    this.vacList[key].beginDate,
+                    this.vacList[key].endDate,
+                    this.vacList[key].vacationType,
+                    this.vacList[key].user
                 );
+                alert(JSON.stringify(this.vacation));
             },
             update() {
                 this.vacList[this.activeModal] = this.vacation;
@@ -187,8 +186,41 @@
                 this.vacationFormToggle();
             },
             addVacType() {
-                if (this.vacType.length > 2)
-                    this.vacTypeList.unshift({'text': this.vacType, 'value': this.vacType})
+                if (this.newVacType.description.length > 2) {
+                    this.$http.post('http://localhost:8082/vacationTypes', 
+                                    JSON.stringify(this.newVacType))
+                                    .then(response => {
+                                        this.populateVacType();
+                                    });
+                }
+            },
+            edVacType() {
+                if (this.newVacType.description.length > 2) {
+                    this.newVacType.id = this.chosenVT;
+                    this.$http.put('http://localhost:8082/vacationTypes/' + this.chosenVT, 
+                                    JSON.stringify(this.newVacType))
+                                    .then(response => {
+                                        for (var k in this.vacTypeList)
+                                            if (k.id == this.newVacType.id) {
+                                                this.vacTypeList[ind].description = this.newVacType.description;
+                                                this.vacTypeList[ind].factor = this.newVacType.factor;
+                                                break;
+                                            }
+                                    });
+                }
+            },
+            delVacType() {
+                this.$http.delete('http://localhost:8082/vacationTypes/' + this.chosenVT)
+                    .then(response => {
+                        this.populateVacType();
+                    });
+            },
+            populateVacType() {
+                this.$http.get('http://localhost:8082/vacationTypes')
+                    .then(response => {
+                        this.vacTypeList = response.body;
+                        this.chosenVT = this.vacTypeList[0].id;
+                    });
             }
         },
         computed: {
@@ -211,11 +243,12 @@
             }
         },
         created() {
-            this.$http.get('http://localhost:8082/vacations').then(response => {
-                this.vacList = response.body;
-            }, error => {
-                //console.log(error)
-            });
+            this.$http.get('http://localhost:8082/vacations')
+                .then(response => {
+                    this.vacList = response.body;
+                });
+            
+            this.populateVacType();
         }
     }
 </script>

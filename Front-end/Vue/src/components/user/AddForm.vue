@@ -124,7 +124,8 @@
                     email: '',
                     telephone: '',
                     team: {
-                        id: '1',
+                        id: 1,
+                        name: ''
                     },
                     username: '',
                     password: ''
@@ -164,18 +165,25 @@
             addUser() {
                 this.user.email = this.mail;
                 this.user.dateOfBirth = new Date(this.user.dateOfBirth).getTime();
-                alert(JSON.stringify(this.user));
+
                 this.$http.post('http://localhost:8085/users', 
                                 JSON.stringify(this.user)
                                 ).then(response => {
                             });
-                            
-                this.$http.get('http://localhost:8085/users/byemail/' + this.user.email)
+                
+                this.$http.get('http://localhost:8085/users/byusername/' + this.user.username)
                             .then(response => {
                                 this.user.id = response.body.id;
+                                this.user.team.name = this.getTeam(this.user.team.id).name;
                                 this.$emit('add', this.user);
                             });
-                
+            },
+            getTeam(id) {
+                for(var k in this.teamList) {
+                    if (this.teamList[k].id == id) {
+                        return this.teamList[k];
+                    }
+                }
             }
         },
         created() {
