@@ -16,23 +16,43 @@ public class Vacation {
 	private long id;
 	private Date beginDate;
 	private Date endDate;
-	private int vacationType;
+	
+	@ManyToOne
+	private VacationType vacationType;
 	
 	@ManyToOne
 	private User user;
 	
 	protected Vacation() {}
 	
+	public Vacation(Date beginDate, Date endDate, VacationType vac, User u) {
+		super();
+		this.beginDate    = beginDate;
+		this.endDate      = endDate;
+		this.vacationType = vac;
+		this.user         = u;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+	
 	public Date getBeginDate() {
 		return beginDate;
 	}
-	public int getVacationType()
+	
+	public VacationType getVacationType()
 	{
 		return vacationType;
 	}
-	public int setVacationType(int id)
+	
+	public VacationType setVacationType(VacationType vt)
 	{
-		return this.vacationType=id;
+		return this.vacationType = vt;
 	}
 
 	public void setBeginDate(Date beginDate) {
@@ -45,13 +65,6 @@ public class Vacation {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
-	}
-	public Vacation(long id, Date beginDate, Date endDate, int vac, User u) {
-		super();
-		this.id = id;
-		this.beginDate = beginDate;
-		this.endDate = endDate;
-		this.user = u;
 	}
 
 	public User getUser() {

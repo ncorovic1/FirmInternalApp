@@ -16,6 +16,20 @@ public class VacationType {
 	
 	protected VacationType() {}
 	
+	public VacationType(String description, int factor) {
+		super();
+		this.description = description;
+		this.factor = factor;
+	}
+	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+	
 	public String getDescription() {
 		return description;
 	}
@@ -29,12 +43,6 @@ public class VacationType {
 	}
 
 	public void setFactor(int factor) {
-		this.factor = factor;
-	}
-	public VacationType(long id, String description, int factor) {
-		super();
-		this.id = id;
-		this.description = description;
 		this.factor = factor;
 	}
 }
