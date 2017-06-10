@@ -26,7 +26,9 @@
                                 $http.defaults.headers.common.Authorization = 'Bearer ' + data.data.access_token;
                                 $cookies.put("access_token", data.data.access_token);
                             }, error => {
-                         console.log(error)});
+                                console.log(error)
+                            });
+        };
             //$http({
             //    method:'POST',
             //    url: 'http://localhost:8085/login',
@@ -41,7 +43,7 @@
             //});
 		
         //    $window.location.href = '/users';
-        };
+        
        
     function handleSuccess() {
         return { success: true };
