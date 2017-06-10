@@ -142,6 +142,7 @@
                 this.$emit('update', event.target.value);
             },
             deleteUser() {
+                
                 this.$emit('deleteUser', event.target.value);
             }
         },

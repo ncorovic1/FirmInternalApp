@@ -18,7 +18,6 @@
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        {{user.gender = 'malee'}}
                         <div class="col-md-3 col-lg-3 " align="center"> 
                             <img alt="User Pic" src="http://www.clker.com/cliparts/U/p/K/K/m/P/boy-comic.svg" class="img-circle img-responsive" v-if="user.gender == 'male'">
                             <img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png" class="img-circle img-responsive" v-else>
@@ -91,9 +90,16 @@
                     team:      '1',
                     username:  'amra',
                     password:  '1234'
-                }
-
+                },
+                userr: []
             }
+        },
+        created() {
+            this.$http.get('http://localhost:8085/byusername/' + localStorage.getItem('Username'))
+                            .then(response => {
+                                this.userr = response.body;
+                                alert(this.userr);
+                            });
         }
     }
 </script>

@@ -269,8 +269,5 @@
 </script>
 
 <style>
-    .btn-sq-lg {
-          width: 150px !important;
-          height: 150px !important;
-        }
+
 </style>

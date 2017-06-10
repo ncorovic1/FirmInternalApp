@@ -27,6 +27,7 @@ export default {
                            .then(response => {
                                 if( response.headers.get('Authorization') != null ) {
                                     localStorage.setItem('Authorization', response.headers.get('Authorization'));
+                                    localStorage.setItem('ActivePage', '4');
                                     this.user.authenticated = true;
                                     var us = this.setUser(context, creds.username);
                                 }
@@ -53,7 +54,6 @@ export default {
     checkAuth() {
         var jwt = localStorage.getItem('Authorization');
         if(jwt != null) {
-            alert('checked');
             this.user.authenticated = true;
             this.user.role          = localStorage.getItem('Role');
             this.user.username      = localStorage.getItem('Username');

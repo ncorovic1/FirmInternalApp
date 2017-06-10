@@ -164,7 +164,7 @@
             addUser() {
                 this.user.email = this.mail;
                 this.user.dateOfBirth = new Date(this.user.dateOfBirth).getTime();
-                
+                alert(JSON.stringify(this.user));
                 this.$http.post('http://localhost:8085/users', 
                                 JSON.stringify(this.user)
                                 ).then(response => {
