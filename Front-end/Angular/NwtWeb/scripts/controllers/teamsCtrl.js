@@ -1,7 +1,7 @@
 ﻿(function () {
     var NwtWeb = angular.module('NwtWeb');
 
-    NwtWeb.controller('teamsController', ['$rootScope', '$scope', '$location', 'teamService', function ($rootScope, $scope, $location, teamService) {
+    NwtWeb.controller('teamsController', ['$rootScope', '$scope', '$location', 'teamService', '$http', function ($rootScope, $scope, $location, teamService, $http) {
 
         $scope.loadUsers = function () {
             $scope.waitUsers = true;
@@ -11,11 +11,12 @@
                         $scope.teams = data;
                         $scope.waitUsers = false;
                     } else {
-                        notificationsConfig.error("Error!");
+                        alert("Error!");
                     }
                 });
         };
         $scope.loadUsers();
+        console.log($http.defaults.headers.common.Authorization);
     }]);
 
 }());

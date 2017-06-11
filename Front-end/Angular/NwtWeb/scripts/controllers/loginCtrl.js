@@ -20,7 +20,8 @@
                             })
                             .then(response => {
                                 $http.defaults.headers.common.Authorization = response.headers('Authorization');
-                                $window.location.href = '/users';
+                                $window.localStorage.setItem("token", response.headers('Authorization'));
+                                $window.location.href = '/#/users';
                             }, error => {
                          console.log(error)});
            
@@ -38,16 +39,6 @@
         return function () {
             return { success: false, message: error };
         };
-    }
-    $scope.login = function () {
-        var response = $scope.loginCheck();
-        $rootScope.token = response;
-        $window.localStorage.setItem("authdata", $scope.login.username + response);
-        $http.defaults.headers.common.Authorization = 'Bearer ' + response;
-
-        $log.log(response);
-        $rootScope.isLoggedIn = true;
-        $location.path('/users');
     }
 
     $scope.sendResetPasswordEmail = function (email) {

@@ -8,11 +8,6 @@
             profileImg: "",
             id:0
         }
-        $scope.Login(un, pw) = function() {
-            var a = $http.post('http://localhost:8085/login', { username: un, password: pw }).then(handleSuccess, handleError('Error deleting user'));
-            return a;
-        }
-        $scope.Login("irma", "password");
         $scope.users =
         [
             {
