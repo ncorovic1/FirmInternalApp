@@ -92,6 +92,10 @@ img.img-circle {
     height: 40px;
     width: 40px;
 }
+img.img-rounded{
+    height: 80px;
+    width: 80px;
+}
 
 /* preloader styles
 /* ========================================== */
