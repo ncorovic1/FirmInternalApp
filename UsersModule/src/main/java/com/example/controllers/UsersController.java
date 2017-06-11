@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -20,6 +21,7 @@ import com.example.services.UniqueRandomKeyService;
 import com.example.services.UsersService;
 
 @RestController
+@CrossOrigin
 @RequestMapping(value = "/users")
 public class UsersController {
 
@@ -29,6 +31,7 @@ public class UsersController {
 	private UniqueRandomKey urk;
 	private MailService mailer;
 	UsersRepository ur;
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public Iterable<User> getAllUsers() {
 		List<User> users = new ArrayList<>();
@@ -46,10 +49,15 @@ public class UsersController {
 	    return usersService.getUserByFirstName(name);
 	}
 	    
-	@RequestMapping(value = "/byemail/{email}", method = RequestMethod.GET)
-	public User getUserByEmail(@PathVariable String email) {
-	    	return usersService.getUserByEmail(email);
+	@RequestMapping(value = "/byusername/{name}", method = RequestMethod.GET)
+	public User getUserByUsername(@PathVariable String name) {
+	    return usersService.getUserByUsername(name);
 	}
+	  	    
+	@RequestMapping(value = "/byemail/{email:.+}", method = RequestMethod.GET)
+  	public User getUserByEmail(@PathVariable String email) {
+  	    	return usersService.getUserByEmail(email);
+  	}
 	
 	@RequestMapping(value = "/byteam/{team_id}", method = RequestMethod.GET)
 	public List<User> getUsersByTeam(@PathVariable long team_id) {

@@ -37,8 +37,8 @@ public class VacationsService {
 		vacationsRepository.delete(id);
 	}
 
-	public Vacation getVacationByType(int id) {
-		return vacationsRepository.findByVacationType(id);
+	public List<Vacation> getVacationByType(long id) {
+		return vacationsRepository.findByVacationTypeId(id);
 	}
 
 	public Vacation getVacationByBeginDate(Date date) {
