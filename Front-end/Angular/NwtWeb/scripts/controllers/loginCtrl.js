@@ -11,7 +11,7 @@
         }
         $scope.loginCheck = function (un, pw) {
             var creds = { 'username': 'irma', 'password': 'password' }
-            $http.post('http://localhost:8085/login', creds, 
+            $http.post('http://localhost:8085/login', JSON.stringify(creds), 
                             {
                                 headers: {
                                     'Content-Type': 'text/plain',
@@ -19,28 +19,11 @@
                                 transformResponse: undefined
                             })
                             .then(response => {
-                                console.log(response);
-                                console.log(response.status);
-                                console.log(response.headers);
-                                console.log(response.headers.get('Authorization'));
-                                $http.defaults.headers.common.Authorization = 'Bearer ' + data.data.access_token;
-                                $cookies.put("access_token", data.data.access_token);
+                                $http.defaults.headers.common.Authorization = response.headers('Authorization');
+                                $window.location.href = '/users';
                             }, error => {
                          console.log(error)});
-            //$http({
-            //    method:'POST',
-            //    url: 'http://localhost:8085/login',
-            //    contentType: "application/json",
-            //    data: angular.toJson({ username: 'irma', password: 'password' }, true),
-            //    transformResponse:undefined,
-            //}).then(function(result) {
-            //    console.log(result.data);
-            //    $scope.message = result;
-            //}, function(error) {
-            //    console.log(error);
-            //});
-		
-        //    $window.location.href = '/users';
+           
         };
        
     function handleSuccess() {
