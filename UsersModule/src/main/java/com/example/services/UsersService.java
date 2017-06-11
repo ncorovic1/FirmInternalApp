@@ -61,7 +61,6 @@ public class UsersService {
 		return usersRepository.findByTeamId(teamId);
 	}
 	
-	//@PreAuthorize("hasRole('ADMIN')")
 	public void addUser(String header, User user) {
 		usersRepository.save(user);
 		
@@ -71,8 +70,6 @@ public class UsersService {
 		
 		RestTemplate rt = restInit();
 		rt.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-		//HttpHeaders headers = new HttpHeaders();
-		//headers.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity<User> request = new HttpEntity<User>(user, headers);
 
 		String docClient = sirc.getService("documents-client");
@@ -85,7 +82,6 @@ public class UsersService {
 		rt.postForObject(url2, request, User.class);
 	}
 	
-	//@PreAuthorize("hasRole('ADMIN')")
 	public void updateUser(String header, User user) {
 		usersRepository.save(user);
 		

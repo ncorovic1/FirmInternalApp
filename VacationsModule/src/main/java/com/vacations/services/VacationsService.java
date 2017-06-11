@@ -29,12 +29,8 @@ public class VacationsService {
 	}
 
 	public void updateVacation(Long id, Vacation vacation) {
-		Vacation vacationToBeUpdated = vacationsRepository.findOne(id);
-		vacationToBeUpdated.setVacationType(vacation.getVacationType());
-		vacationToBeUpdated.setBeginDate(vacation.getBeginDate());
-		vacationToBeUpdated.setEndDate(vacation.getEndDate());
-
-
+		vacation.setId(id);
+		vacationsRepository.save(vacation);
 	}
 
 	public void deleteVacation(Long id) {

@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.Enumeration;
 
 public class JWTAuthenticationFilter extends GenericFilterBean {
 
@@ -23,12 +22,11 @@ public class JWTAuthenticationFilter extends GenericFilterBean {
         HttpServletResponse res = (HttpServletResponse) response;
         
 		res.addHeader("Access-Control-Allow-Origin", "*");
-	    res.addHeader("Access-Control-Allow-Methods", "POST,PUT, GET, OPTIONS, DELETE");
+	    res.addHeader("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE");
 	    res.addHeader("Access-Control-Max-Age", "3600");
-	    res.addHeader("Access-Control-Allow-Headers"," Origin, X-Requested-With, Content-Type, Accept,AUTH-TOKEN");
-	    System.out.println(req.getHeaders("Authorization"));
-		Authentication authentication = TokenAuthenticationService.getAuthentication(req);
-		
+	    res.addHeader("Access-Control-Allow-Headers"," Origin, X-Requested-With, Content-Type, Accept, AUTH-TOKEN, Authorization");
+
+	    Authentication authentication = TokenAuthenticationService.getAuthentication(req);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		filterChain.doFilter(req, res);
 	}

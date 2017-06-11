@@ -22,23 +22,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests()
+			.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 			.antMatchers("/").permitAll()
 			.antMatchers("/urk/**").permitAll()
 			.antMatchers(HttpMethod.POST, "/login").permitAll()
-			//.antMatchers("/").access("hasRole('ADMIN') or hasRole('HR') or hasRole('EMPLOYEE')")
 			.anyRequest().authenticated()
 			.and()
 			.addFilterBefore(new JWTLoginFilter("/login", authenticationManager()),
 				UsernamePasswordAuthenticationFilter.class)
 			.addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
-
-	/*
-	 * @Override protected void configure(AuthenticationManagerBuilder auth)
-	 * throws Exception { // Create a default account
-	 * auth.inMemoryAuthentication() .withUser("admin") .password("password")
-	 * .roles("ADMIN"); }
-	 */
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {

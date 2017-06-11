@@ -3,33 +3,62 @@
 import Vue         from 'vue';
 import VueRouter   from 'vue-router';
 import VueResource from 'vue-resource';
+import VeeValidate from 'vee-validate';
 import App         from './App';
 
-import Message from './components/Message';
-import Hello   from './components/Hello';
-import Login   from './components/Login';
+import Message   from './components/Message';
+import Hello     from './components/Hello';
+import Login     from './components/Login';
+import Users     from './components/user/Table';
+import Teams     from './components/team/Table';
+import Vacations from './components/vacation/Table';
+import Documents from './components/document/Table';
+import Profile   from './components/profile/Preview';
+import Auth      from './assets/auth'
 
 require('./assets/css/bootstrap.min.css');
 require('./assets/css/bootstrap-theme.min.css');
+require('./assets/js/jquery.min.js');
+require('./assets/js/bootstrap.min.js');
 
 Vue.config.productionTip = false;
-Vue.component('app-message', Message);
+//If page is refreshed, check for Auth information
+Auth.checkAuth();
 
 //Vue.use for adding core functionality plugins and now it can be used on Vue instance
 Vue.use(VueRouter);
 Vue.use(VueResource);
+Vue.use(VeeValidate);
 Vue.http.options.emulateJSON = true;
 Vue.http.interceptors.push((request, next) => {
+    if( request.url != 'http://localhost:8085/login') {
+        request.headers.set('Content-Type', 'application/json');
+        request.headers.set('Accept', 'application/json');
+        request.headers.set('Authorization', 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuaW5vLEFETUlOIiwiZXhwIjoxNDk3MTM0MDA5fQ.W6_iPBSj9VzTOtaLIhyZHoIdEGpCVyTIKSLE1xqOpAgXNBoQwDofTLYhNvtybDkXXgzNh_10Bv1eGMusWcwm6A');
+    }
     next(response => {
-        //response.headers['Access-Control-Expose-Headers'] = 'Authentification'
+        console.log(response);
     });
 });
+
+//Vue.config(function ($httpProvider) {
+//  $httpProvider.defaults.headers.common = {};
+//  $httpProvider.defaults.headers.post = {};
+//  $httpProvider.defaults.headers.put = {};
+//  $httpProvider.defaults.headers.patch = {};
+//});
 
 //routes is naming conveinance so it can be simply added to VueRouter
 const routes = [
     { path:'/hello/:name?', component: Hello },
     { path:'/login',        component: Login },
-    { path:'/',             component: Message }
+    { path:'/',             component: Login },
+    { path:'/users',        component: Users },
+    { path:'/teams',        component: Teams },
+    { path:'/vacations',    component: Vacations },
+    { path:'/documents',    component: Documents },
+    { path:'/profile',      component: Profile },
+    { path:'/Message',      component: Message }
 ];
 
 const router = new VueRouter({
@@ -38,6 +67,11 @@ const router = new VueRouter({
     //If back end is not hosted on the same server, it is ok to redirect all request to front end routes directly
     mode: 'history'
 });
+
+//router.beforeEach((to, from, next) => {
+//    if(to.path == '/teams')
+//        next(false);
+//})
 
 /* eslint-disable no-new */
 new Vue({
