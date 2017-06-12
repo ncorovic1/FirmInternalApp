@@ -1460,7 +1460,11 @@ img {
 }
 
 .img-rounded {
-    border-radius: 0;
+     border-radius: 75%;
+    /*border-radius: 50%;*/
+     height:500px;
+     width:500px;
+     margin-right:20px;
 }
 
 .img-thumbnail {
@@ -1478,7 +1482,7 @@ img {
 }
 
 .img-circle {
-    /*border-radius: 50%;*/
+    border-radius: 50%;
     height:180px;
     width:180px;
     margin-right:20px;

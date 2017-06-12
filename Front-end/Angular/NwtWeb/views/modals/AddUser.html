@@ -1,0 +1,54 @@
+﻿<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header bg-info">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h2 class="modal-title">Add New User</h2>
+        </div><!--end modal header-->
+        <div class="modal-body">
+            <div class="container-fluid">
+                <ng-form class="panel-body">
+                    <p>Ime: </p>
+                    <input type="text" name="name" class="form-control" ng-model="newUser.first_name" placeholder="First name" required/>
+                    <br />
+                    <p>Prezime: </p>
+                    <input type="text" name="lastname" class="form-control" ng-model="newUser.last_name" placeholder="Last name" required/>
+                    <br />
+                    <p>Adresa: </p>
+                    <input type="text" name="address" class="form-control" ng-model="newUser.address" placeholder="Adresa" required/>
+                    <br />
+                    <p>Datum rođenja: </p>
+                    <input class='form-control'name="date" type="date" ng-model="newUser.date_of_birth" placeholder="Datum rodjenja" required/>
+                    <br />
+                    <p>Email: </p>
+                    <input type="text" name="email" class="form-control" ng-model="newUser.email" placeholder="Email" required/>
+                    <br />
+                    <p>Gender: </p>
+                    <input type="text" name="gender" class="form-control" ng-model="newUser.gender" placeholder="Spol" required/>
+                    <br />
+                    <p>Username: </p>
+                    <input type="text" name="username" class="form-control" ng-model="newUser.username" placeholder="Username" required/>
+                    <br />
+                    <p>Password: </p>
+                    <input type="password" name="password" class="form-control" ng-model="newUser.password" placeholder="Password" required/>
+                    <br />
+                    <p>Role: </p>
+                    <input type="text" name="role" class="form-control" ng-model="newUser.role" placeholder="Privilegija" required/>
+                    <br />
+                    <p>Team: </p>
+                    <input type="text" name="team" class="form-control" ng-model="newUser.team_id" placeholder="Tim" />
+                    <br />
+                    <p>Telephone: </p>
+                    <input type="text" name="telephone" class="form-control" ng-model="newUser.telephone" placeholder="Telefon" />
+                    <br />
+                    <!--<img src="{{editUser.profileImg}}" class="krug img-circle" />
+                    <input ng-model="editUser.profileImg" placeholder="enter url" />-->
+                </ng-form>
+                <!--<input type="checkbox" ng-model="editUser.isAdmin" name="admin" value="admin">Make admin-->
+            </div>
+        </div><!--end modal body-->
+        <div class="modal-footer bg-info">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addUser(newUser)">Save</button>
+            <button class="btn btn-default" data-dismiss="modal" ng-click="cancelUser()">Cancel</button>
+        </div><!--end modal footer-->
+    </div><!--end modal content-->
+</div><!--end modal dialog-->

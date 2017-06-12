@@ -3,7 +3,7 @@
 
     NwtWeb.controller('documentsController', ['$rootScope', '$scope', '$location', 'documentService', function ($rootScope, $scope, $location, documentService) {
         $scope.previewDocument = {
-            id:0,
+            id: 0,
             title: "",
             created_at: "",
             author_id: ""
@@ -15,7 +15,7 @@
            title: "Skype directory",
            created_at: "2017-02-15",
            author_id: " Irma",
-           content:"1234567890"
+           content: "1234567890"
        },
        {
            id: 2,
@@ -26,18 +26,18 @@
        }]
         $scope.newDocument = {
             id: 0,
-            content:"",
+            content: "",
             created_at: new Date(),
             modified_at: new Date(),
-            title:"",
-            author_id:""
+            title: "",
+            author_id: ""
         };
         $scope.transferContent = function (document) {
             $scope.previewDocument.id = document.id;
             $scope.previewDocument.title = document.title;
             $scope.previewDocument.created_at = document.created_at;
             $scope.previewDocument.author_id = document.author_id;
-            $scope.previewDocument.content= document.content;
+            $scope.previewDocument.content = document.content;
             console.log($scope.previewDocument);
 
         }
@@ -74,4 +74,5 @@
             });
         };
     }
-    ])})
+    ])
+})

@@ -1,7 +1,7 @@
 ﻿(function () {
     var NwtWeb = angular.module('NwtWeb');
 
-    NwtWeb.controller('usersController', ['$rootScope', '$scope', '$location', 'dataService', '$window', function ($rootScope, $scope, $location, dataService, $window) {
+    NwtWeb.controller('usersController',  ['$rootScope', '$scope', '$location', 'dataService', function ($rootScope, $scope, $location, dataService) {
         $scope.editUser = {
             name: "",
             username: "",
@@ -35,6 +35,21 @@
                 id: 4,
             }
         ];
+        $scope.newUser= {
+            id: 0,
+            first_name: "",
+            last_name:"",
+            password:"",
+            role: "",
+            telephone: "",
+            username: "",
+            team_id: 0,
+            gender: "",
+            days_of_vacation: 24,
+            address: "",
+            date_of_birth:new Date(),
+            email:"",
+        };
         //console.log($scope.users);
         $scope.transferData = function (user) {
             $scope.editUser.id = user.id;
@@ -45,13 +60,33 @@
 
         }
         $scope.loadUsers = function () {
-            dataService.list("users",
+            userService.list("users",
                 function(data) {
                     if (data) {
                         $scope.users = data;
                     }
                 });
         };
-        $scope.loadUsers();
+        $scope.addUser = function (user) {
+            dataService.create("documents",
+            $scope.requestItem,
+            function (data) {
+                if (data) {
+                    $scope.processingRequest = false;
+                    if ($scope.requestItem.eventType === 12) {
+                        notificationsConfig.success("Remote work successfully recorded");
+                    } else {
+                        notificationsConfig.success(constants.notificationMessages
+                        .SUCCESS_ABSENCE_DAY_REQUEST);
+                    }
+                    fetchMyEvents();
+                    $scope.clearRequest();
+                } else {
+                    $scope.processingRequest = false;
+                    notificationsConfig.error($rootScope.message);
+                }
+            });
+        };
+
     }]);
 }());

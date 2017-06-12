@@ -1,22 +1,22 @@
 ﻿<div ng-hide="">
     <div class="users" ng-show="!waitUsers">
         <h2><i class="fa fa-users"></i>  Users Management</h2>
-        <div ng-show="isAdmin" class="pull-right"><a class="btn btn-primary" data-toggle="modal" data-target="#newUserModal" ng-click="loadUsers()"><strong>New User</strong></a></div>
+        <div class="pull-right"><a class="btn btn-primary" data-toggle="modal" data-target="#AddUser"><strong>New User</strong></a></div>
         <br /><br />
         <input type="text" class="form-control pull-left" style="width: 320px; margin-bottom: 0;" placeholder="Search Users" ng-model="usersFilter">
-        <br /><br /><br />
-                <div class="flex flex-4" ng-repeat="user in users | filter:{name:usersFilter}" style="width:250px; height:250px; display:inline-block" ng-click="transferData(user)" data-toggle="modal" data-target="#editUserModal">
-                    <div class="box person">
-                        <div class="img-circle">
-                            <img src="{{user.profileImg}}" alt="" class="img-circle"/>
-                        </div>
-                        <h3>{{user.username}}</h3>
-                        <p>{{user.name}}</p>
+        <br /><br /><br /><br /><br />
+        <div class="flex flex-4" ng-repeat="user in users | filter:{name:usersFilter}" style="width:250px; height:250px; display:inline-block" ng-click="transferData(user)" data-toggle="modal" data-target="#editUserModal">
+            <div class="box person">
+            
+                        <img src="{{user.profileImg}}" alt="" class="img-rounded" />
                     </div>
-                </div>
+                    <h3>{{user.username}}</h3>
+                    <p>{{user.name}}</p>
+            
+                
 
-
-    </div>
+            </div>
+        </div>
     <div ng-show="waitUsers">
         <div class="loader">
             <div class="loader-inner">
@@ -40,5 +40,8 @@
     </div>
     <div id="editUserModal" class="modal fade" role="dialog">
         <div ng-include="'views/modals/editUserModal.html'"></div>
+    </div>
+    <div id="AddUser" class="modal fade" role="dialog">
+        <div ng-include="'views/modals/AddUser.html'"></div>
     </div>
 </div>
