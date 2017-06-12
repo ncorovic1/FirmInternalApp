@@ -16,7 +16,6 @@
                 });
         };
         $scope.loadUsers();
-        console.log($http.defaults.headers.common.Authorization);
     }]);
 
 }());

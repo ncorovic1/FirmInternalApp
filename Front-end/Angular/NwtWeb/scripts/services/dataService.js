@@ -2,14 +2,15 @@
 
     var NwtWeb = angular.module("NwtWeb");
 
-    NwtWeb.factory("dataService", function ($http, $rootScope) {
+    NwtWeb.factory("dataService", function ($http, $rootScope, $window) {
 
         var source = "http://localhost:8085/";
+        $http.defaults.headers.common.Authorization = $window.localStorage.token;
 
         return {
 
             list: function (dataSet, callback) {
-                $http.get(source + dataSet)
+                $http.get(JSON.stringify(source + dataSet))
                      .success(function (data) {
                          return callback(data);
                      })

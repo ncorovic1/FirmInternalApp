@@ -71,7 +71,7 @@
                 if (data) {
                     $scope.vacations = data;
                 } else {
-                    notificationsConfig.error(constants.notificationMessages.ERROR_ABSENCE_DAYS_NOT_LOADED);
+                    alert("Vacations not loaded.")
                 }
             });
         };

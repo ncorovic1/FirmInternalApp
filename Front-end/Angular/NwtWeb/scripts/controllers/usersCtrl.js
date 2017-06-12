@@ -1,7 +1,7 @@
 ﻿(function () {
     var NwtWeb = angular.module('NwtWeb');
 
-    NwtWeb.controller('usersController',  ['$rootScope', '$scope', '$location', 'dataService', function ($rootScope, $scope, $location, dataService) {
+    NwtWeb.controller('usersController', ['$rootScope', '$scope', '$location', 'dataService', '$window', function ($rootScope, $scope, $location, dataService, $window) {
         $scope.editUser = {
             name: "",
             username: "",
@@ -45,13 +45,13 @@
 
         }
         $scope.loadUsers = function () {
-            userService.list("users",
+            dataService.list("users",
                 function(data) {
                     if (data) {
                         $scope.users = data;
                     }
                 });
         };
-
+        $scope.loadUsers();
     }]);
 }());
