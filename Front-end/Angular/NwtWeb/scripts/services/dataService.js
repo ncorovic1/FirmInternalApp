@@ -10,7 +10,7 @@
         return {
 
             list: function (dataSet, callback) {
-                $http.get(JSON.stringify(source + dataSet))
+                $http.get(source + dataSet)
                      .success(function (data) {
                          return callback(data);
                      })
