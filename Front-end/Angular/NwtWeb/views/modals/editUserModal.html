@@ -8,7 +8,7 @@
             <div class="container-fluid">
                 <ng-form class="panel-body">
                     <p>Name: </p>
-                    <input type="text" name="name" class="form-control" ng-model="editUser.name" placeholder="Name" />
+                    <input type="text" name="name" class="form-control" ng-model="editUser.first_name" placeholder="Name" />
                     <br />
                     <p>Username: </p>
                     <input type="text" name="name" class="form-control" ng-model="editUser.username" placeholder="Username" />
@@ -20,7 +20,7 @@
             </div>
         </div><!--end modal body-->
         <div class="modal-footer bg-info">
-            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="createNewUser()">Save</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="editUser()">Save</button>
             <button class="btn btn-default" data-dismiss="modal" ng-click="cancelUser()">Cancel</button>
         </div><!--end modal footer-->
     </div><!--end modal content-->

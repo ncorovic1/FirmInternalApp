@@ -1,92 +1,98 @@
 ﻿(function () {
     var NwtWeb = angular.module('NwtWeb');
 
-    NwtWeb.controller('usersController',  ['$rootScope', '$scope', '$location', 'dataService', function ($rootScope, $scope, $location, dataService) {
+    NwtWeb.controller('usersController', ['$rootScope', '$scope', '$location', 'dataService', '$http', function ($rootScope, $scope, $location, dataService, $http) {
         $scope.editUser = {
-            name: "",
+            first_name: "",
             username: "",
-            profileImg: "",
-            id:0
+            id: 0,
         }
-        $scope.users =
-        [
-            {
-                name: "Amra",
-                username: "amra_h",
-                profileImg: "https://s-media-cache-ak0.pinimg.com/736x/cf/14/b7/cf14b78e20d69be326ff7a1302e9bd7d.jpg",
-                id: 1,
-            },
-            {
-                name: "Irma",
-                username: "irma_k",
-                profileImg: "http://www4.pictures.zimbio.com/mp/NUJvHdoYW7gx.jpg",
-                id: 2,
-            },
-            {
-                name: "Nino",
-                username: "nino_c",
-                profileImg:"http://i.dailymail.co.uk/i/pix/2014/02/11/article-2557079-1B65993E00000578-579_306x423.jpg",
-                id: 3,
-            },
-            {
-                name: "Amir",
-                username: "amir_s",
-                profileImg: "https://s-media-cache-ak0.pinimg.com/736x/70/b6/6d/70b66d7968e7f6578d315d564781fed8.jpg",
-                id: 4,
-            }
-        ];
         $scope.newUser= {
             id: 0,
+            address: "",
+            date_of_birth: 0,
+            days_of_vacation: 24,
+            email: "",
             first_name: "",
+            gender: "",
             last_name:"",
-            password:"",
+            password: "",
             role: "",
             telephone: "",
             username: "",
             team_id: 0,
-            gender: "",
-            days_of_vacation: 24,
+        };
+        $scope.delUser = {
+            id: 0,
             address: "",
-            date_of_birth:new Date(),
-            email:"",
+            date_of_birth: 0,
+            days_of_vacation: 24,
+            email: "",
+            first_name: "",
+            gender: "",
+            last_name: "",
+            password: "",
+            role: "",
+            telephone: "",
+            username: "",
+            team_id: 0,
         };
         //console.log($scope.users);
-        $scope.transferData = function (user) {
-            $scope.editUser.id = user.id;
-            $scope.editUser.name = user.name;
-            $scope.editUser.profileImg = user.profileImg;
-            $scope.editUser.username = user.username;
-            console.log($scope.editUser);
+        $scope.transferData = function (u) {
+            $scope.editUser.id = u.id;
+            $scope.editUser.first_name = u.first_name;
+            $scope.editUser.username = u.username;
+         //   console.log($scope.editUser);
 
         }
         $scope.loadUsers = function () {
-            userService.list("users",
+            dataService.list("users",
                 function(data) {
                     if (data) {
                         $scope.users = data;
                     }
+                    else {
+                        alert("Error!");
+                    }
                 });
         };
-        $scope.addUser = function (user) {
-            dataService.create("documents",
-            $scope.requestItem,
-            function (data) {
-                if (data) {
-                    $scope.processingRequest = false;
-                    if ($scope.requestItem.eventType === 12) {
-                        notificationsConfig.success("Remote work successfully recorded");
-                    } else {
-                        notificationsConfig.success(constants.notificationMessages
-                        .SUCCESS_ABSENCE_DAY_REQUEST);
+        $scope.addUser = function () {
+           // if ($scope.newUser)
+                dataService.create("users", $scope.newUser,function (data) {
+                    if (data) {
+                        $scope.loadUsers();
+                        alert("User created");
                     }
-                    fetchMyEvents();
-                    $scope.clearRequest();
-                } else {
-                    $scope.processingRequest = false;
-                    notificationsConfig.error($rootScope.message);
-                }
+                    else
+                        alert("Error");
             });
         };
+        $scope.loadUsers();
+        //$scope.deleteUser = function () {
+        //    $scope.delUser.id=user
+        //    // if ($scope.newUser)
+        //    dataService.remove("users", $scope.newUser.id, function (data) {
+        //        if (data) {
+        //            $scope.loadUsers();
+        //            alert("User deleted");
+        //        }
+        //        else
+        //            alert("Error");
+        //    });
+        //};
+        $scope.editUser = function () {
+            // if ($scope.newUser)
+            dataService.update("users", $scope.newUser.id,$scope.newUser, function (data) {
+                if (data) {
+                    $scope.loadUsers();
+                    alert("User updated");
+                }
+                else
+                    alert("Error");
+            });
+        };
+
+
 
     }]);
 }());

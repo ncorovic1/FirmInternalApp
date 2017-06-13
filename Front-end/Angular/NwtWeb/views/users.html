@@ -5,16 +5,13 @@
         <br /><br />
         <input type="text" class="form-control pull-left" style="width: 320px; margin-bottom: 0;" placeholder="Search Users" ng-model="usersFilter">
         <br /><br /><br /><br /><br />
-        <div class="flex flex-4" ng-repeat="user in users | filter:{name:usersFilter}" style="width:250px; height:250px; display:inline-block" ng-click="transferData(user)" data-toggle="modal" data-target="#editUserModal">
+        <div class="flex flex-4" ng-repeat="user in users | filter:{username:usersFilter}" style="width:250px; height:250px; display:inline-block" ng-click="transferData(user)" data-toggle="modal" data-target="#editUserModal">
             <div class="box person">
-            
-                        <img src="{{user.profileImg}}" alt="" class="img-rounded" />
+                        <img src="https://easternunionportal.com/images/icons/my-profile.png" alt="" class="img-rounded" />
                     </div>
                     <h3>{{user.username}}</h3>
-                    <p>{{user.name}}</p>
-            
-                
-
+                    <p>{{user.first_name}}</p>
+                <!--    <button class="btn-primary" ng-click="deleteUser(user)">Delete</button> -->
             </div>
         </div>
     <div ng-show="waitUsers">

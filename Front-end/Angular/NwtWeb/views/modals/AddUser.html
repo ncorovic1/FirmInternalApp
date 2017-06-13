@@ -40,14 +40,14 @@
                     <p>Telephone: </p>
                     <input type="text" name="telephone" class="form-control" ng-model="newUser.telephone" placeholder="Telefon" />
                     <br />
-                    <!--<img src="{{editUser.profileImg}}" class="krug img-circle" />
+                    <!--<img src="" class="krug img-circle" />
                     <input ng-model="editUser.profileImg" placeholder="enter url" />-->
                 </ng-form>
                 <!--<input type="checkbox" ng-model="editUser.isAdmin" name="admin" value="admin">Make admin-->
             </div>
         </div><!--end modal body-->
         <div class="modal-footer bg-info">
-            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addUser(newUser)">Save</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addUser()">Save</button>
             <button class="btn btn-default" data-dismiss="modal" ng-click="cancelUser()">Cancel</button>
         </div><!--end modal footer-->
     </div><!--end modal content-->
