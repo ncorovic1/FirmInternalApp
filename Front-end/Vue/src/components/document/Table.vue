@@ -14,7 +14,7 @@
                             <i class="glyphicon glyphicon-plus" style="float:right"></i>
                         </button>
                         <div style="height: 30px;"></div>
-                        <app-add v-show="showAdd" :document="document" :noDocs="docList.length" @add="add"></app-add>
+                        <app-add v-show="showAdd" :noDocs="docList.length" @add="add($event)"></app-add>
                     </div>
 
                     <div class="row">    
@@ -56,11 +56,11 @@
                             </thead>
                             <tbody>
                                 <tr v-for="(d, key) in filteredDocumentList">
-                                    <td>{{ key + 1       }}</td>
-                                    <td>{{ d.title       }}</td>
-                                    <td>{{ d.author      }}</td>                                    
-                                    <td>{{ d.created_at  }}</td>
-                                    <td>{{ d.modified_at }}</td>
+                                    <td>{{ key + 1                                      }}</td>
+                                    <td>{{ d.title                                      }}</td>
+                                    <td>{{ d.author.firstName + ' ' + d.author.lastName }}</td>          
+                                    <td>{{ createDate(d.createdAt)                      }}</td>
+                                    <td>{{ createDate(d.modifiedAt)                     }}</td>
                                     <td v-show="admin || hr">
                                         <p data-placement="top" data-toggle="tooltip" title="Edit">
                                             <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" @click="populateDocument(key)"><span class="glyphicon glyphicon-pencil"></span></button>
@@ -127,24 +127,7 @@
                 activeModal: '0',
                 admin: true,
                 hr: true,
-                docList: [
-                    new Document(
-                        '1',
-                        'Sadrzaj1',
-                        '2017-06-06 15:26:23',
-                        '2017-06-06 15:26:23',
-                        'Naslov1',
-                        'Nino'
-                        ),
-                    new Document(
-                        '2',
-                        'Sadrzaj2',
-                        '2017-06-06 15:26:23',
-                        '2017-06-06 15:26:23',
-                        'Naslov2',
-                        'Dino'
-                        )
-                ],
+                docList: [],
                 document: []
             }
         },
@@ -169,10 +152,14 @@
                 this.docList.push();
                 this.document = [];
             },
-            add() {
-                this.docList.push(this.document);
+            add(args) {
+                this.docList.push(args);
                 this.docFormToggle();
-                this.document = [];
+            },
+            createDate(d) {
+                var time = new Date(d);
+                time.setHours(time.getHours() + 2);
+                return time.toISOString().substring(0, 19).replace('T', ' ');
             }
         },
         computed: {
@@ -188,11 +175,27 @@
                 return this.docList.sort(compare).filter((doc) => {
                     switch(this.filterBy) {
                         case 'Author': 
-                            return doc.author.toLowerCase().includes(this.keyword);
+                            var auth = doc.author.firstName + ' ' + doc.author.lastName;
+                            return auth.toLowerCase().includes(this.keyword);
                             break;
                     }
                 })
             }
+        },
+        created() {
+            switch (localStorage.getItem('Role')) {
+                case 'ADMIN': 
+                    this.admin = 'true';
+                    break;
+                case 'HR':
+                    this.hr = 'true';
+                    break;
+            }
+            
+            this.$http.get('http://localhost:8084/documents')
+                .then(response => {
+                    this.docList = response.body;
+                });
         }
     }
 </script>

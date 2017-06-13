@@ -148,16 +148,6 @@
                 }, {
                     value: 'EMPLOYEE',
                     text: 'EMPLOYEE'
-                }],
-                roleList: [{
-                    value: 'ADMIN',
-                    text: 'ADMIN'
-                }, {
-                    value: 'HR',
-                    text: 'HR'
-                }, {
-                    value: 'EMPLOYEE',
-                    text: 'EMPLOYEE'
                 }]
             }
         },

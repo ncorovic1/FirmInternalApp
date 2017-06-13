@@ -14,6 +14,8 @@ import Teams     from './components/team/Table';
 import Vacations from './components/vacation/Table';
 import Documents from './components/document/Table';
 import Profile   from './components/profile/Preview';
+import NotFound  from './components/error/NotFound';
+import MainPage  from './components/Index';
 import Auth      from './assets/auth'
 
 require('./assets/css/bootstrap.min.css');
@@ -34,31 +36,25 @@ Vue.http.interceptors.push((request, next) => {
     if( request.url != 'http://localhost:8085/login') {
         request.headers.set('Content-Type', 'application/json');
         request.headers.set('Accept', 'application/json');
-        request.headers.set('Authorization', 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuaW5vLEFETUlOIiwiZXhwIjoxNDk3MTM0MDA5fQ.W6_iPBSj9VzTOtaLIhyZHoIdEGpCVyTIKSLE1xqOpAgXNBoQwDofTLYhNvtybDkXXgzNh_10Bv1eGMusWcwm6A');
+        request.headers.set('Authorization', localStorage.getItem('Authorization'));
     }
     next(response => {
         console.log(response);
     });
 });
 
-//Vue.config(function ($httpProvider) {
-//  $httpProvider.defaults.headers.common = {};
-//  $httpProvider.defaults.headers.post = {};
-//  $httpProvider.defaults.headers.put = {};
-//  $httpProvider.defaults.headers.patch = {};
-//});
-
 //routes is naming conveinance so it can be simply added to VueRouter
 const routes = [
-    { path:'/hello/:name?', component: Hello },
-    { path:'/login',        component: Login },
-    { path:'/',             component: Login },
-    { path:'/users',        component: Users },
-    { path:'/teams',        component: Teams },
-    { path:'/vacations',    component: Vacations },
-    { path:'/documents',    component: Documents },
-    { path:'/profile',      component: Profile },
-    { path:'/Message',      component: Message }
+    { path:'/hello/:name?',  component: Hello },
+    { path:'/login',         component: Login },
+    { path:'/',              component: MainPage },
+    { path:'/users',         component: Users },
+    { path:'/teams',         component: Teams },
+    { path:'/vacations',     component: Vacations },
+    { path:'/documents',     component: Documents },
+    { path:'/profile',       component: Profile },
+    { path:'/404_not_found', component: NotFound },
+    { path:'/Message',       component: Message }
 ];
 
 const router = new VueRouter({
@@ -80,3 +76,5 @@ new Vue({
     template: '<App/>',
     components: { App }
 })
+
+const eventBus = new Vue()

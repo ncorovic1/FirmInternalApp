@@ -80,7 +80,7 @@
                 this.vacation.vacationType.id = f.value;
                 this.vacation.vacationType.description = f.text.split('-')[0]; 
                 this.vacation.vacationType.factor = f.text.split('-')[1].split('[')[1].split(']')[0];
-                alert(JSON.stringify(this.vacation));
+
                 this.$http.put('http://localhost:8082/vacations/' + this.vacation.id, 
                                 JSON.stringify(this.vacation));
                 

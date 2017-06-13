@@ -121,8 +121,7 @@
                 </div>
             </div>
         </div>
-        <app-modal :user="user" @deleteUser="userList.splice(activeModal, 1)" @update="update"></app-modal>
-        {{ userList }}
+        <app-modal :user="user" @deleteUser="userList.splice(activeModal, 1)" @update="update($event)"></app-modal>
     </div>
 </template>
 
@@ -198,10 +197,9 @@
                                      this.userList[key].password
                                      );
             },
-            update() {
-                this.userList[this.activeModal] = this.user;
+            update(arg) {
+                this.userList[this.activeModal] = arg;
                 this.userList.push();  
-                this.user = [];
             },
             add(args) {
                 this.userList.push(args);
@@ -254,12 +252,13 @@
                     this.hr = 'true';
                     break;
             }
+            
             this.$http.get('http://localhost:8085/users')
-                            .then(response => {
-                                this.userList = response.body;
-                            }, error => {
-                                //console.log(error)
-                            });
+                .then(response => {
+                    this.userList = response.body;
+                }, error => {
+                    //console.log(error)
+                });
         },
         route: {
             canActivate() {
