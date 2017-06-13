@@ -13,7 +13,7 @@
                     <div class="error-actions">
                         <div class="btn btn-primary btn-lg" @click="redirect">
                             <span class="glyphicon glyphicon-home"></span>
-                            Take Me To Users 
+                            Take Me To Home
                         </div>
                     </div>
                 </div>
@@ -26,8 +26,8 @@
     export default {
         methods: {
             redirect() {
-                localStorage.setItem('activePage', '4');
-                window.location.href = "/users";
+                localStorage.setItem('activePage', '1');
+                window.location.href = "/";
             }
         }
     }

@@ -112,7 +112,6 @@
             </div>
         </div>
         <app-eddel :vacation="vacation" @deleteVacation="vacList.splice(activeModal, 1)" @update="update"></app-eddel>
-        {{ vacList }}
     </div>
 </template>
 
@@ -147,8 +146,8 @@
                 filterBy: 'User',
                 keyword: '',
                 activeModal: '0',
-                admin: true,
-                hr: true,
+                admin: false,
+                hr: false,
                 vacList: [],
                 vacation: [],
                 vacTypeList: [],
@@ -243,6 +242,15 @@
             }
         },
         created() {
+            switch (localStorage.getItem('Role')) {
+                    case 'ADMIN': 
+                        this.admin = 'true';
+                        break;
+                    case 'HR':
+                        this.hr = 'true';
+                        break;
+                }
+                
             this.$http.get('http://localhost:8082/vacations')
                 .then(response => {
                     this.vacList = response.body;

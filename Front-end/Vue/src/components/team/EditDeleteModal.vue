@@ -63,17 +63,47 @@
         data() {
             return {
                 error: '',
+                members: [],
+                alone: {
+                    id: '',
+                    handle: '',
+                    info: '',
+                    name: ''
+                }
             }
         },
         methods: {
             cancelUpdateTeam() {
             },
             updateTeam() {
-                this.$emit('update', event.target.value);
+                this.$http.put('http://localhost:8083/teams/' + this.team.id, 
+                                JSON.stringify(this.team));
+                this.$emit('update', this.team);
             },
             deleteTeam() {
+                this.$http.get('http://localhost:8085/users/byteam/' + this.team.id)
+                        .then(response => {
+                            this.members = response.body;
+                            this.deleteMembers();
+                        });
+                
                 this.$emit('deleteTeam', event.target.value);
+            },
+            deleteMembers() {
+                for (var k in this.members) {
+                    this.members[k].team = this.alone;
+                    this.$http.put('http://localhost:8085/users/', 
+                                    JSON.stringify(this.members[k]));
+                }
+                while(this.members[this.members.length - 1].team.id == this.team.id) {}
+                this.$http.delete('http://localhost:8083/teams/' + this.team.id);
             }
+        },
+        created() {
+            this.$http.get('http://localhost:8083/teams/byname/Alone')
+                .then(response => {
+                    this.alone = response.body;
+                });
         }
     }
 </script>

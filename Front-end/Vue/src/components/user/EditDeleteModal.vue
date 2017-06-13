@@ -139,7 +139,11 @@
             cancelUpdateUser() {
             },
             updateUser() {
-                this.$emit('update', event.target.value);
+                this.$http.put('http://localhost:8085/users', 
+                                JSON.stringify(this.user))
+                                .then( response => {
+                                    this.$emit('update', this.user);  
+                                });
             },
             deleteUser() {
                 

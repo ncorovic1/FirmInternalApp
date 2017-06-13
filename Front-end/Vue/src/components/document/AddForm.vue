@@ -24,9 +24,11 @@
                         </div>
                         
                         <div style="margin-bottom: 25px" class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
-                            <input type="text" class="form-control" v-model="document.author" placeholder="author" required>   
-                        </div>                    
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-tower"></i></span>
+                            <select class="form-control" v-model="document.author.id" placeholder="u.id" required> 
+                                <option v-for="u in userList" :value="u.id"> {{ u.firstName }} </option>
+                            </select>
+                        </div>                   
 
                         <div style="margin-top:10px" class="form-group">
                             <div class="col-sm-12 controls">
@@ -47,12 +49,23 @@
 <script>
     export default {
         props: [
-            'document',
             'noDocs'
         ],
         data() {
             return {
-                error: ''
+                error: '',
+                document: {
+                    title: '',
+                    author: {
+                        id: '',
+                        firstName: '',
+                        lastName: ''
+                    },
+                    createdAt: '',
+                    modifiedAt: '',
+                    content: ''
+                },
+                userList: []
             }
         },
         methods: {
@@ -64,6 +77,13 @@
                 this.document.modified_at = time.toISOString().substring(0, 19).replace('T', ' ');
                 this.$emit('add', event.target.value);
             }
+        },
+        created() {
+            this.$http.get('http://localhost:8085/users')
+                .then(response => {
+                    this.userList = response.body;
+                    this.document.author.id = this.userList[0].id;
+                });
         }
     }
 </script>

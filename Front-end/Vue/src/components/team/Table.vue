@@ -65,7 +65,7 @@
                                     <td>{{ t.name         }}</td>
                                     <td>
                                         <p data-placement="top" data-toggle="tooltip" title="Members">
-                                            <button class="btn btn-primary btn-xs" data-title="Members" data-toggle="modal" data-target="#members" @click="populateTeam(key)"><span class="glyphicon glyphicon-th-list"></span>
+                                            <button class="btn btn-primary btn-xs" data-title="Members" data-toggle="modal" data-target="#members" @click="populateMembers(key)"><span class="glyphicon glyphicon-th-list"></span>
                                             <span class="glyphicon glyphicon-th-list"></span>
                                             <span class="glyphicon glyphicon-th-list"></span>
                                             <span class="glyphicon glyphicon-th-list"></span></button>
@@ -78,7 +78,7 @@
                                     </td>
                                     <td v-show="admin || hr">
                                         <p data-placement="top" data-toggle="tooltip" title="Delete">
-                                            <button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" @click="activeModal = key"><span class="glyphicon glyphicon-trash"></span></button>
+                                            <button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" @click="populateTeam(key)"><span class="glyphicon glyphicon-trash"></span></button>
                                         </p>
                                     </td>
                                 </tr>
@@ -99,8 +99,8 @@
                 </div>
             </div>
         </div>
-        <app-memb :team="team"></app-memb>
-        <app-eddel :team="team" @deleteTeam="teamList.splice(activeModal, 1)" @update="update"></app-eddel>
+        <app-memb :teamId="teamId"></app-memb>
+        <app-eddel :team="team" @deleteTeam="teamList.splice(activeModal, 1)" @update="update($event)"></app-eddel>
     </div>
 </template>
 
@@ -139,7 +139,8 @@
                 admin: true,
                 hr: true,
                 teamList: [],
-                team: []
+                team: [],
+                teamId: 0
             }
         },
         methods: {
@@ -156,10 +157,13 @@
                                      this.teamList[key].name
                                      );
             },
-            update() {
-                this.teamList[this.activeModal] = this.team;
+            populateMembers(key) {
+                this.activeModal = key;
+                this.teamId = this.teamList[key].id;
+            },
+            update(arg) {
+                this.teamList[this.activeModal] = arg;
                 this.teamList.push();
-                this.team = [];
             },
             add(args) {
                 this.teamList.push(args);
@@ -192,12 +196,20 @@
             }
         },
         created() {
+            switch (localStorage.getItem('Role')) {
+                case 'ADMIN': 
+                    this.admin = 'true';
+                    break;
+                case 'HR':
+                    this.hr = 'true';
+                    break;
+            }
+            
             this.$http.get('http://localhost:8083/teams')
-                            .then(response => {
-                                this.teamList = response.body;
-                            }, error => {
-                                //console.log(error)
-                            });
+                .then(response => {
+                    this.teamList = response.body;
+                    this.teamId = response.body[0].id;
+                });
         }
     }
 </script>

@@ -81,9 +81,9 @@
         },
         created() {
             this.$http.get('http://localhost:8085/users/byusername/' + localStorage.getItem('Username'))
-                            .then(response => {
-                                this.user = response.body;
-                            });
+                .then(response => {
+                    this.user = response.body;
+                });
         }
     }
 </script>
