@@ -28,7 +28,7 @@
                     </div>
                     <br />
                     <div style="margin-left:48%" class="col-md-2 input-group-btn">
-                        <button type="button" ng-disabled="!requestItem.note || !requestItem.startDate || !requestItem.eventType" ng-click="createRequest(requestItem); clearRequest()" class="btn btn-primary">Send</button>
+                        <button type="button" ng-disabled="!requestItem.note || !requestItem.startDate" ng-click="createRequest(requestItem); clearRequest()" class="btn btn-primary">Send</button>
                     </div>
                 </form>
             </div>
@@ -46,7 +46,7 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Vacation Type ID</th>
+            <th>Vacation Type</th>
             <th>From</th>
             <th>To</th>
             <th>User</th>
@@ -54,10 +54,11 @@
     </thead>
     <tbody>
         <tr ng-repeat="myEvent in vacations">
-            <td>{{myEvent.vacationType}}</td>
+            <td>{{myEvent.vacationType.description}}</td>
             <td>{{myEvent.beginDate | date:'dd.MM.yyyy'}}</td>
             <td>{{myEvent.endDate | date:'dd.MM.yyyy'}}</td>
-            <td>{{myEvent.user}}</td>
+            <td>{{myEvent.user.firstName}} {{myEvent.user.lastName}}</td>
+
         </tr>
     </tbody>
 </table>

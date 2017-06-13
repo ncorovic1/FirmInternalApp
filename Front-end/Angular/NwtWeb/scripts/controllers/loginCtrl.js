@@ -9,6 +9,7 @@
             name: "",
             isAdmin: false
         }
+        
         $scope.loginCheck = function (un, pw) {
             var creds = { 'username': 'irma', 'password': 'password' }
             $http.post('http://localhost:8085/login', JSON.stringify(creds), 

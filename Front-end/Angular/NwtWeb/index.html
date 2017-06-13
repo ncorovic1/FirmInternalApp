@@ -68,7 +68,7 @@
                             </li>
                             <li><a href="#/documents"><strong>Documents</strong></a></li>
                             <li><a href="#/teams"><strong>Teams</strong></a></li>
-                            <li><a href="#/login"><strong>Logout</strong></a></li>
+                            <li><a href="#/login" ng-click="$http.defaults.headers.common.Authorization = null; $window.localStorage.token= null"><strong>Logout</strong></a></li>
                         </ul>
                     </div>
                 </nav>

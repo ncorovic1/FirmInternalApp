@@ -7,13 +7,13 @@
             <th class="col-md-2" style="text-align:center"><h4>User</h4></th>
             <th class="col-md-3" style="text-align:center"><h4>Begin date</h4></th>
             <th class="col-md-3" style="text-align:center"><h4>End date</h4></th>
-            <th class="col-md-2" style="text-align:center"><h4>User</h4></th>
+            <th class="col-md-2" style="text-align:center"><h4>Vacation Type</h4></th>
         </tr>
     </thead>
     <tr ng-repeat="myEvent in vacations| filter:{user:vacationsFilter}" align="center">
-        <td>{{myEvent.user}}</td>
+        <td>{{myEvent.user.firstName}} {{myEvent.user.lastName}}</td>
         <td>{{myEvent.beginDate | date:'dd.MM.yyyy'}}</td>
         <td>{{myEvent.endDate | date:'dd.MM.yyyy'}}</td>
-        <td>{{myEvent.vacationType}}</td>
+        <td>{{myEvent.vacationType.description}}</td>
     </tr>
 </table>

@@ -17,37 +17,37 @@
             id: 3
         },
         ];
-        $scope.vacations =
-        [
-        {
-            id: 1,
-            vacationType: "Bussines absence",
-            beginDate: "5/5/2015",
-            endDate: "5/5/2015",
-            user: "Irma"
-        },
-        {
-            id: 2,
-            vacationType: "Bussines absence",
-            beginDate: "5/5/2015",
-            endDate: "5/5/2015",
-            user: "Amra"
-        },
-        {
-            id: 3,
-            vacationType: "Bussines absence",
-            beginDate: "5/5/2015",
-            endDate: "5/5/2015",
-            user: "Amir"
-        },
-        {
-            id: 4,
-            vacationType: "Bussines absence",
-            beginDate: "5/5/2015",
-            endDate: "5/5/2015",
-            user: "Nino"
-        }
-        ];
+        //$scope.vacations =
+        //[
+        //{
+        //    id: 1,
+        //    vacationType: "Bussines absence",
+        //    beginDate: "5/5/2015",
+        //    endDate: "5/5/2015",
+        //    user: "Irma"
+        //},
+        //{
+        //    id: 2,
+        //    vacationType: "Bussines absence",
+        //    beginDate: "5/5/2015",
+        //    endDate: "5/5/2015",
+        //    user: "Amra"
+        //},
+        //{
+        //    id: 3,
+        //    vacationType: "Bussines absence",
+        //    beginDate: "5/5/2015",
+        //    endDate: "5/5/2015",
+        //    user: "Amir"
+        //},
+        //{
+        //    id: 4,
+        //    vacationType: "Bussines absence",
+        //    beginDate: "5/5/2015",
+        //    endDate: "5/5/2015",
+        //    user: "Nino"
+        //}
+        //];
         $scope.selectedType =
         {
             name: "Remote work",
@@ -83,24 +83,22 @@
         //        $scope.eventDescriptions = data;
         //    });
         //};
-
+        
         $scope.createRequest = function () {
-            dataService.create("events",
-            $scope.requestItem,
+            $scope.requestItem.vacationType = $scope.selectedType;
+            vacationService.create("vacations", $scope.requestItem,
             function (data) {
                 if (data) {
                     $scope.processingRequest = false;
                     if ($scope.requestItem.eventType === 12) {
-                        notificationsConfig.success("Remote work successfully recorded");
+                        alert(OK);
                     } else {
-                        notificationsConfig.success(constants.notificationMessages
-                        .SUCCESS_ABSENCE_DAY_REQUEST);
+                        alert(NOK);
                     }
                     fetchMyEvents();
                     $scope.clearRequest();
                 } else {
                     $scope.processingRequest = false;
-                    notificationsConfig.error($rootScope.message);
                 }
             });
         }
@@ -108,7 +106,7 @@
         $scope.clearRequest = function () {
             $scope.requestItem = {
                 id: 0,
-                employeeId: $rootScope.currentUser.id,
+                employeeId: 0,
                 eventType: 0,
                 startDate: null,
                 endDate: null,
