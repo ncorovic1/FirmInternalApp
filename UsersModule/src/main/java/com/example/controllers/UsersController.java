@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.models.UniqueRandomKey;
 import com.example.models.User;
-import com.example.repositories.UsersRepository;
 import com.example.services.MailService;
 //import com.example.services.ApplicationMailer;
 import com.example.services.UniqueRandomKeyService;
@@ -27,11 +26,13 @@ public class UsersController {
 
 	@Autowired
 	private UsersService usersService;
-	private UniqueRandomKeyService urks;
-	private UniqueRandomKey urk;
-	private MailService mailer;
-	UsersRepository ur;
-	
+
+	@Autowired
+	private UniqueRandomKeyService uniqueRandomKeyService;
+
+	@Autowired
+	private MailService mailService;
+
 	@RequestMapping(method = RequestMethod.GET)
 	public Iterable<User> getAllUsers() {
 		List<User> users = new ArrayList<>();
@@ -43,22 +44,22 @@ public class UsersController {
 	public User getUserById(@PathVariable Long id) {
 		return usersService.getUserById(id);
 	}
-	
+
 	@RequestMapping(value = "/byname/{name}", method = RequestMethod.GET)
 	public User getUserByName(@PathVariable String name) {
-	    return usersService.getUserByFirstName(name);
+		return usersService.getUserByFirstName(name);
 	}
-	    
+
 	@RequestMapping(value = "/byusername/{name}", method = RequestMethod.GET)
 	public User getUserByUsername(@PathVariable String name) {
-	    return usersService.getUserByUsername(name);
+		return usersService.getUserByUsername(name);
 	}
-	  	    
+
 	@RequestMapping(value = "/byemail/{email:.+}", method = RequestMethod.GET)
-  	public User getUserByEmail(@PathVariable String email) {
-  	    	return usersService.getUserByEmail(email);
-  	}
-	
+	public User getUserByEmail(@PathVariable String email) {
+		return usersService.getUserByEmail(email);
+	}
+
 	@RequestMapping(value = "/byteam/{team_id}", method = RequestMethod.GET)
 	public List<User> getUsersByTeam(@PathVariable long team_id) {
 		return usersService.getUsersByTeam(team_id);
@@ -66,7 +67,6 @@ public class UsersController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public void addUser(@RequestHeader("Authorization") String header, @RequestBody User user) {
-		
 		usersService.addUser(header, user);
 	}
 
@@ -79,37 +79,37 @@ public class UsersController {
 	public void deleteUser(@RequestHeader("Authorization") String header, @PathVariable Long id) {
 		usersService.deleteUser(header, id);
 	}
+
 	/*
-	@RequestMapping(value = "/{email}", method = RequestMethod.POST)
-	public void sendMail(@RequestHeader("Authorization") String header, @PathVariable String email) {
-		ApplicationContext context = new FileSystemXmlApplicationContext("application-context.xml");
-        
-        //Get the mailer instance
-        ApplicationMailer mailer = (ApplicationMailer) context.getBean("mailService");
-        String poruka=urks.save(email);
-        //Send a composed mail
-        if(poruka=="{\"success\":1}")
-        	u=usersService.getUserByEmail(email);
-        	urk=urks.findLastByUserId(u.getId());
-        	mailer.sendMail(email, "Reset Your Password", "Your new password is"+ urk.getValue());
-	
-	}
-	
-}*/
-	@RequestMapping(value="/resetpassword/{email}",method = RequestMethod.POST)
-	public void resetPassword(@PathVariable("email") String email){
-		
-		User user=ur.findByEmail(email);
-		if(user!=null)
-		{
-		//u=usersService.getUserByEmail(email);
-        urk=urks.findLastByUserId(user.getId());
-        mailer.sendResetPasswordMail(email,urk.getValue());
-		user.setPassword(urk.getValue());
-		ur.save(user);
-			
+	 * @RequestMapping(value = "/{email}", method = RequestMethod.POST) public
+	 * void sendMail(@RequestHeader("Authorization") String
+	 * header, @PathVariable String email) { ApplicationContext context = new
+	 * FileSystemXmlApplicationContext("application-context.xml");
+	 * 
+	 * //Get the mailer instance ApplicationMailer mailer = (ApplicationMailer)
+	 * context.getBean("mailService"); String poruka=urks.save(email); //Send a
+	 * composed mail if(poruka=="{\"success\":1}")
+	 * u=usersService.getUserByEmail(email);
+	 * urk=urks.findLastByUserId(u.getId()); mailer.sendMail(email,
+	 * "Reset Your Password", "Your new password is"+ urk.getValue());
+	 * 
+	 * }
+	 */
+
+	@RequestMapping(value = "/resetpassword/{email:.+}", method = RequestMethod.POST)
+	public void resetPassword(@RequestHeader("Authorization") String header, @PathVariable("email") String email) {
+
+		User user = usersService.getUserByEmail(email);
+		System.out.println(user);
+
+		if (user != null) {
+			UniqueRandomKey key = uniqueRandomKeyService.findLastByUserId(user.getId());
+
+			mailService.sendResetPasswordMail(email, key.getValue().toString());
+
+			user.setPassword(key.getValue().toString());
+			usersService.updateUser(header, user);
 		}
-		}
-	
 	}
 
+}

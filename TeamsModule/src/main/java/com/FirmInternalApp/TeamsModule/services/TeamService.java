@@ -1,14 +1,17 @@
 package com.FirmInternalApp.TeamsModule.services;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import com.FirmInternalApp.TeamsModule.models.Team;
@@ -48,46 +51,58 @@ public class TeamService {
 		return teamRepository.findByName(name);
 	}
 	
-	public void addTeam(Team team) {
+	public void addTeam(String header, Team team) {
 		teamRepository.save(team);
 		
-		String usersClient = sirc.getService("users-client");
+		MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
+		headers.add("Authorization", header);
+		headers.add("Content-Type", "application/json");
 		
+		RestTemplate rt = restInit();
+		rt.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+		HttpEntity<Team> request = new HttpEntity<Team>(team, headers);
+
+		String usersClient = sirc.getService("users-client");
 		String url = usersClient + "/teams";
 		
-		RestTemplate rt = restInit();	
-		rt.postForObject(url, team, Team.class);
+		rt.postForObject(url, request, Team.class);
 	}
 	
-	public void updateTeam(Long id, Team team) {
+	public void updateTeam(String header, Long id, Team team) {
 		Team teamToBeUpdated = teamRepository.findOne(id);
 		teamToBeUpdated.setHandle(team.getHandle());
 		teamToBeUpdated.setName(team.getName());
 		teamToBeUpdated.setInfo(team.getInfo());
 		teamRepository.save(teamToBeUpdated);
 		
-		String usersClient = sirc.getService("users-client");
+		MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
+		headers.add("Authorization", header);
+		headers.add("Content-Type", "application/json");
 		
+		RestTemplate rt = restInit();
+		rt.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+		HttpEntity<Team> request = new HttpEntity<Team>(teamToBeUpdated, headers);
+		
+		String usersClient = sirc.getService("users-client");
 		String url = usersClient + "/teams/{id}";
 		
-		//String url = "http://localhost:8085/teams/{id}";
-		RestTemplate rt = restInit();
-		rt.put(url, team, team.getId());
+		rt.put(url, request, team.getId());
 	}
 	
-	public void deleteTeam(Long id) {
-		teamRepository.delete(id);
-		
+	public void deleteTeam(String header, Long id) {
+	    teamRepository.delete(id);
+	    
+	    MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+	    headers.add("Authorization", header);
+	    
+	    RestTemplate rt = restInit();
+		rt.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+	    HttpEntity<Long> request = new HttpEntity<Long>(id, headers);
+	    
 		String usersClient = sirc.getService("users-client");
 		String url = usersClient + "/teams/{id}";
-		
-	//	String url = "http://localhost:8085/users/{id}";
-	     
-	    Map<String, String> params = new HashMap<String, String>();
-	    params.put("id", String.valueOf(id));
-	     
-	    RestTemplate restTemplate = new RestTemplate();
-	    restTemplate.delete(url,  params);
+	    
+	    rt.exchange(url, HttpMethod.DELETE, request, String.class, id);
 	}
 	
 }

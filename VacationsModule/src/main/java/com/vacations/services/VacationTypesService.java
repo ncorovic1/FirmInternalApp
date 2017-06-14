@@ -11,7 +11,7 @@ import com.vacations.repository.VacationTypesRepository;
 
 @Service
 public class VacationTypesService {
-	
+
 	@Autowired
 	private VacationTypesRepository vacationTypesRepository;
 
@@ -20,21 +20,21 @@ public class VacationTypesService {
 		vacationTypesRepository.findAll().forEach(vacationTypes::add);
 		return vacationTypes;
 	}
-	
+
 	public VacationType getVacationTypeById(Long id) {
 		return vacationTypesRepository.findOne(id);
 	}
-	
+
 	public void addVacationType(VacationType vactype) {
 		vacationTypesRepository.save(vactype);
 	}
-	
+
 	public void updateVacationType(VacationType user) {
 		vacationTypesRepository.save(user);
 	}
-	
+
 	public void deleteVacationType(Long id) {
 		vacationTypesRepository.delete(id);
 	}
-	
+
 }

@@ -5,7 +5,8 @@ package com.example.services;
 //import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
  
-@Service("mailService")
+@Service
+//@Service("mailService")
 public class ApplicationMailer
 {
 //    @Autowired

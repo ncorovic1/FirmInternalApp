@@ -1,16 +1,14 @@
 package com.example.services;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -91,8 +89,6 @@ public class UsersService {
 		
 		RestTemplate rt = restInit();
 		rt.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-		//HttpHeaders headers = new HttpHeaders();
-		//headers.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity<User> request = new HttpEntity<User>(user, headers);
 		
 		String docClient = sirc.getService("documents-client"); 
@@ -105,18 +101,14 @@ public class UsersService {
 		rt.put(url2, request, user.getId());
 	}
 	
-	//@PreAuthorize("hasRole('ADMIN')")
 	public void deleteUser(String header, Long id) {
 		usersRepository.delete(id);
 		
-		MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
-		headers.add("Authorization", header);
-		headers.add("Content-Type", "application/json");
+		MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+	    headers.add("Authorization", header);
 		
 		RestTemplate rt = restInit();
 		rt.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-		//HttpHeaders headers = new HttpHeaders();
-		//headers.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity<Long> request = new HttpEntity<Long>(id, headers);
 		
 		String docClient = sirc.getService("documents-client"); 
@@ -124,19 +116,9 @@ public class UsersService {
 		
 		String url = docClient + "/users/{id}";
 		String url2 = vacClient + "/users/{id}";
-	     
-	    /*Map<String, String> params = new HashMap<String, String>();
-	    params.put("id", String.valueOf(id));
-	     
-	    rt.delete(url, request);
-	    rt.delete(url2, request);*/
-	    
-	    Map<String, String> params = new HashMap<String, String>();
-	    params.put("header", request.toString());
-	    params.put("id", String.valueOf(id));
-	    
-	    rt.delete(url, params);
-	    rt.delete(url2, params);
+		
+		rt.exchange(url, HttpMethod.DELETE, request, String.class, id);
+		rt.exchange(url2, HttpMethod.DELETE, request, String.class, id);
 	}
 	
 }

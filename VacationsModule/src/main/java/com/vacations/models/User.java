@@ -9,48 +9,27 @@ public class User {
 
 	@Id
 	private long id;
-	
-	@Column(nullable=true, length=30)
+
+	@Column(nullable = true, length = 30)
 	private String firstName;
 
-	@Column(nullable=true, length=50)
+	@Column(nullable = true, length = 50)
 	private String lastName;
 
-	@Column(nullable=true, length=256)
+	@Column(nullable = true, length = 256)
 	private String email;
 
-	@Column(nullable=true, length=6)
+	@Column(nullable = true, length = 6)
 	private String gender;
-	
+
 	private Integer daysOfVacation;
-	
-	@Column(nullable=true, length=20)
+
+	@Column(nullable = true, length = 20)
 	private String role;
-	
+
 	public User() {
 		super();
 	}
-	
-	/*@JsonCreator
-	public User(@JsonProperty("firstName") String firstName, @JsonProperty("lastName") String lastName, @JsonProperty("email") String email, @JsonProperty("gender") String gender, @JsonProperty("daysOfVacation") Integer daysOfVacation, @JsonProperty("role") String role) {
-		super();
-		this.setFirstName(firstName);
-		this.setLastName(lastName);
-		this.setEmail(email);
-		this.setGender(gender);
-		this.setDaysOfVacation(daysOfVacation);
-		this.setRole(role);
-	}*/
-	
-	/*public User(String firstName, String lastName, String email, String gender, Integer daysOfVacation,
-			String role) {
-		this.setFirstName(firstName);
-		this.setLastName(lastName);
-		this.setEmail(email);
-		this.setGender(gender);
-		this.setDaysOfVacation(daysOfVacation);
-		this.setRole(role);
-	}*/
 
 	public long getId() {
 		return id;
