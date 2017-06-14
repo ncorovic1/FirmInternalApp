@@ -45,14 +45,14 @@ public class UsersController {
 		return usersService.getUserById(id);
 	}
 
-	@RequestMapping(value = "/byname/{name}", method = RequestMethod.GET)
-	public User getUserByName(@PathVariable String name) {
-		return usersService.getUserByFirstName(name);
+	@RequestMapping(value = "/byfirstname/{first_name}", method = RequestMethod.GET)
+	public User getUserByName(@PathVariable String first_name) {
+		return usersService.getUserByFirstName(first_name);
 	}
 
-	@RequestMapping(value = "/byusername/{name}", method = RequestMethod.GET)
-	public User getUserByUsername(@PathVariable String name) {
-		return usersService.getUserByUsername(name);
+	@RequestMapping(value = "/byusername/{username}", method = RequestMethod.GET)
+	public User getUserByUsername(@PathVariable String username) {
+		return usersService.getUserByUsername(username);
 	}
 
 	@RequestMapping(value = "/byemail/{email:.+}", method = RequestMethod.GET)
@@ -100,15 +100,15 @@ public class UsersController {
 	public void resetPassword(@RequestHeader("Authorization") String header, @PathVariable("email") String email) {
 
 		User user = usersService.getUserByEmail(email);
-		System.out.println(user);
 
 		if (user != null) {
 			UniqueRandomKey key = uniqueRandomKeyService.findLastByUserId(user.getId());
 
 			mailService.sendResetPasswordMail(email, key.getValue().toString());
-
+			
 			user.setPassword(key.getValue().toString());
 			usersService.updateUser(header, user);
+			uniqueRandomKeyService.validateUrk(key.getValue(), email);
 		}
 	}
 
