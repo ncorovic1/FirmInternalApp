@@ -17,7 +17,7 @@ public class VacationController {
 	private VacationsService vacationsService;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public Iterable<Vacation> getAllVacatios() {
+	public Iterable<Vacation> getAllVacations() {
 		List<Vacation> vacations = new ArrayList<>();
 		vacationsService.getAllVacations().forEach(vacations::add);
 		return vacations;
