@@ -90,7 +90,7 @@
                                     </td>
                                     <td v-show="admin || hr">
                                         <p data-placement="top" data-toggle="tooltip" title="Delete">
-                                            <button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" @click="activeModal = key"><span class="glyphicon glyphicon-trash"></span></button>
+                                            <button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" @click="populateVacation(key)"><span class="glyphicon glyphicon-trash"></span></button>
                                         </p>
                                     </td>
                                 </tr>
@@ -173,7 +173,6 @@
                     this.vacList[key].vacationType,
                     this.vacList[key].user
                 );
-                alert(JSON.stringify(this.vacation));
             },
             update() {
                 this.vacList[this.activeModal] = this.vacation;

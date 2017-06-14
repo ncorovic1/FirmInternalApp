@@ -55,6 +55,7 @@
             return {
                 error: '',
                 document: {
+                    id: '',
                     title: '',
                     author: {
                         id: '',
@@ -71,12 +72,27 @@
         methods: {
             addDocument() {
                 this.document.id = this.noDocs + 1;
-                var time = new Date();
-                time.setHours(time.getHours() + 2);
-                this.document.created_at  = time.toISOString().substring(0, 19).replace('T', ' ');
-                this.document.modified_at = time.toISOString().substring(0, 19).replace('T', ' ');
-                this.$emit('add', event.target.value);
-            }
+                var time = Date.now();
+                this.document.createdAt  = time;
+                this.document.modifiedAt = time;
+                
+                var us = this.getUser(this.document.author.id);
+                this.document.author.firstName = us.firstName;
+                this.document.author.lastName  = us.lastName;
+                
+                this.$http.post('http://localhost:8084/documents/' + us.id, 
+                                JSON.stringify(this.document))
+                                .then(response => {
+                                    this.$emit('add', this.document);
+                                });
+            },
+            getUser(id) {
+                for(var k in this.userList) {
+                    if (this.userList[k].id == id) {
+                        return this.userList[k];
+                    }
+                }
+            },
         },
         created() {
             this.$http.get('http://localhost:8085/users')

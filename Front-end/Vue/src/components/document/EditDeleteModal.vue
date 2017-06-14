@@ -64,12 +64,17 @@
             cancelUpdateDocument() {
             },
             updateDocument() {
-                var time = new Date();
-                time.setHours(time.getHours() + 2);
-                this.document.modified_at = time.toISOString().substring(0, 19).replace('T', ' ');
-                this.$emit('update', event.target.value);
+                var time = Date.now()
+                this.document.modifiedAt = time;
+                
+                this.$http.put('http://localhost:8084/documents', 
+                                JSON.stringify(this.document));
+                
+                this.$emit('update', this.document);
             },
             deleteDocument() {
+                alert(JSON.stringify(this.document));
+                this.$http.delete('http://localhost:8084/documents/' + this.document.id)
                 this.$emit('deleteDocument', event.target.value);
             }
         }

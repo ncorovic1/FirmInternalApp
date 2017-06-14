@@ -83,7 +83,7 @@
 
                 this.$http.put('http://localhost:8082/vacations/' + this.vacation.id, 
                                 JSON.stringify(this.vacation));
-                
+
                 this.$emit('update', event.target.value);
             },
             deleteVacation() {

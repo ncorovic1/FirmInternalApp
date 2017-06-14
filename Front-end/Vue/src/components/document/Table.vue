@@ -68,7 +68,7 @@
                                     </td>
                                     <td v-show="admin || hr">
                                         <p data-placement="top" data-toggle="tooltip" title="Delete">
-                                            <button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" @click="activeModal = key"><span class="glyphicon glyphicon-trash"></span></button>
+                                            <button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" @click="populateDocument(key)"><span class="glyphicon glyphicon-trash"></span></button>
                                         </p>
                                     </td>
                                 </tr>
@@ -89,7 +89,7 @@
                 </div>
             </div>
         </div>
-        <app-eddel :document="document" @deleteDocument="docList.splice(activeModal, 1)" @update="update"></app-eddel>
+        <app-eddel :document="document" @deleteDocument="docList.splice(activeModal, 1)" @update="update($event)"></app-eddel>
     </div>
 </template>
 
@@ -102,8 +102,8 @@
         constructor(id, c, cat, mat, t, a) {
             this.id          = id;
             this.content     = c;
-            this.created_at  = cat;
-            this.modified_at = mat;
+            this.createdAt   = cat;
+            this.modifiedAt  = mat;
             this.title       = t;
             this.author      = a;
       }
@@ -139,16 +139,16 @@
             populateDocument(key) {
                 this.activeModal = key;
                 this.document = new Document(
-                                     this.docList[key].id,
-                                     this.docList[key].content,
-                                     this.docList[key].created_at,
-                                     this.docList[key].modified_at,
-                                     this.docList[key].title,
-                                     this.docList[key].author
-                                     );
+                     this.docList[key].id,
+                     this.docList[key].content,
+                     this.docList[key].createdAt,
+                     this.docList[key].modifiedAt,
+                     this.docList[key].title,
+                     this.docList[key].author
+                 );
             },
-            update() {
-                this.docList[this.activeModal] = this.document;
+            update(arg) {
+                this.docList[this.activeModal] = arg;
                 this.docList.push();
                 this.document = [];
             },
@@ -166,9 +166,9 @@
             filteredDocumentList() {
                 this.keyword = this.keyword.toLowerCase();
                 function compare(a, b) {
-                    if (a.id < b.id)
+                    if (a.modifiedAt < b.modifiedAt)
                         return 1;
-                    if (a.id > b.id)
+                    if (a.modifiedAt > b.modifiedAt)
                         return -1;
                   return 0;
                 }
