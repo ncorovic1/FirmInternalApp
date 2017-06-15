@@ -64,6 +64,20 @@ public class UsersController {
 	public List<User> getUsersByTeam(@PathVariable long team_id) {
 		return usersService.getUsersByTeam(team_id);
 	}
+	
+	@RequestMapping(value= "/byteam/members/{teamId}", method = RequestMethod.GET)
+	public List<Long> getTeamMembers(@PathVariable long teamId) {
+		
+		List<Long> members = new ArrayList<>();
+		List<User> allUsers = (List<User>) this.getAllUsers();
+		
+		for (User user : allUsers) {
+			if (user.getTeam().getId() == teamId) {
+				members.add(user.getId());
+			}
+		}
+		return members;
+	}
 
 	@RequestMapping(method = RequestMethod.POST)
 	public void addUser(@RequestHeader("Authorization") String header, @RequestBody User user) {
