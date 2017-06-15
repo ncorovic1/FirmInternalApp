@@ -1,0 +1,25 @@
+﻿<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header bg-info">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h2 class="modal-title">Team users</h2>
+        </div><!--end modal header-->
+        <div class="modal-body">
+            <div>
+                <div class="search__list">
+                    <div class="search__item" ng-repeat="user in tempUsers" ng-click="addUserToTeam(user)">
+                        <em class="fa fa-plus"></em>
+                        <div class="item__avatar">
+                            <img src="../images/user-placeholder.jpg" alt="title" class="img-circle">
+                        </div><!--avatar -->
+                        <div class="item__name">{{user.firstName}} {{user.lastName}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer bg-info">
+            <button class="btn btn-default" data-dismiss="modal" ng-click="cancelUser()">Cancel</button>
+        </div><!--end modal footer-->
+    </div><!--end modal content-->
+</div><!--end modal dialog-->
