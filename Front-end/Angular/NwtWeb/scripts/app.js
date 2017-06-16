@@ -39,6 +39,10 @@
                 templateUrl: "views/users.html",
                 controller: "usersController"
             })
-            .otherwise({ redirectTo: "/login" });
+            .when("/notFound",
+            {
+                templateUrl: "views/notFound.html",
+            })
+            .otherwise({ redirectTo: "/notFound" });
     });
 }());

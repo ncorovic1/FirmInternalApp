@@ -2,6 +2,7 @@ package com.vacations.models;
 
 import java.sql.Date;
 
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,8 +15,13 @@ public class Vacation {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	
 	private Date beginDate;
+	
 	private Date endDate;
+	
+	@Convert(converter = StatusConverter.class)
+	private Status status;
 	
 	@ManyToOne
 	private VacationType vacationType;
@@ -23,14 +29,18 @@ public class Vacation {
 	@ManyToOne
 	private User user;
 	
-	protected Vacation() {}
-	
-	public Vacation(Date beginDate, Date endDate, VacationType vac, User u) {
+	protected Vacation() {
+		this.status = Status.PENDING;
+	}
+
+	public Vacation(long id, Date beginDate, Date endDate, Status status, VacationType vacationType, User user) {
 		super();
-		this.beginDate    = beginDate;
-		this.endDate      = endDate;
-		this.vacationType = vac;
-		this.user         = u;
+		this.id = id;
+		this.beginDate = beginDate;
+		this.endDate = endDate;
+		this.status = Status.PENDING;
+		this.vacationType = vacationType;
+		this.user = user;
 	}
 
 	public long getId() {
@@ -73,5 +83,13 @@ public class Vacation {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 }

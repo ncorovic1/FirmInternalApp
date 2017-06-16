@@ -1,7 +1,8 @@
 ﻿(function () {
     var NwtWeb = angular.module('NwtWeb');
 
-    NwtWeb.controller('vacationsController', ['$rootScope', '$scope', '$location', 'vacationService', function ($rootScope, $scope, $location, vacationService) {
+    NwtWeb.controller('vacationsController', ['$rootScope', '$scope', '$location', 'vacationService', '$window', function ($rootScope, $scope, $location, vacationService, $window) {
+        if ($window.localStorage.token === '') $window.location.href = '/#/login';
         $scope.vacationTypes =
         [
         {
@@ -17,37 +18,23 @@
             id: 3
         },
         ];
-        //$scope.vacations =
-        //[
-        //{
-        //    id: 1,
-        //    vacationType: "Bussines absence",
-        //    beginDate: "5/5/2015",
-        //    endDate: "5/5/2015",
-        //    user: "Irma"
-        //},
-        //{
-        //    id: 2,
-        //    vacationType: "Bussines absence",
-        //    beginDate: "5/5/2015",
-        //    endDate: "5/5/2015",
-        //    user: "Amra"
-        //},
-        //{
-        //    id: 3,
-        //    vacationType: "Bussines absence",
-        //    beginDate: "5/5/2015",
-        //    endDate: "5/5/2015",
-        //    user: "Amir"
-        //},
-        //{
-        //    id: 4,
-        //    vacationType: "Bussines absence",
-        //    beginDate: "5/5/2015",
-        //    endDate: "5/5/2015",
-        //    user: "Nino"
-        //}
-        //];
+        $scope.addMonths = 0;
+        var d = new Date();
+        var month = new Array();
+        month[0] = "January";
+        month[1] = "February";
+        month[2] = "March";
+        month[3] = "April";
+        month[4] = "May";
+        month[5] = "June";
+        month[6] = "July";
+        month[7] = "August";
+        month[8] = "September";
+        month[9] = "October";
+        month[10] = "November";
+        month[11] = "December";
+        $scope.selectedMonth = month[d.getMonth()];
+
         $scope.selectedType =
         {
             name: "Remote work",
@@ -63,7 +50,16 @@
             approved: false,
             isCanceled: false
         };
-
+        $scope.back = function () {
+            $scope.addMonths = $scope.addMonths - 1;
+            if (d.getMonth() + $scope.addMonths < 0) $scope.addMonths = 12 + $scope.addMonths;
+            $scope.selectedMonth = month[d.getMonth() + $scope.addMonths];
+        }
+        $scope.next = function () {
+            $scope.addMonths = $scope.addMonths + 1;
+            if (d.getMonth() + $scope.addMonths >= 12) $scope.addMonths = $scope.addMonths - 12;
+            $scope.selectedMonth = month[d.getMonth() + $scope.addMonths];
+        }
 
         $scope.getVacations = function () {
             vacationService.list("vacations",
@@ -76,14 +72,14 @@
             });
         };
 
-        //function fetchEventTypes() {
-        //    vacationsService.list("eventtypes",
-        //    function (data) {
-        //        $scope.eventTypes = data;
-        //        $scope.eventDescriptions = data;
-        //    });
-        //};
-        
+        function fetchEventTypes() {
+            vacationsService.list("eventtypes",
+            function (data) {
+                $scope.eventTypes = data;
+                $scope.eventDescriptions = data;
+            });
+        };
+
         $scope.createRequest = function () {
             $scope.requestItem.vacationType = $scope.selectedType;
             vacationService.create("vacations", $scope.requestItem,

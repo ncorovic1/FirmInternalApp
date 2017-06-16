@@ -1,7 +1,9 @@
 ﻿(function () {
     var NwtWeb = angular.module('NwtWeb');
 
-    NwtWeb.controller('documentsController', ['$rootScope', '$scope', '$location', 'documentService', '$http', function ($rootScope, $scope, $location, documentService, $http) {
+    NwtWeb.controller('documentsController', ['$rootScope', '$scope', '$location', 'documentService', '$http', '$window', function ($rootScope, $scope, $location, documentService, $http, $window) {
+        if ($window.localStorage.token === '') $window.location.href = '/#/login';
+
         $scope.previewDocument = {
             id: 0,
             title: "",

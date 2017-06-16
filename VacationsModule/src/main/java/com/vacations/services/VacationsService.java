@@ -7,7 +7,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.vacations.models.User;
 import com.vacations.models.Vacation;
+import com.vacations.repository.UserRepository;
 import com.vacations.repository.VacationsRepository;
 
 @Service
@@ -15,6 +17,9 @@ public class VacationsService {
 
 	@Autowired
 	private VacationsRepository vacationsRepository;
+	
+	@Autowired
+	private UserRepository usersRepository;
 
 	public List<Vacation> getAllVacations() {
 		List<Vacation> vacations = new ArrayList<>();
@@ -27,7 +32,11 @@ public class VacationsService {
 	}
 
 	public void addVacation(Vacation vacation) {
-		vacationsRepository.save(vacation);
+		User user = usersRepository.findOne(vacation.getUser().getId());
+		
+		if (user != null) {
+			vacationsRepository.save(vacation);
+		}
 	}
 
 	public void updateVacation(Long id, Vacation vacation) {
