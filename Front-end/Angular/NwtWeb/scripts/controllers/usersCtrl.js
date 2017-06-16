@@ -1,7 +1,8 @@
 ﻿(function () {
     var NwtWeb = angular.module('NwtWeb');
 
-    NwtWeb.controller('usersController', ['$rootScope', '$scope', '$location', 'dataService', '$http', function ($rootScope, $scope, $location, dataService, $http) {
+    NwtWeb.controller('usersController', ['$rootScope', '$scope', '$location', 'dataService', '$http', '$window', function ($rootScope, $scope, $location, dataService, $http, $window) {
+        if ($window.localStorage.token === '') $window.location.href = '/#/login';
         $scope.editUser = {
             first_name: "",
             username: "",

@@ -1,7 +1,8 @@
 ﻿(function () {
     var NwtWeb = angular.module('NwtWeb');
 
-    NwtWeb.controller('teamsController', ['$rootScope', '$scope', '$location', 'teamService', '$http', 'dataService', function ($rootScope, $scope, $location, teamService, $http, dataService) {
+    NwtWeb.controller('teamsController', ['$rootScope', '$scope', '$location', 'teamService', '$http', 'dataService', '$window', function ($rootScope, $scope, $location, teamService, $http, dataService, $window) {
+        if ($window.localStorage.token === '') $window.location.href = '/#/login';
 
         $scope.tempTeamToAddUsers = 0;
 

@@ -26,6 +26,7 @@
     <script src="scripts/controllers/usersCtrl.js"></script>
     <script src="scripts/controllers/vacationsCtrl.js"></script>
     <script src="scripts/controllers/teamsCtrl.js"></script>
+    <script src="scripts/controllers/menuCtrl.js"></script>
     <script src="scripts/controllers/documentsCtrl.js"></script>
 
     <!--ANGULAR SERVICES-->
@@ -52,9 +53,9 @@
                 </div>
 
 
-                <nav class="navbar">
+                <nav class="navbar" ng-show="loggedIn">
                     <div class="container-fluid">
-                        <ul class="nav navbar-nav">
+                        <ul class="nav navbar-nav" ng-controller="menuController">
                             <li><a href="#/users"><strong>Users</strong></a></li>
                             <li class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="">
@@ -68,7 +69,7 @@
                             </li>
                             <li><a href="#/documents"><strong>Documents</strong></a></li>
                             <li><a href="#/teams"><strong>Teams</strong></a></li>
-                            <li><a href="#/login" ng-click="$http.defaults.headers.common.Authorization = null; $window.localStorage.token= null"><strong>Logout</strong></a></li>
+                            <li><a href="#/login" ng-click="deleteToken()"><strong>Logout</strong></a></li>
                         </ul>
                     </div>
                 </nav>

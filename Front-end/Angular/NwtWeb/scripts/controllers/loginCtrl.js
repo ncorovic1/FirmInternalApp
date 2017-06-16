@@ -9,9 +9,10 @@
             name: "",
             isAdmin: false
         }
-        
+        $rootScope.loggedIn = false;
+
         $scope.loginCheck = function (un, pw) {
-            var creds = { 'username': 'irma', 'password': 'password' }
+            var creds = { 'username': un, 'password': pw }
             $http.post('http://localhost:8085/login', JSON.stringify(creds), 
                             {
                                 headers: {
@@ -22,6 +23,7 @@
                             .then(response => {
                                 $http.defaults.headers.common.Authorization = response.headers('Authorization');
                                 $window.localStorage.setItem("token", response.headers('Authorization'));
+                                $rootScope.loggedIn = true;
                                 $window.location.href = '/#/users';
                             }, error => {
                          console.log(error)});

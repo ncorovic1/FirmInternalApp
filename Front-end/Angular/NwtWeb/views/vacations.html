@@ -1,19 +1,31 @@
-﻿<input type="text" class="form-control pull-left" style="width: 320px; margin-bottom: 0;" placeholder="Search Vacations" ng-model="vacationsFilter">
+﻿<div class="row">
+    <button type="button" ng-click="back()" class="btn btn-primary pull-left"><em class="fa fa-angle-left"></em> Previous month</button>
+    <button type="button" ng-click="next()" class="btn btn-primary pull-right">Next month <em class="fa fa-angle-right"></em></button>
+</div>
+<br />
+<div class="row">
+    <h1 class="text-center">{{selectedMonth}}</h1>
+</div>
+    <div class="row">
+        <input type="text" class="form-control pull-left" style="width: 320px; margin-bottom: 0;" placeholder="Search Vacations" ng-model="vacationsFilter">
+    </div>
+    <br />
+    <br />
+    <br />
 
-<table class="table table-striped">
-
-    <thead>
-        <tr>
-            <th class="col-md-2" style="text-align:center"><h4>User</h4></th>
-            <th class="col-md-3" style="text-align:center"><h4>Begin date</h4></th>
-            <th class="col-md-3" style="text-align:center"><h4>End date</h4></th>
-            <th class="col-md-2" style="text-align:center"><h4>Vacation Type</h4></th>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="col-md-2" style="text-align:center"><h4>User</h4></th>
+                <th class="col-md-3" style="text-align:center"><h4>Begin date</h4></th>
+                <th class="col-md-3" style="text-align:center"><h4>End date</h4></th>
+                <th class="col-md-2" style="text-align:center"><h4>Vacation Type</h4></th>
+            </tr>
+        </thead>
+        <tr ng-repeat="myEvent in vacations| filter:{user:vacationsFilter}" align="center">
+            <td>{{myEvent.user.firstName}} {{myEvent.user.lastName}}</td>
+            <td>{{myEvent.beginDate | date:'dd.MM.yyyy'}}</td>
+            <td>{{myEvent.endDate | date:'dd.MM.yyyy'}}</td>
+            <td>{{myEvent.vacationType.description}}</td>
         </tr>
-    </thead>
-    <tr ng-repeat="myEvent in vacations| filter:{user:vacationsFilter}" align="center">
-        <td>{{myEvent.user.firstName}} {{myEvent.user.lastName}}</td>
-        <td>{{myEvent.beginDate | date:'dd.MM.yyyy'}}</td>
-        <td>{{myEvent.endDate | date:'dd.MM.yyyy'}}</td>
-        <td>{{myEvent.vacationType.description}}</td>
-    </tr>
-</table>
+    </table>
