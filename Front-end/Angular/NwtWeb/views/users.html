@@ -1,39 +1,19 @@
-﻿<!--><div ng-show="loggedIn">
-</div>
-<div ng-app="NwtWeb" ng-controller="usersCtrl" ng-model="x">
-    <ul>
-        <li ng-repeat="x in korisnici">{{x}}</li>
-      
-    </ul>
-    <input ng-model="addMe">
-    <button ng-click="addUser()">Dodaj</button>
-</div>-->
-<div ng-show="loggedIn">
+﻿<div ng-hide="">
     <div class="users" ng-show="!waitUsers">
         <h2><i class="fa fa-users"></i>  Users Management</h2>
-        <div ng-show="isAdmin" class="pull-right"><a class="btn btn-primary" data-toggle="modal" data-target="#newUserModal" ng-click="loadUsers()"><strong>New User</strong></a></div>
+        <div class="pull-right"><a class="btn btn-primary" data-toggle="modal" data-target="#AddUser"><strong>New User</strong></a></div>
         <br /><br />
-        <table class="table table-striped" align="right">
-            <thead>
-                <tr>
-                    <th class="col-md-2" style="text-align:center"><h4>ID</h4></th>
-                    <th class="col-md-3" style="text-align:center"><h4>NAME</h4></th>
-                    <th class="col-md-3" style="text-align:center"><h4>USERNAME</h4></th>
-                    <th class="col-md-2" style="text-align:center"><h4>IS ADMIN</h4></th>
-                    <th class="col-md-2" style="text-align:center"><h4>DELETE</h4></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="user in users">
-                    <td class="col-md-2" style="text-align:center">{{user.id}}</td>
-                    <td class="col-md-3" style="text-align:center">{{user.name}}</td>
-                    <td class="col-md-3" style="text-align:center">{{user.username}}</td>
-                    <td class="col-md-2" style="text-align:center">{{user.isAdmin}}</td>
-                    <td class="col-md-1" style="text-align:center"><button ng-show="isAdmin" class="btn btn-sm btn-danger" ng-click="deleteUser(user)">Delete</button></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+        <input type="text" class="form-control pull-left" style="width: 320px; margin-bottom: 0;" placeholder="Search Users" ng-model="usersFilter">
+        <br /><br /><br /><br /><br />
+        <div class="flex flex-4" ng-repeat="user in users | filter:{username:usersFilter}" style="width:250px; height:250px; display:inline-block" ng-click="transferData(user)" data-toggle="modal" data-target="#editUserModal">
+            <div class="box person">
+                        <img src="https://easternunionportal.com/images/icons/my-profile.png" alt="" class="img-rounded" />
+                    </div>
+                    <h3>{{user.username}}</h3>
+                    <p>{{user.first_name}}</p>
+                <!--    <button class="btn-primary" ng-click="deleteUser(user)">Delete</button> -->
+            </div>
+        </div>
     <div ng-show="waitUsers">
         <div class="loader">
             <div class="loader-inner">
@@ -55,7 +35,10 @@
             </div>
         </div>
     </div>
-    <div id="newUserModal" class="modal fade" role="dialog">
-        <div ng-include="'views/modals/newUserModal.html'"></div>
+    <div id="editUserModal" class="modal fade" role="dialog">
+        <div ng-include="'views/modals/editUserModal.html'"></div>
+    </div>
+    <div id="AddUser" class="modal fade" role="dialog">
+        <div ng-include="'views/modals/AddUser.html'"></div>
     </div>
 </div>

@@ -1,12 +1,17 @@
-﻿(function(){
+﻿(function () {
     var NwtWeb = angular.module('NwtWeb', ['ngRoute']);
 
-    NwtWeb.config(function($routeProvider) {
+    NwtWeb.config(function ($routeProvider) {
         $routeProvider
             .when("/login",
             {
                 templateUrl: "views/login.html",
                 controller: "loginController"
+            })
+            .when("/vacationsRequest",
+            {
+                templateUrl: "views/vacationRequest.html",
+                controller: "vacationsController"
             })
             .when("/vacations",
             {

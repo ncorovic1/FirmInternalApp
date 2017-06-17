@@ -2,9 +2,10 @@
 
     var NwtWeb = angular.module("NwtWeb");
 
-    NwtWeb.factory("dataService", function ($http, $rootScope) {
+    NwtWeb.factory("dataService", function ($http, $rootScope, $window) {
 
-        var source = "http://localhost:8888/api/";
+        var source = "http://localhost:8085/";
+        $http.defaults.headers.common.Authorization = $window.localStorage.token;
 
         return {
 

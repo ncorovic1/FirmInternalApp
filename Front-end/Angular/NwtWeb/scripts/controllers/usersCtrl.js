@@ -1,7 +1,6 @@
 ﻿(function () {
     var NwtWeb = angular.module('NwtWeb');
 
-<<<<<<< Updated upstream
     NwtWeb.controller('usersController', ['$rootScope', '$scope', '$location', 'dataService', '$http', '$window', function ($rootScope, $scope, $location, dataService, $http, $window) {
         if ($window.localStorage.token === '') $window.location.href = '/#/login';
         $scope.editUser = {
@@ -58,12 +57,39 @@
                     }
                 });
         };
-=======
-    NwtWeb.controller('usersController',  ['$rootScope', '$scope', '$location', 'dataService', function ($rootScope, $scope, $location, dataService) {
-        $scope.korisnici = ["Irma Karasoftic", "Amir Šabanović", "Nino Ćorović", "Amra Hadžiarapović"];
->>>>>>> Stashed changes
         $scope.addUser = function () {
-            $scope.korisnici.push($scope.addMe);
-        }
+           // if ($scope.newUser)
+                dataService.create("users", $scope.newUser,function (data) {
+                    if (data) {
+                        $scope.loadUsers();
+                        alert("User created");
+                    }
+            });
+        };
+        $scope.loadUsers();
+        //$scope.deleteUser = function () {
+        //    $scope.delUser.id=user
+        //    // if ($scope.newUser)
+        //    dataService.remove("users", $scope.newUser.id, function (data) {
+        //        if (data) {
+        //            $scope.loadUsers();
+        //            alert("User deleted");
+        //        }
+        //        else
+        //            alert("Error");
+        //    });
+        //};
+        $scope.editUser = function () {
+            // if ($scope.newUser)
+            dataService.update("users", $scope.newUser.id,$scope.newUser, function (data) {
+                if (data) {
+                    $scope.loadUsers();
+                    alert("User updated");
+                }
+            });
+        };
+
+
+
     }]);
 }());

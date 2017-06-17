@@ -11,8 +11,12 @@
             <input type="password" name="password" id="password" class="form-control" ng-model="login.password" required />
             <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
         </div>
-        <div class="form-actions">
-            <button type="submit" ng-disabled="form.$invalid || login.dataLoading" ng-click="checkLogin()" class="btn btn-primary">Login</button>
+        <div class="form-actions"> 
+            <button type="submit" ng-disabled="form.$invalid || login.dataLoading" ng-click="loginCheck(login.username, login.password)" class="btn btn-primary">Login</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="" data-toggle="modal" data-target="#forgotPasswordModal">Forgot Your password?</a>
         </div>
     </form>
+    <div id="forgotPasswordModal" class="modal fade" role="dialog">
+        <div ng-include="'views/modals/forgotPasswordModal.html'"></div>
+    </div>
 </div>

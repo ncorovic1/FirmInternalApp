@@ -21,6 +21,7 @@
     <script src="scripts/app.js"></script>
     <!-- ANGULAR CONTROLLERS -->
     <script src="scripts/toastr.js"></script>
+    <script src="scripts/controllers/datePickerCtrl.js"></script>
     <script src="scripts/controllers/loginCtrl.js"></script>
     <script src="scripts/controllers/usersCtrl.js"></script>
     <script src="scripts/controllers/vacationsCtrl.js"></script>
@@ -30,6 +31,12 @@
 
     <!--ANGULAR SERVICES-->
     <script src="scripts/services/dataService.js"></script>
+    <script src="scripts/services/loginService.js"></script>
+    <script src="scripts/services/teamService.js"></script>
+    <script src="scripts/services/vacationService.js"></script>
+    <script src="scripts/services/documentService.js"></script>
+
+
 </head>
 <body>
     <div class="container-fluid">
@@ -40,12 +47,11 @@
                     <br />
                     <br />
                     <h1>
-                       NWT<br />
+                        NWT<br />
                         <small>Projekat</small>
                     </h1>
                 </div>
 
-<<<<<<< Updated upstream
 
                 <nav class="navbar" ng-show="loggedIn">
                     <div class="container-fluid">
@@ -66,17 +72,6 @@
                             <li><a href="#/login" ng-click="deleteToken()"><strong>Logout</strong></a></li>
                         </ul>
                     </div>
-=======
-                <nav class="navbar navbar-inverse navbar-fixed-top">
-                    <!-- LINK TO OUR PAGES. ANGULAR HANDLES THE ROUTING HERE -->
-                    <ul class="nav navbar-nav">
-                        <li><a ng-show="loggedIn && isAdmin" href="#/users"><strong>Users</strong></a></li>
-                        <li><a ng-show="loggedIn" href="#/vacations"><strong>Vacations</strong></a></li>
-                        <li><a ng-show="loggedIn" href="#/documents"><strong>Documents</strong></a></li>
-                        <li><a ng-show="loggedIn" href="#/teams"><strong>Teams</strong></a></li>
-                        <li><a ng-show="loggedIn" href="#/login" ng-click="loggedIn=false; isAdmin=false; console.log(loggedIn, isAdmin);"><strong>Logout</strong></a></li>                    
-                    </ul>
->>>>>>> Stashed changes
                 </nav>
                 <!-- ANGULAR DYNAMIC CONTENT -->
                 <div ng-view></div>

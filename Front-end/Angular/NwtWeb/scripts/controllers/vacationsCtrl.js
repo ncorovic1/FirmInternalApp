@@ -1,9 +1,6 @@
 ﻿(function () {
     var NwtWeb = angular.module('NwtWeb');
-    NwtWeb.controller('vacationsController',  ['$rootScope', '$scope', '$location', 'dataService', function ($rootScope, $scope, $location, dataService)  {
-       
 
-<<<<<<< Updated upstream
     NwtWeb.controller('vacationsController', ['$rootScope', '$scope', '$location', 'vacationService', '$window', function ($rootScope, $scope, $location, vacationService, $window) {
         if ($window.localStorage.token === '') $window.location.href = '/#/login';
         $scope.vacationTypes =
@@ -117,7 +114,6 @@
         };
 
         $scope.getVacations();
-=======
->>>>>>> Stashed changes
     }]);
 }());
+

@@ -9,11 +9,16 @@
                 templateUrl: "views/login.html",
                 controller: "loginController"
             })
+            .when("/vacationsRequest",
+                {
+                    templateUrl: "views/vacationRequest.html",
+                    controller: "vacationsController"
+                })
             .when("/vacations",
-            {
-                templateUrl: "views/vacations.html",
-                controller: "vacationsController"
-            })
+                {
+                    templateUrl: "views/vacations.html",
+                    controller: "vacationsController"
+                })
             .when("/teams",
             {
                 templateUrl: "views/teams.html",
@@ -23,6 +28,11 @@
             {
                 templateUrl: "views/documents.html",
                 controller: "documentsController"
+            })
+            .when("/admin",
+            {
+                templateUrl: "views/admin.html",
+                controller: "adminController"
             })
             .when("/users",
             {

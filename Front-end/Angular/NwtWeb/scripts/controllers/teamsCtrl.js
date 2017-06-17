@@ -1,30 +1,23 @@
 ﻿(function () {
     var NwtWeb = angular.module('NwtWeb');
 
-<<<<<<< Updated upstream
     NwtWeb.controller('teamsController', ['$rootScope', '$scope', '$location', 'teamService', '$http', 'dataService', '$window', function ($rootScope, $scope, $location, teamService, $http, dataService, $window) {
         if ($window.localStorage.token === '') $window.location.href = '/#/login';
 
         $scope.tempTeamToAddUsers = 0;
 
         $scope.loadTeams = function () {
-=======
-    NwtWeb.controller('teamsController', ['$rootScope', '$scope', '$location', 'dataService', function ($rootScope, $scope, $location, dataService) {
-
-        $scope.loadUsers = function () {
->>>>>>> Stashed changes
             $scope.waitUsers = true;
-            dataService.list("users",
-                function(data) {
+            teamService.list("teams",
+                function (data) {
                     if (data) {
-                        $scope.users = data;
+                        $scope.teams = data;
                         $scope.waitUsers = false;
                     } else {
-                        notificationsConfig.error("Error!");
+                        alert("Error!");
                     }
                 });
         };
-<<<<<<< Updated upstream
         $scope.loadTeams();
         $scope.getTeamMembers = function (id) {
             $scope.waitUsers = true;
@@ -60,8 +53,6 @@
                     alert("Error");
             });
         };
-=======
->>>>>>> Stashed changes
     }]);
 
 }());

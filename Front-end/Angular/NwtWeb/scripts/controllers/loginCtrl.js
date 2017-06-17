@@ -1,7 +1,7 @@
 ﻿(function () {
     var NwtWeb = angular.module('NwtWeb');
 
-    NwtWeb.controller('loginController', ['$rootScope', '$scope', '$location', 'dataService', function ($rootScope, $scope, $location, dataService) {
+    NwtWeb.controller('loginController', ['$rootScope', '$scope', '$http', '$location', '$window', 'loginService', '$httpParamSerializer', function ($rootScope, $scope, $http, $location, $window, loginService, $httpParamSerializer) {
         $scope.login = {
             id: 0,
             username: "",
@@ -10,7 +10,6 @@
             isAdmin: false
         }
         $rootScope.loggedIn = false;
-<<<<<<< Updated upstream
 
         $scope.loginCheck = function (un, pw) {
             var creds = { 'username': un, 'password': pw }
@@ -48,28 +47,16 @@
     $scope.sendResetPasswordEmail = function (email) {
         loginService.create("users", email,
             function (data) {
-=======
-        $rootScope.isAdmin = false;
-        $rootScope.checkLogin = function () {
-            dataService.create("login", $scope.login, function (data) {
->>>>>>> Stashed changes
                 if (data) {
-                    if (data.isAdmin) $rootScope.isAdmin = true;
-                    else $rootScope.isAdmin = false;
-                    $rootScope.loggedIn = true;
-                    $location.url('/users');
+                    alert("Reset password email sent!");
+                } else {
+                    alert("There was an error!");
                 }
-                else {
-                    $rootScope.loggedIn = false;
-                    alert("Login failed");
-                }
-            })
-            console.log($rootScope.isAdmin);
-            console.log($rootScope.loggedIn);
-        }
-
-        console.log($rootScope.isAdmin);
-        console.log($rootScope.loggedIn);
-    }]);
+            });
+    }
+    $scope.cancel = function () {
+        $scope.emailInput = "";
+    }
+}]);
 
 }());
