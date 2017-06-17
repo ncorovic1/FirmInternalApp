@@ -1,6 +1,7 @@
 ﻿(function () {
     var NwtWeb = angular.module('NwtWeb');
 
+<<<<<<< Updated upstream
     NwtWeb.controller('documentsController', ['$rootScope', '$scope', '$location', 'documentService', '$http', '$window', function ($rootScope, $scope, $location, documentService, $http, $window) {
         if ($window.localStorage.token === '') $window.location.href = '/#/login';
 
@@ -54,6 +55,10 @@
         };
         $scope.getDocuments();
     
+=======
+    NwtWeb.controller('documentsController', ['$rootScope', '$scope', '$location', 'dataService', function ($rootScope, $scope, $location, dataService) {
+        
+>>>>>>> Stashed changes
     }]);
-}());
 
+}());

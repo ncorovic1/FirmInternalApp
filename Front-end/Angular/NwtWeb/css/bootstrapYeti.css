@@ -1129,7 +1129,11 @@ img {
   height: auto;
 }
 .img-rounded {
+<<<<<<< Updated upstream
   border-radius: 6px;
+=======
+    border-radius: 0;
+>>>>>>> Stashed changes
 }
 .img-thumbnail {
   padding: 4px;
@@ -1145,7 +1149,11 @@ img {
   height: auto;
 }
 .img-circle {
+<<<<<<< Updated upstream
   border-radius: 50%;
+=======
+    border-radius: 50%;
+>>>>>>> Stashed changes
 }
 hr {
   margin-top: 21px;
@@ -3976,6 +3984,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin-left: -1px;
 }
 .nav {
+<<<<<<< Updated upstream
   margin-bottom: 0;
   padding-left: 0;
   list-style: none;
@@ -4019,6 +4028,60 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav > li > a > img {
   max-width: none;
 }
+=======
+    margin-bottom: 0;
+    padding-left: 0;
+    list-style: none;
+}
+
+    .nav > li {
+        position: relative;
+        display: block;
+    }
+
+        .nav > li > a {
+            position: relative;
+            display: block;
+            padding: 10px 15px;
+        }
+
+            .nav > li > a:hover,
+            .nav > li > a:focus {
+                text-decoration: none;
+                background-color: #eeeeee;
+            }
+
+        .nav > li.disabled > a {
+            color: #999999;
+        }
+
+            .nav > li.disabled > a:hover,
+            .nav > li.disabled > a:focus {
+                color: #999999;
+                text-decoration: none;
+                background-color: transparent;
+                cursor: not-allowed;
+            }
+
+    .nav .open > a,
+    .nav .open > a:hover,
+    .nav .open > a:focus {
+        background-color: #eeeeee;
+        border-color: #008cba;
+    }
+
+    .nav .nav-divider {
+        height: 1px;
+        margin: 9.5px 0;
+        overflow: hidden;
+        background-color: #e5e5e5;
+    }
+
+    .nav > li > a > img {
+        max-width: none;
+    }
+
+>>>>>>> Stashed changes
 .nav-tabs {
   border-bottom: 1px solid #ecf0f1;
 }
@@ -5935,6 +5998,20 @@ button.close {
   opacity: 0.5;
   filter: alpha(opacity=50);
 }
+<<<<<<< Updated upstream
+=======
+
+    .modal-backdrop.fade {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+
+    .modal-backdrop.in {
+        opacity: 0.5;
+        filter: alpha(opacity=50);
+    }
+
+>>>>>>> Stashed changes
 .modal-header {
   padding: 15px;
   border-bottom: 1px solid #e5e5e5;
