@@ -7,14 +7,26 @@
         <div class="modal-body">
             <div class="container-fluid">
                 <ng-form class="panel-body">
+                    <p>Id: </p>
+                    <input type="text" name="name" class="form-control" ng-model="editUser.id" placeholder="Id" />
+                    <br />
                     <p>Name: </p>
-                    <input type="text" name="name" class="form-control" ng-model="editUser.first_name" placeholder="Name" />
+                    <input type="text" name="name" class="form-control" ng-model="editUser.firstName" placeholder="First Name" />
                     <br />
                     <p>Username: </p>
                     <input type="text" name="name" class="form-control" ng-model="editUser.username" placeholder="Username" />
                     <br />
-                    <img src="{{editUser.profileImg}}" class="krug img-circle" />
-                    <input ng-model="editUser.profileImg" placeholder="enter url"/>
+                    <p>Address: </p>
+                    <input type="text" name="name" class="form-control" ng-model="editUser.address" placeholder="Address" />
+                    <br />
+                    <p>Email: </p>
+                    <input type="text" name="name" class="form-control" ng-model="editUser.email" placeholder="Email" />
+                    <br />
+                    <p>Telephone: </p>
+                    <input type="text" name="name" class="form-control" ng-model="editUser.telephone" placeholder="Telephone" />
+                    <br />
+                    <!--<img src="{{editUser.profileImg}}" class="krug img-circle" />-->
+                    <!--<input ng-model="editUser.profileImg" placeholder="enter url"/>-->
                 </ng-form>
                 <input type="checkbox" ng-model="editUser.isAdmin" name="admin" value="admin">Make admin
             </div>
