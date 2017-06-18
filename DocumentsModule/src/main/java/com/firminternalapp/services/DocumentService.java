@@ -34,6 +34,10 @@ public class DocumentService {
 	public List<Document> findByAuthorId(long author_id) {
 		return documentRepository.findByAuthorId(author_id);
 	}
+	
+	public void deleteByAuthorId(long author_id) {
+		documentRepository.deleteByAuthorId(author_id);
+	}
 
 	public Page<Document> findWithPageable(String columnName, String direction, int pageSize, int pageNumber) {
 		PageRequest request;

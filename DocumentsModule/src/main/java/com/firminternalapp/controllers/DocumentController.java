@@ -32,6 +32,11 @@ public class DocumentController {
 	public List<Document> findByAuthorId(@PathVariable("author_id") long author_id) {
 		return dS.findByAuthorId(author_id);
 	}
+	
+	@RequestMapping(value = "/deletebyauthor/{author_id}", method = RequestMethod.DELETE)
+	public void deleteByAuthorId(@PathVariable("author_id") long author_id) {
+		dS.deleteByAuthorId(author_id);
+	}
 
 	@RequestMapping(value = "/{columnName}/{direction}/{pageSize}/{pageNumber}", method = RequestMethod.GET)
 	public Page<Document> findWithPageable(@PathVariable String columnName, @PathVariable String direction,

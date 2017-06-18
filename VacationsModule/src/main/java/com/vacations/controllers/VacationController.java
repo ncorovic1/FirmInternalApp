@@ -27,6 +27,11 @@ public class VacationController {
 	public Vacation getVacationById(@PathVariable Long id) {
 		return vacationsService.getVacationsById(id);
 	}
+	
+	@RequestMapping(value = "/deletebyuser/{user_id}", method = RequestMethod.DELETE)
+	public void deleteVacationsByUserId(@PathVariable Long user_id) {
+		vacationsService.deleteVacationsByUserId(user_id);
+	}
 
 	@RequestMapping(method = RequestMethod.POST)
 	public void addVacation(@RequestBody Vacation vacation) {

@@ -30,10 +30,13 @@ public class VacationsService {
 	public Vacation getVacationsById(Long id) {
 		return vacationsRepository.findOne(id);
 	}
+	
+	public void deleteVacationsByUserId(Long user_id) {
+		vacationsRepository.deleteByUserId(user_id);
+	}
 
 	public void addVacation(Vacation vacation) {
 		User user = usersRepository.findOne(vacation.getUser().getId());
-		
 		if (user != null) {
 			vacationsRepository.save(vacation);
 		}
