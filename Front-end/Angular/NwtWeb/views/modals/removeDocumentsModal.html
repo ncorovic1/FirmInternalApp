@@ -1,0 +1,19 @@
+﻿<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header bg-info">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h2 class="modal-title">Delete document</h2>
+        </div><!--end modal header-->
+        <div class="modal-body">
+            <div class="container-fluid">
+                <ng-form class="panel-body">
+                    <p>Are you sure you want to delete this document? </p>
+                    <td class="col-md-1" style="text-align:center"><button class="btn-primary" ng-click="removeDocument(document)">Yes</button></td>
+                    <td class="col-md-1" style="text-align:center"><button class="btn-primary" ng-click="cancel()">No</button></td>
+
+                </ng-form>
+            </div>
+        </div><!--end modal body-->
+        <!--end modal footer-->
+    </div><!--end modal content-->
+</div><!--end modal dialog-->

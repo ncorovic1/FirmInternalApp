@@ -31,19 +31,24 @@ class TokenAuthenticationService {
 	}
 
 	static Authentication getAuthentication(HttpServletRequest request) {
-		
+
 		String token = request.getHeader(HEADER_STRING);
-		
 		if (token != null) {
 			String user = Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token.replace(TOKEN_PREFIX, "")).getBody()
-							.getSubject();
+					.getSubject();
 			
 			if (user != null) {
 				List<String> info = Arrays.asList(user.split(","));
 				boolean access = false;
 
-				if (request.getMethod().equals("GET") || info.get(1).equals("ADMIN")) 
+				if (request.getMethod().equals("GET")) {
+					if (info.get(1).equals("HR") || info.get(1).equals("ADMIN")) 
+						access = true;
+					else if (request.getRequestURI().length() >= 13 && request.getRequestURI().substring(0, 13).equals("/users/byteam")) 
+						access = true;
+				} else if (info.get(1).equals("ADMIN")) {
 					access = true;
+				}
 				
 				if (access) 
 					return new UsernamePasswordAuthenticationToken(info.get(0), null, emptyList());

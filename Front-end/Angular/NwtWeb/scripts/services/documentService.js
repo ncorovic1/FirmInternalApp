@@ -31,8 +31,8 @@
                      });
             },
 
-            create: function (dataSet, data, callback) {
-                $http({ method: "post", url: source + dataSet, data: data })
+            create: function (dataSet, id,data, callback) {
+                $http({ method: "post", url: source + dataSet + "/" + id, data: data })
                     .success(function (data) {
                         callback(data);
                     })

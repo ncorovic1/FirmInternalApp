@@ -6,30 +6,31 @@
 
         $scope.previewDocument = {
             id: 0,
-            title: "",
             content: "",
-            created_at: "",
-            author_id: ""
+            createdAt: "",
+            modifiedAt: "",
+            title: "",
+            author: ""
         }
         $scope.newDocument = {
             id: 0,
             content: "",
-            created_at: new Date(),
-            modified_at: new Date(),
+            createdAt: new Date(),
+            modifiedAt: new Date(),
             title: "",
-            author_id: 0
+            author: ""
         };
 
         $scope.transferContent = function (document) {
             $scope.previewDocument.id = document.id;
             $scope.previewDocument.title = document.title;
-            $scope.previewDocument.created_at = document.created_at;
-            $scope.previewDocument.author_id = document.author_id;
+            $scope.previewDocument.createdAt = Date(document.createdAt);
+            $scope.previewDocument.modifiedAt = document.modifiedAt;
+            $scope.previewDocument.author= document.author;
             $scope.previewDocument.content = document.content;
             console.log($scope.previewDocument);
 
         }
-
 
         $scope.getDocuments = function () {
             documentService.list("documents", function (data) {
@@ -43,16 +44,25 @@
         };
 
         $scope.addDocument = function () {
-            documentService.create("documents", $scope.newDocument, function (data) {
+            documentService.create("documents",$scope.newDocument.author,$scope.newDocument, function (data) {
                     if (data) {
                         $scope.getDocuments();
                         alert("Document created");
                     }
-                    else
-                        alert("Error");
                 })
         };
         $scope.getDocuments();
+
+        $scope.removeDocument = function () {
+            documentService.remove("documents", $scope.previewDocument.id, function (data) {
+                if(data)
+                {
+                    alert("Document deleted");
+                }
+
+            })
+
+        };
     
     }]);
 }());

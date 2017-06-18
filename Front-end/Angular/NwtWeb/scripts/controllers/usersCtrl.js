@@ -4,45 +4,52 @@
     NwtWeb.controller('usersController', ['$rootScope', '$scope', '$location', 'dataService', '$http', '$window', function ($rootScope, $scope, $location, dataService, $http, $window) {
         if ($window.localStorage.token === '') $window.location.href = '/#/login';
         $scope.editUser = {
-            first_name: "",
+            id: 0,
+            firstName: "",
             username: "",
             id: 0,
+            address: "",
+            email: "",
+            telephone: "",
         }
         $scope.newUser= {
             id: 0,
             address: "",
-            date_of_birth: 0,
-            days_of_vacation: 24,
+            dateOfBirth: 0,
+            daysOfVacation: 24,
             email: "",
-            first_name: "",
+            firstName: "",
             gender: "",
-            last_name:"",
+            lastName: "",
             password: "",
             role: "",
             telephone: "",
             username: "",
-            team_id: 0,
+            team: 0,
         };
         $scope.delUser = {
             id: 0,
             address: "",
-            date_of_birth: 0,
-            days_of_vacation: 24,
+            dateOfBirth: 0,
+            daysOfVacation: 24,
             email: "",
-            first_name: "",
+            firstName: "",
             gender: "",
-            last_name: "",
+            lastName: "",
             password: "",
             role: "",
             telephone: "",
             username: "",
-            team_id: 0,
+            team: 0,
         };
         //console.log($scope.users);
         $scope.transferData = function (u) {
             $scope.editUser.id = u.id;
-            $scope.editUser.first_name = u.first_name;
+            $scope.editUser.firstName = u.firstName;
             $scope.editUser.username = u.username;
+            $scope.editUser.address = u.address;
+            $scope.editUser.telephone = u.telephone;
+            $scope.editUser.email = u.email;
          //   console.log($scope.editUser);
 
         }
@@ -64,8 +71,6 @@
                         $scope.loadUsers();
                         alert("User created");
                     }
-                    else
-                        alert("Error");
             });
         };
         $scope.loadUsers();
@@ -88,8 +93,6 @@
                     $scope.loadUsers();
                     alert("User updated");
                 }
-                else
-                    alert("Error");
             });
         };
 

@@ -7,15 +7,15 @@
         <div class="modal-body">
             <div class="container-fluid">
                 <ng-form class="panel-body">
-                    <p>Type: </p>
+                    <p>Title: </p>
                     <p> {{previewDocument.title}}</p>
                     <br />
                     <p>Author: </p>
-                    <p> {{previewDocument.author_id}}</p>
+                    <p> {{previewDocument.author.firstName}}</p>
                     <br />
-                    <p>Content: </p><br />
-                    <p>{{previewDocument.content}}</p>
-                    
+                    <p>Content: </p>
+                    <p> {{previewDocument.content}}</p>
+                    <br />
                 </ng-form>
             </div>
         </div><!--end modal body-->
