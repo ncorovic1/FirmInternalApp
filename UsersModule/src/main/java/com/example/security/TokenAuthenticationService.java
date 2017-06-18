@@ -44,11 +44,13 @@ class TokenAuthenticationService {
 				if (request.getMethod().equals("GET")) {
 					if (info.get(1).equals("HR") || info.get(1).equals("ADMIN")) 
 						access = true;
-					else if (request.getRequestURI().length() >= 13 && request.getRequestURI().substring(0, 13).equals("/users/byteam")) 
-						access = true;
-				} else if (info.get(1).equals("ADMIN")) {
-					access = true;
+				 	else if ((request.getRequestURI().length() >= 13 && request.getRequestURI().substring(0, 13).equals("/users/byteam")) || (request.getRequestURI().length() >= 17 && request.getRequestURI().substring(0, 17).equals("/users/byusername"))) 
+				 		access = true;
+				} 
+				else if (info.get(1).equals("ADMIN")) {
+			  			access = true;
 				}
+				
 				
 				if (access) 
 					return new UsernamePasswordAuthenticationToken(info.get(0), null, emptyList());
