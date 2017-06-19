@@ -148,11 +148,10 @@
                 else {
                     this.$http.post('http://localhost:8085/users/sendemail/' + this.request.email)
                         .then(response => {
-                            alert(response.body);
+                            this.showResetPass = true;
                         }, error => {
                             console.log(error)
                         });
-                    this.showResetPass = true;
                 }
             }
         },
@@ -166,7 +165,8 @@
                     var path = this.request.urk + '/' + this.request.pw + '/' + this.request.email + '/' 
                     this.$http.post('http://localhost:8085/users/resetpassword/' + path)
                         .then(response => {
-                            alert(response.body);
+                            this.showResetMail = false;
+                            this.showResetPass = false;
                         }, error => {
                             console.log(error)
                         });

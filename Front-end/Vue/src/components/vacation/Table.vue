@@ -261,6 +261,14 @@
         created() {
             this.myFullName = localStorage.getItem('Fullname');
             
+            switch (localStorage.getItem('Role')) {
+                case 'ADMIN': 
+                    this.admin = 'true';
+                    break;
+                case 'HR':
+                    this.hr = 'true';
+                    break;
+            }
                 
             this.$http.get('http://localhost:8082/vacations')
                 .then(response => {

@@ -99,7 +99,7 @@
                                     </td>
                                     <td v-show="admin">
                                         <p data-placement="top" data-toggle="tooltip" title="Delete">
-                                            <button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" @click="activeModal = key"><span class="glyphicon glyphicon-trash"></span></button>
+                                            <button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" @click="populateUser(key)"><span class="glyphicon glyphicon-trash"></span></button>
                                         </p>
                                     </td>
                                 </tr>
@@ -167,11 +167,7 @@
                 admin: false,
                 hr: false,
                 userList: [],
-                user: {
-                    team: {
-                        id: ''
-                    }
-                }     
+                user: []
             }
         },
         methods: {

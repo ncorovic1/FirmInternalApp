@@ -150,6 +150,7 @@
                 
                 this.$http.delete('http://localhost:8084/documents/deletebyauthor/' + user_id);
                 this.$http.delete('http://localhost:8082/vacations/deletebyuser/'   + user_id);
+                this.$http.delete('http://localhost:8085/users/' + user_id);
 
                 this.$emit('deleteUser', event.target.value);
             }
