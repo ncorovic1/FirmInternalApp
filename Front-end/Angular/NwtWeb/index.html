@@ -38,7 +38,7 @@
 
 
 </head>
-<body>
+<body style="background-color:#f7eaff">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -46,27 +46,20 @@
                 <div class="page-header">
                     <br />
                     <br />
-                    <h1>
+                    <h1 style="color:white">
                         NWT<br />
                         <small>Projekat</small>
                     </h1>
                 </div>
 
 
-                <nav class="navbar" ng-show="loggedIn">
+                <nav class="navbar" ng-show="true">
                     <div class="container-fluid">
                         <ul class="nav navbar-nav" ng-controller="menuController">
                             <li><a href="#/users"><strong>Users</strong></a></li>
                             <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="">
-                                    <strong>Vacations</strong>
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#/vacations"><strong>All vacations</strong></a></li>
-                                    <li><a href="#/vacationsRequest">Send Vacation Request</a></li>
-                                </ul>
-                            </li>
+                            <li><a href="#/vacationsRequest"><strong>Send Vacation Request</strong></a></li>
+                            <li><a href="#/vacations" ng-show="isAdmin;"><strong>All vacations</strong></a></li>
                             <li><a href="#/documents"><strong>Documents</strong></a></li>
                             <li><a href="#/teams"><strong>Teams</strong></a></li>
                             <li><a href="#/login" ng-click="deleteToken()"><strong>Logout</strong></a></li>

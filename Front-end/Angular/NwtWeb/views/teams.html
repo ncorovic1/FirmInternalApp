@@ -2,6 +2,8 @@
     <!-- Portfolio section
     ================================================== -->
     <section id="portfolio">
+        <h2><i class="fa fa-handshake-o"></i>  Teams Management</h2>
+        <div class="pull-right"><a class="btn btn-primary" data-toggle="modal" data-target="#AddTeam"><strong>New Team</strong></a></div>
 
         <input type="text" class="form-control pull-left" style="width: 320px; margin-bottom: 0;" placeholder="Search Teams" ng-model="teamsFilter">
         <br />
@@ -46,4 +48,7 @@
 </div>
 <div id="addTeamUsers" class="modal fade" role="dialog">
     <div ng-include="'views/modals/addTeamUsers.html'"></div>
+</div>
+<div id="AddTeam" class="modal fade" role="dialog">
+    <div ng-include="'views/modals/AddTeam.html'"></div>
 </div>

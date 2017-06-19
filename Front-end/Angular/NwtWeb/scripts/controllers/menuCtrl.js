@@ -8,6 +8,9 @@
             $window.localStorage.token = '';
             $rootScope.loggedIn = false;
         };
+
+        $scope.isAdmin = $window.localStorage.role == "ADMIN";
+
     }]);
 
 }());

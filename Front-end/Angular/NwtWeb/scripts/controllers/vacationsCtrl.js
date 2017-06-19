@@ -3,21 +3,6 @@
 
     NwtWeb.controller('vacationsController', ['$rootScope', '$scope', '$location', 'vacationService', '$window', function ($rootScope, $scope, $location, vacationService, $window) {
         if ($window.localStorage.token === '') $window.location.href = '/#/login';
-        $scope.vacationTypes =
-        [
-        {
-            name: "Remote work",
-            id: 1
-        },
-        {
-            name: "Vacation",
-            id: 2
-        },
-        {
-            name: "Sick day",
-            id: 3
-        },
-        ];
         $scope.addMonths = 0;
         var d = new Date();
         var month = new Array();
@@ -42,12 +27,15 @@
         }
         $scope.requestItem = {
             id: 0,
-            employeeId: 1,
+            user: 
+            {
+                id: 0
+            },
             eventType: 0,
-            startDate: new Date(),
+            beginDate: new Date(),
             endDate: new Date(),
             note: "",
-            approved: false,
+            status: false,
             isCanceled: false
         };
         $scope.back = function () {
@@ -70,17 +58,19 @@
                     alert("Vacations not loaded.")
                 }
             });
+            fetchEventTypes();
         };
 
         function fetchEventTypes() {
-            vacationsService.list("eventtypes",
+            vacationService.list("vacationTypes",
             function (data) {
-                $scope.eventTypes = data;
+                $scope.vacationTypes = data;
                 $scope.eventDescriptions = data;
             });
         };
 
         $scope.createRequest = function () {
+            $scope.requestItem.user.id = $window.localStorage.currentUserId;
             $scope.requestItem.vacationType = $scope.selectedType;
             vacationService.create("vacations", $scope.requestItem,
             function (data) {

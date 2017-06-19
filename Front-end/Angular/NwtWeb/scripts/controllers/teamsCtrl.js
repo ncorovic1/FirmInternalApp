@@ -5,7 +5,12 @@
         if ($window.localStorage.token === '') $window.location.href = '/#/login';
 
         $scope.tempTeamToAddUsers = 0;
-
+        $scope.newTeam = {
+            id: 0,
+            handle: '',
+            info: '',
+            name:''
+        }
         $scope.loadTeams = function () {
             $scope.waitUsers = true;
             teamService.list("teams",
@@ -42,12 +47,20 @@
                     }
                 });
         };
-        $scope.getAllUsers();
         $scope.addUserToTeam = function (user) {
             user.team = $scope.tempTeamToAddUsers;
             dataService.update("users", user.id, user, function (data) {
                 if (data) {
                     alert("User updated");
+                }
+            });
+        };
+
+        $scope.addTeam = function (team) {
+            dataService.create("teams", team, function (data) {
+                if (data) {
+                    $scope.loadTeams();
+                    alert("Team created");
                 }
                 else
                     alert("Error");

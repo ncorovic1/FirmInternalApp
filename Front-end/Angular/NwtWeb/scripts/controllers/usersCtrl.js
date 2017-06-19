@@ -68,6 +68,21 @@
                         alert("Error");
             });
         };
+        $scope.getLocalUser = function () {
+            $http.defaults.headers.common.Authorization = $window.localStorage.token;
+            dataService.list("users/byusername/" + $window.localStorage.username,
+                function (data) {
+                    if (data) {
+                        $window.localStorage.setItem("role", data.role);
+                        $window.localStorage.setItem("currentUserId", data.id);
+                    }
+                    else {
+                        alert("Not authenticated!");
+                    }
+                });
+        }
+        $scope.getLocalUser();
+
         $scope.loadUsers();
         //$scope.deleteUser = function () {
         //    $scope.delUser.id=user
