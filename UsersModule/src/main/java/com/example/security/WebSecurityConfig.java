@@ -21,8 +21,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/**").permitAll().antMatchers("/")
-				.permitAll().antMatchers("/urk/**").permitAll().antMatchers(HttpMethod.POST, "/login").permitAll()
+		http.csrf().disable().authorizeRequests()
+				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+				.antMatchers("/").permitAll()
+				.antMatchers("/urk/**").permitAll()
+				.antMatchers(HttpMethod.POST, "/login").permitAll()
 				.anyRequest().authenticated().and()
 				.addFilterBefore(new JWTLoginFilter("/login", authenticationManager()),
 						UsernamePasswordAuthenticationFilter.class)
