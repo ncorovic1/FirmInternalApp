@@ -98,21 +98,28 @@ public class UsersController {
 	public void deleteUser(@RequestHeader("Authorization") String header, @PathVariable Long id) {
 		usersService.deleteUser(header, id);
 	}
-
-	@RequestMapping(value = "/resetpassword/{email:.+}", method = RequestMethod.POST)
-	public void resetPassword(@RequestHeader("Authorization") String header, @PathVariable("email") String email) {
+	
+	@RequestMapping(value = "/sendemail/{email:.+}", method = RequestMethod.POST)
+	public void sendEmail(@PathVariable("email") String email) {
 
 		User user = usersService.getUserByEmail(email);
 
 		if (user != null) {
 			uniqueRandomKeyService.save(email);
+			
 			UniqueRandomKey key = uniqueRandomKeyService.findLastByUserId(user.getId());
-
 			mailService.sendResetPasswordMail(email, key.getValue().toString());
-			user.setPassword(key.getValue().toString());
-			usersService.updateUser(header, user);
-			uniqueRandomKeyService.validateUrk(key.getValue(), email);
 		}
+	}
 
+	@RequestMapping(value = "/resetpassword/{key}/{password}/{email:.+}", method = RequestMethod.POST)
+	public void resetPassword(@PathVariable("key") String key, @PathVariable("password") String password, @PathVariable("email") String email) {
+
+		User user = usersService.getUserByEmail(email);
+		String isValid = uniqueRandomKeyService.validateUrk(key, email);
+		
+		if (user != null && isValid.equals("{\"success\":1}")) {
+			usersService.changePassword(password, email);
+		}
 	}
 }
