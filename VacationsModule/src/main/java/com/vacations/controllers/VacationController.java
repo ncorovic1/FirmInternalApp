@@ -28,6 +28,11 @@ public class VacationController {
 		return vacationsService.getVacationsById(id);
 	}
 	
+	@RequestMapping(value = "/bymonth/{offset}", method = RequestMethod.GET)
+	public List<Vacation> getVacationByMonth(@PathVariable Integer offset) {
+		return vacationsService.getVacationsByMonth(offset);
+	}
+	
 	@RequestMapping(value = "/deletebyuser/{user_id}", method = RequestMethod.DELETE)
 	public void deleteVacationsByUserId(@PathVariable Long user_id) {
 		vacationsService.deleteVacationsByUserId(user_id);
