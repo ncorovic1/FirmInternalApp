@@ -100,18 +100,30 @@ public class UsersService {
 		rt.put(url, request, user.getId());
 		rt.put(url2, request, user.getId());
 	}
+
+	public void updateUserById(String header, Long id, User user) {
+		user.setId(id);
+		this.updateUser(header, user);
+	}
+	
+	public void changePassword(String password, String email) {
+		User user = usersRepository.findByEmail(email);
+		user.setPassword(password);
+		usersRepository.save(user);
+	}
 	
 	public void deleteUser(String header, Long id) {
 		usersRepository.delete(id);
 		
-		MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
-	    headers.add("Authorization", header);
+		MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
+		headers.add("Authorization", header);
+		headers.add("Content-Type", "application/json");
 		
 		RestTemplate rt = restInit();
 		rt.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 		HttpEntity<Long> request = new HttpEntity<Long>(id, headers);
 		
-		String docClient = sirc.getService("documents-client"); 
+		String docClient = sirc.getService("documents-client");
 		String vacClient = sirc.getService("vacations-client");
 		
 		String url = docClient + "/users/{id}";

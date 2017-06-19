@@ -18,9 +18,10 @@
                     <tr ng-repeat="document in documents | filter:{title:documentsFilter}">   <!-- | orderBy:'dcument.created_at':reverse">-->
                         <td class="col-md-2" style="text-align:center">{{document.id}}</td>
                         <td class="col-md-3" style="text-align:center">{{document.title}}</td>
-                        <td class="col-md-3" style="text-align:center">{{document.created_at}}</td>
-                        <td class="col-md-3" style="text-align:center">{{document.author_id}}</td>
+                        <td class="col-md-3" style="text-align:center" typeof="Date()">{{document.createdAt | date:'dd.MM.yyyy'}}</td>
+                        <td class="col-md-3" style="text-align:center">{{document.author.firstName}}</td>
                         <td class="col-md-1" style="text-align:center"><button class="btn-primary" data-toggle="modal" data-target="#previewDocumentModal" ng-click="transferContent(document)">Preview</button></td>
+                        <td class="col-md-1" style="text-align:center"><button class="btn-primary" data-toggle="modal" data-target="#removeDocumentsModal" ng-click="transferContent(document)">Delete</button></td>
 
                     </tr>
                 </tbody>
@@ -52,5 +53,8 @@
     </div>
     <div id="addDocument" class="modal fade" role="dialog">
         <div ng-include="'views/modals/addDocument.html'"></div>
+    </div>
+    <div id="removeDocumentsModal" class="modal fade" role="dialog">
+        <div ng-include="'views/modals/removeDocumentsModal.html'"></div>
     </div>
 </div>

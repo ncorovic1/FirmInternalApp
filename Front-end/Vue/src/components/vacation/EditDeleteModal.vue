@@ -14,6 +14,15 @@
                         
                         <div style="margin-bottom: 25px" class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
+                            <select type="text" class="form-control" v-model="vacation.status" placeholder="status" required>   
+                                <option v-for="s in statusList" :value="s.value">
+                                    {{ s.value }}
+                                </option>                            
+                            </select>
+                        </div>
+                        
+                        <div style="margin-bottom: 25px" class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
                             <input type="date" class="form-control" v-model="vacation.beginDate" placeholder="begin date" required>                                        
                         </div>
                         
@@ -68,6 +77,17 @@
             return {
                 error: '',
                 vacTypeList: [],
+                statusList: [
+                    {
+                        text: 'Pend',
+                        value: 'PENDING'  },
+                    {
+                        text: 'Approve',
+                        value: 'APPROVED' },
+                    {
+                        text: 'Reject',
+                        value: 'REJECTED' },                    
+                ]
             }
         },
         methods: {

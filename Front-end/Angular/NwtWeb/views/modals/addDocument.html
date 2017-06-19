@@ -7,11 +7,14 @@
         <div class="modal-body">
             <div class="container-fluid">
                 <ng-form class="panel-body">
+                    <p>Id: </p>
+                    <input type="text" name="name" class="form-control" ng-model="newDocument.id" placeholder="Title" />
+                    <br />
                     <p>Title: </p>
                     <input type="text" name="name" class="form-control" ng-model="newDocument.title" placeholder="Title" />
                     <br />
-                    <p>Username: </p>
-                    <input type="text" name="name" class="form-control" ng-model="newDocument.author_id" placeholder="Author" />
+                    <p>Author Id: </p>
+                    <input type="text" name="name" class="form-control" ng-model="newDocument.author" placeholder="Author" />
                     <br />
                     <p>Content: </p>
                     <input type="text" name="name" class="form-control" ng-model="newDocument.content" placeholder="Content" />

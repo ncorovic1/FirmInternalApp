@@ -28,12 +28,12 @@ class TokenAuthenticationService {
 				List<String> info = Arrays.asList(user.split(","));
 				boolean access = false;
 				
-				if (info.get(1).equals("ADMIN"))
+				if (info.get(1).equals("ADMIN") || request.getMethod().equals("GET"))
 					access = true;
 				else if (info.get(1).equals("HR")) {
 					if (request.getRequestURI().length() >= 14 && request.getRequestURI().substring(0, 14).equals("/vacationTypes"))
 						access = true;
-					else if (!request.getMethod().equals("DELETE")) //Sve osim DELETE vacationsa
+					else if (!request.getMethod().equals("DELETE")) // Sve osim DELETE vacationsa
 						access = true;
 				}
 				else if (info.get(1).equals("EMPLOYEE") && request.getMethod().equals("POST")) {

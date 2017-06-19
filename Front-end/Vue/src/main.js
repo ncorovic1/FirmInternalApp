@@ -33,7 +33,7 @@ Vue.use(VueResource);
 Vue.use(VeeValidate);
 Vue.http.options.emulateJSON = true;
 Vue.http.interceptors.push((request, next) => {
-    if( request.url != 'http://localhost:8085/login') {
+    if(!request.url.includes("login") && !request.url.includes("sendemail") && !request.url.includes("resetpassword")) {
         request.headers.set('Content-Type', 'application/json');
         request.headers.set('Accept', 'application/json');
         request.headers.set('Authorization', localStorage.getItem('Authorization'));

@@ -8,10 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.models.*;
 
 @RepositoryRestResource
-public interface UniqueRandomKeyRepository extends JpaRepository<UniqueRandomKey, Long> {	
-	
+public interface UniqueRandomKeyRepository extends JpaRepository<UniqueRandomKey, Long> {
 	UniqueRandomKey findFirstByUserIdOrderByIdDesc(long user_id);
-	
+
 	UniqueRandomKey findByValue(String value);
 	
 	@Modifying	

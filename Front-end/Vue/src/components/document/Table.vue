@@ -7,7 +7,7 @@
                         <h2 class="text-center">Documents</h2>
                     </div>
                     
-                    <div class="row" v-show="admin || hr">
+                    <div class="row">
                         <button @click="docFormToggle" class="btn btn-default btn-block"> 
                             <i class="glyphicon glyphicon-plus" style="float:left"></i>
                                 {{ formButton }} 
@@ -27,6 +27,9 @@
                                     <ul class="dropdown-menu" role="menu">
                                         <li @click="filterBy = 'Author'"><a>Author</a></li>
                                             <li class="divider"></li>
+                                        <li @click="filterBy = 'Title'"><a>Title</a></li>
+                                            <li class="divider" v-show="admin || hr"></li>
+                                        <li @click="filterBy = 'Team'" v-show="admin || hr"><a>Team</a></li>
                                     </ul>
                                 </div>
                                 <input type="hidden" name="search_param" value="all" id="search_param">         
@@ -125,8 +128,9 @@
                 filterBy: 'Author',
                 keyword: '',
                 activeModal: '0',
-                admin: true,
-                hr: true,
+                admin: false,
+                hr: false,
+                myTeam: '',
                 docList: [],
                 document: []
             }
@@ -160,6 +164,28 @@
                 var time = new Date(d);
                 time.setHours(time.getHours() + 2);
                 return time.toISOString().substring(0, 19).replace('T', ' ');
+            },
+            filteredDocumentListByTeam(teamId) {
+                var newList = [];
+                if (teamId != '') {
+                    var indicesOfMembers = [];
+                    this.$http.get('http://localhost:8085/users/byteam/members/' + teamId)
+                        .then(response => {
+                            indicesOfMembers = response.bodyText.split('[')[1].split(']')[0].split(',');
+                            //alert(indicesOfMembers);
+                            for (var d in this.docList) {
+                                for (var i in indicesOfMembers) {
+                                        //alert(this.docList[d].author.id + '===' + indicesOfMembers[i]);
+                                    if (this.docList[d].author.id == indicesOfMembers[i]) {
+                                        //alert("usao");
+                                        newList.push(this.docList[d]);
+                                        break;
+                                    }
+                                }
+                            }
+                            return newList;
+                        });
+                }
             }
         },
         computed: {
@@ -172,11 +198,22 @@
                         return -1;
                   return 0;
                 }
-                return this.docList.sort(compare).filter((doc) => {
+                var teamDocList = !(this.admin == 'true' || this.hr == 'true') ? 
+                                    this.docList : 
+                                    this.filteredDocumentListByTeam(this.myTeam);
+                if (teamDocList == null) 
+                    return this.docList;
+                return teamDocList.sort(compare).filter((doc) => {
                     switch(this.filterBy) {
                         case 'Author': 
                             var auth = doc.author.firstName + ' ' + doc.author.lastName;
                             return auth.toLowerCase().includes(this.keyword);
+                            break;
+                        case 'Title': 
+                            return doc.title.toLowerCase().includes(this.keyword);
+                            break;
+                        case 'Team': 
+                            return true;
                             break;
                     }
                 })
@@ -191,7 +228,12 @@
                     this.hr = 'true';
                     break;
             }
-            
+                
+            this.$http.get('http://localhost:8085/users/byusername/' + localStorage.getItem("Username"))
+                .then(response => {
+                    this.myTeam = response.body.team.id;
+                });      
+                        
             this.$http.get('http://localhost:8084/documents')
                 .then(response => {
                     this.docList = response.body;

@@ -22,32 +22,17 @@ public class MailService {
 		this.templateMessage = templateMessage;
 	}
 
-	public void sendMail() {
-		SimpleMailMessage msg = new SimpleMailMessage();
-		msg.setTo("hadziarapovica@gmail.com");
-		msg.setText("Proba");
-		msg.setReplyTo("fia@noreply.com");
-		msg.setFrom("fia@noreply.com");
-		try {
-			mailSender.send(msg);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 	/*
-	 * public void sendActivationMail(String email, String activation){
-	 * SimpleMailMessage msg= new SimpleMailMessage(); msg.setTo(email); msg.
-	 * setText("Link za aktivaciju vaseg profila je http://localhost:8081/user/activate/"
-	 * +activation); msg.setReplyTo("nijebraco@noreply.com");
-	 * msg.setFrom("nijebraco@noreply.com"); try { mailSender.send(msg); } catch
-	 * (Exception e) { e.printStackTrace(); } }
+	 * public void sendMail() { SimpleMailMessage msg = new SimpleMailMessage();
+	 * msg.setTo("hadziarapovica@gmail.com"); msg.setText("Proba");
+	 * msg.setReplyTo("fia@noreply.com"); msg.setFrom("fia@noreply.com"); try {
+	 * mailSender.send(msg); } catch (Exception e) { e.printStackTrace(); } }
 	 */
 
 	public void sendResetPasswordMail(String email, String password) {
 		SimpleMailMessage msg = new SimpleMailMessage();
 		msg.setTo(email);
-		msg.setText(" Vaš novi password:" + password);
+		msg.setText(" Vaš novi password: " + password);
 		msg.setReplyTo("nismomi@gmail.com");
 		msg.setFrom("nismomi@noreply.com");
 		try {

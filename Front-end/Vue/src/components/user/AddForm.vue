@@ -153,20 +153,23 @@
         },
         methods: {
             addUser() {
+                this.user.id = '';
                 this.user.email = this.mail;
                 this.user.dateOfBirth = new Date(this.user.dateOfBirth).getTime();
-
+                
                 this.$http.post('http://localhost:8085/users', 
                                 JSON.stringify(this.user)
                                 ).then(response => {
-                            });
-                
+                                    this.getDataAndRedirect();
+                                });
+            },
+            getDataAndRedirect() {
                 this.$http.get('http://localhost:8085/users/byusername/' + this.user.username)
-                            .then(response => {
-                                this.user.id = response.body.id;
-                                this.user.team.name = this.getTeam(this.user.team.id).name;
-                                this.$emit('add', this.user);
-                            });
+                .then(response => {
+                    this.user.id = response.body.id;
+                    this.user.team.name = this.getTeam(this.user.team.id).name;
+                    this.$emit('add', this.user);
+                });
             },
             getTeam(id) {
                 for(var k in this.teamList) {

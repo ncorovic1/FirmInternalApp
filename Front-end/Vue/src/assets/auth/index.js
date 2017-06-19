@@ -12,6 +12,7 @@ export default {
     user: {
         authenticated: false,
         username: '',
+        fullname: '',
         role: ''
     },
 
@@ -36,7 +37,7 @@ export default {
                                 }
                             }, error => {
                                 this.user.authenticated = false;
-                                context.error = "Credentials you've provided don't match our records!";
+                                context.errorLogin = "Credentials you've provided don't match our records!";
                             });
     },
 
@@ -45,9 +46,11 @@ export default {
         this.user.authenticated = false;
         this.user.role          = '';
         this.user.username      = '';
+        this.user.fullname      = '';
         localStorage.removeItem('Authorization');
         localStorage.removeItem('Role');
         localStorage.removeItem('Username');
+        localStorage.removeItem('Fullname');
     },
     
     // Check if user valid logged with JWT 
@@ -57,6 +60,7 @@ export default {
             this.user.authenticated = true;
             this.user.role          = localStorage.getItem('Role');
             this.user.username      = localStorage.getItem('Username');
+            this.user.fullname      = localStorage.getItem('Fullname');
             return true;
         }
         else {
@@ -75,15 +79,17 @@ export default {
     // Get user by username
     setUser(context, username) {
         context.$http.get(USER_BY_USERNAME_URL + username)
-                            .then(response => {
-                                this.user.role     = response.body.role;
-                                this.user.username = response.body.username;
-                                localStorage.setItem('Role',     this.user.role);
-                                localStorage.setItem('Username', this.user.username);
-                                window.location.href="/users";
-                            },
-                            error => {
-                                alert('Error with user fetch: ' + JSON.stringify(error));
-                            });
+            .then(response => {
+                this.user.role     = response.body.role;
+                this.user.username = response.body.username;
+                this.user.fullname = response.body.firstName + ' ' + response.body.lastName;
+                localStorage.setItem('Role',     this.user.role);
+                localStorage.setItem('Username', this.user.username);
+                localStorage.setItem('Fullname', this.user.fullname);
+                window.location.href="/";
+            },
+            error => {
+                alert('Error with user fetch: ' + JSON.stringify(error));
+            });
     }
 }

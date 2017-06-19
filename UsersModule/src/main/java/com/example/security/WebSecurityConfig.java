@@ -15,16 +15,19 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	
+
 	@Autowired
-    private UserDetailsService userDetailsService;
-	// 
+	private UserDetailsService userDetailsService;
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests()
-			.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 			.antMatchers("/").permitAll()
 			.antMatchers("/urk/**").permitAll()
+			.antMatchers(HttpMethod.POST, "/users/sendemail/**").permitAll()
+			.antMatchers(HttpMethod.POST, "/users/resetpassword/**").permitAll()
+			.antMatchers(HttpMethod.POST, "/users/resetpw/**").permitAll()
+			.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 			.antMatchers(HttpMethod.POST, "/login").permitAll()
 			.anyRequest().authenticated()
 			.and()

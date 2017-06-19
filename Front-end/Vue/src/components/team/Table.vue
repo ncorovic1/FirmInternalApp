@@ -7,7 +7,7 @@
                         <h2 class="text-center">Teams</h2>
                     </div>
                     
-                    <div class="row" v-show="admin || hr">
+                    <div class="row">
                         <button @click="teamFormToggle" class="btn btn-warning btn-block">  
                             <i class="glyphicon glyphicon-plus" style="float:left"></i>
                                 {{ formButton }} 
@@ -136,8 +136,8 @@
                 filterBy: 'Handle',
                 keyword: '',
                 activeModal: '0',
-                admin: true,
-                hr: true,
+                admin: false,
+                hr: false,
                 teamList: [],
                 team: [],
                 teamId: 0
@@ -151,11 +151,11 @@
             populateTeam(key) {
                 this.activeModal = key;
                 this.team = new Team(
-                                     this.teamList[key].id,
-                                     this.teamList[key].handle,
-                                     this.teamList[key].info,
-                                     this.teamList[key].name
-                                     );
+                     this.teamList[key].id,
+                     this.teamList[key].handle,
+                     this.teamList[key].info,
+                     this.teamList[key].name
+                );
             },
             populateMembers(key) {
                 this.activeModal = key;
