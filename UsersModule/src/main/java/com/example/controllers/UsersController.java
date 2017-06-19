@@ -122,4 +122,21 @@ public class UsersController {
 			usersService.changePassword(password, email);
 		}
 	}
+	
+	@RequestMapping(value = "/resetpw/{email:.+}", method = RequestMethod.POST)
+	public void resetPassword(@PathVariable("email") String email) {
+
+		User user = usersService.getUserByEmail(email);
+
+		if (user != null) {
+			uniqueRandomKeyService.save(email);
+			UniqueRandomKey key = uniqueRandomKeyService.findLastByUserId(user.getId());
+
+			mailService.sendResetPasswordMail(email, key.getValue().toString());
+			//user.setPassword(key.getValue().toString());
+			usersService.changePassword(key.toString(), email);
+			uniqueRandomKeyService.validateUrk(key.getValue(), email);
+		}
+
+	}
 }

@@ -26,6 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/urk/**").permitAll()
 			.antMatchers(HttpMethod.POST, "/users/sendemail/**").permitAll()
 			.antMatchers(HttpMethod.POST, "/users/resetpassword/**").permitAll()
+			.antMatchers(HttpMethod.POST, "/users/resetpw/**").permitAll()
 			.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 			.antMatchers(HttpMethod.POST, "/login").permitAll()
 			.anyRequest().authenticated()
