@@ -112,9 +112,9 @@
                     return;
                 else if (role == null && path != 'login')
                     window.location.href="/login";
-                else if (role == 'EMPLOYEE' && path == 'vacations') {
+                /*else if (role == 'EMPLOYEE' && path == 'vacations') {
                     window.location.href="/profile";
-                }
+                }*/
             }
         },
         watch: {

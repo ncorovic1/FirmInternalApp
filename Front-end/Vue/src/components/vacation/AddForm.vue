@@ -29,19 +29,19 @@
                                 <option v-for="vt in vacTypeList" :value="vt.id">{{ vt.description }}</option>
                             </select>
                         </div>
-                        
+                        <!--
                         <div style="margin-bottom: 25px" class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-tower"></i></span>
                             <select class="form-control" v-model="vacation.user.id" placeholder="u.id" required> 
                                 <option v-for="u in userList" :value="u.id"> {{ u.username }} </option>
                             </select>
                         </div>
-
+                        -->
                         <div style="margin-top:10px" class="form-group">
                             <div class="col-sm-12 controls">
                                 <a id="btn-add" @click="addVacation" class="btn btn-success btn-block">
                                     <i class="glyphicon glyphicon-plus" style="float:left"></i>
-                                    Add Vacation
+                                    Request Vacation
                                     <i class="glyphicon glyphicon-plus" style="float:right"></i>
                                 </a>
                             </div>
@@ -64,6 +64,7 @@
                 noUsers: '',
                 vacation: {
                     id: '',
+                    status: 'Pending',
                     beginDate: '',
                     endDate: '',
                     vacationType: {
@@ -82,6 +83,9 @@
         },
         methods: {
             addVacation() {
+                this.setMyInfo();
+                this.setVacType(this.vacation.vacationType.id);
+                
                 this.$http.post('http://localhost:8082/vacations', 
                                 JSON.stringify(this.vacation))
                                 .then(response => {});
@@ -90,26 +94,24 @@
                             .then(response => {
                                 this.vacsList = response.body;
                             });*/
-                            
-                var us = this.getUser(this.vacation.user.id);
-                var vt = this.getVacType(this.vacation.user.id);
-                this.vacation.user.firstName = us.firstName;
-                this.vacation.user.lastName  = us.lastName;
-                this.vacation.vacationType.description = vt.description;
     
                 this.$emit('add', this.vacation);
             },
-            getUser(id) {
+            setMyInfo(id) {
                 for(var k in this.userList) {
-                    if (this.userList[k].id == id) {
-                        return this.userList[k];
+                    if (this.userList[k].username == localStorage.getItem('Username')) {
+                        this.vacation.user.id        = this.userList[k].id;
+                        this.vacation.user.firstName = this.userList[k].firstName;
+                        this.vacation.user.lastName  = this.userList[k].lastName;
+                        return;
                     }
                 }
             },
-            getVacType(id) {
+            setVacType(id) {
                 for(var k in this.vacTypeList) {
                     if (this.vacTypeList[k].id == id) {
-                        return this.vacTypeList[k];
+                        this.vacation.vacationType.description = this.vacTypeList[k].description;
+                        return;
                     }
                 }
             }

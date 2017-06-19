@@ -76,7 +76,7 @@
         methods: {
             addTeam() {
                 if( this.errors.errors == '' ) {
-                    if( this.team.handle == '' || this.team.name == '' || this.team.name == '' ) {
+                    if( this.team.handle == '' || this.team.info == '' || this.team.name == '' ) {
                         this.err.status = true;
                         return;
                     }
@@ -87,9 +87,9 @@
                                     });
                             
                         this.$http.get('http://localhost:8083/teams/byname/' + this.team.name)
-                                        .then(response => {
-                                            this.team.id = response.body.id;
-                                        });
+                                    .then(response => {
+                                        this.team.id = response.body.id;
+                                    });
                         this.$emit('add', this.team);
                     }
                 }

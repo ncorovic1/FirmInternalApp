@@ -65,9 +65,9 @@
                                     <th> No.              </th>
                                     <th> Firstname        </th>
                                     <th> Lastname         </th>
-                                    <th> Address          </th>
-                                    <th> Date of Birth    </th>
-                                    <th> Days of Vacation </th>
+                                    <th v-show="admin || hr"> Address          </th>
+                                    <th v-show="admin || hr"> Date of Birth    </th>
+                                    <th v-show="admin || hr"> Days of Vacation </th>
                                     <th> Gender           </th>
                                     <th> Role             </th>
                                     <th> Email            </th>
@@ -83,9 +83,9 @@
                                     <th>{{ key + 1             }}</th>
                                     <td>{{ u.firstName         }}</td>
                                     <td>{{ u.lastName          }}</td>
-                                    <td>{{ u.address           }}</td>
-                                    <td>{{ userDate(key)       }}</td>
-                                    <td>{{ u.daysOfVacation    }}</td>
+                                    <td v-show="admin || hr">{{ u.address           }}</td>
+                                    <td v-show="admin || hr">{{ userDate(key)       }}</td>
+                                    <td v-show="admin || hr">{{ u.daysOfVacation    }}</td>
                                     <td>{{ u.gender            }}</td>
                                     <td>{{ u.role              }}</td>
                                     <td>{{ u.email             }}</td>
@@ -145,7 +145,7 @@
             this.team           = t;
             this.username       = user;
             this.password       = pass;       
-      }
+        }
     }
     
     export default {
@@ -182,27 +182,42 @@
             populateUser(key) {
                 this.activeModal = key;
                 this.user = new User(
-                                     this.userList[key].id,
-                                     this.userList[key].firstName,
-                                     this.userList[key].lastName,
-                                     this.userList[key].address,
-                                     this.userList[key].dateOfBirth,
-                                     this.userList[key].daysOfVacation,
-                                     this.userList[key].gender,
-                                     this.userList[key].role,
-                                     this.userList[key].email,
-                                     this.userList[key].telephone,
-                                     this.userList[key].team,
-                                     this.userList[key].username,
-                                     this.userList[key].password
-                                     );
+                    this.userList[key].id,
+                    this.userList[key].firstName,
+                    this.userList[key].lastName,
+                    this.userList[key].address,
+                    this.userList[key].dateOfBirth,
+                    this.userList[key].daysOfVacation,
+                    this.userList[key].gender,
+                    this.userList[key].role,
+                    this.userList[key].email,
+                    this.userList[key].telephone,
+                    this.userList[key].team,
+                    this.userList[key].username,
+                    this.userList[key].password
+                );
             },
             update(arg) {
                 this.userList[this.activeModal] = arg;
                 this.userList.push();  
             },
             add(args) {
-                this.userList.push(args);
+                var newUser = new User(
+                    args.id,
+                    args.firstName,
+                    args.lastName,
+                    args.address,
+                    args.dateOfBirth,
+                    args.daysOfVacation,
+                    args.gender,
+                    args.role,
+                    args.email,
+                    args.telephone,
+                    args.team,
+                    args.username,
+                    args.password
+                );
+                this.userList.push(newUser);
                 this.userFormToggle();
             },
             userDate(i) {

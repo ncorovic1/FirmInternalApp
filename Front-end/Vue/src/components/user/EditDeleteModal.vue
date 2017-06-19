@@ -146,7 +146,11 @@
                                 });
             },
             deleteUser() {
+                var user_id = this.user.id;
                 
+                this.$http.delete('http://localhost:8084/documents/deletebyauthor/' + user_id);
+                this.$http.delete('http://localhost:8082/vacations/deletebyuser/'   + user_id);
+
                 this.$emit('deleteUser', event.target.value);
             }
         },
@@ -186,9 +190,9 @@
         },
         created() {
             this.$http.get('http://localhost:8085/teams')
-                        .then(response => {
-                            this.noTeams = Object.keys(response.body._embedded.teams).length;
-                        });
+                .then(response => {
+                    this.noTeams = Object.keys(response.body._embedded.teams).length;
+                });
         },
     }
 </script>

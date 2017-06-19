@@ -6,7 +6,7 @@
                     <div class="row" v-show="admin || hr">
                         <h2 class="text-center">Vacation Types </h2>
                     </div>
-                    <div class="row">
+                    <div class="row" v-show="admin || hr">
                         <div class="col-md-4 col-md-offset-4">
                             <div style="margin-bottom: 5px" class="input-group">
                                 <input type="text" class="form-control" v-model="newVacType.description" placeholder="vacation type description" required>
@@ -29,7 +29,7 @@
                     <div class="row">
                         <h2 class="text-center">Vacations</h2>
                     </div>
-                    <div class="row" v-show="admin || hr">
+                    <div class="row">
                         <button @click="vacationFormToggle" class="btn btn-success btn-block"> 
                             <i class="glyphicon glyphicon-plus" style="float:left"></i>
                                 {{ formButton }} 
@@ -47,8 +47,11 @@
                                         <span id="search_concept">Filter by {{ filterBy }}</span> <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li @click="filterBy = 'User'"><a>User</a></li>
-                                            <li class="divider"></li>
+                                        <li @click="filterBy = 'My Vacations'"><a>My Vacations</a></li>
+                                            <li class="divider" v-show="admin || hr"></li>
+                                        <li @click="filterBy = 'User'" v-show="admin || hr"><a>User</a></li>
+                                            <li class="divider" v-show="admin || hr"></li>
+                                        <li @click="filterBy = 'Vacation Type'" v-show="admin || hr"><a>Vacation Type</a></li>
                                     </ul>
                                 </div>
                                 <input type="hidden" name="search_param" value="all" id="search_param">         
@@ -68,6 +71,7 @@
                             <thead>
                                 <tr>
                                     <th>No.                  </th>
+                                    <th>Status               </th>
                                     <th>Begin date           </th>
                                     <th>End date             </th>
                                     <th>Vacation description </th>
@@ -79,6 +83,7 @@
                             <tbody>
                                 <tr v-for="(v, key) in filteredVacList">
                                     <td>{{ key + 1                                  }}</td>
+                                    <td>{{ v.status                                 }}</td>
                                     <td>{{ v.beginDate                              }}</td>
                                     <td>{{ v.endDate                                }}</td>
                                     <td>{{ v.vacationType.description               }}</td>
@@ -112,7 +117,7 @@
             </div>
         </div>
         <app-eddel :vacation="vacation" @deleteVacation="vacList.splice(activeModal, 1)" @update="update"></app-eddel>
-    </div>
+   </div>
 </template>
 
 <script>
@@ -121,12 +126,13 @@
     import Auth       from '../../assets/auth';
     
     class Vacation {
-        constructor(id, bd, ed, vt, us) {
+        constructor(id, bd, ed, vt, us, st) {
             this.id           = id;
             this.beginDate    = bd;
             this.endDate      = ed;
             this.vacationType = vt;
             this.user         = us;
+            this.status       = st;
         }
     }
     
@@ -138,16 +144,17 @@
         data() {
             return {
                 showAdd: false,
-                formButton: 'Add Vacation',
+                formButton: 'Request Vacation',
                 formButtonValues: [
-                    'Add Vacation',
+                    'Request Vacation',
                     'Close Form'
                 ],
-                filterBy: 'User',
+                filterBy: 'My Vacations',
                 keyword: '',
                 activeModal: '0',
                 admin: false,
                 hr: false,
+                myFullName: '',
                 vacList: [],
                 vacation: [],
                 vacTypeList: [],
@@ -167,11 +174,12 @@
             populateVacation(key) {
                 this.activeModal = key;
                 this.vacation = new Vacation(
-                    this.vacList[key].id,
-                    this.vacList[key].beginDate,
-                    this.vacList[key].endDate,
-                    this.vacList[key].vacationType,
-                    this.vacList[key].user
+                    this.filteredVacList[key].id,
+                    this.filteredVacList[key].beginDate,
+                    this.filteredVacList[key].endDate,
+                    this.filteredVacList[key].vacationType,
+                    this.filteredVacList[key].user,
+                    this.filteredVacList[key].status
                 );
             },
             update() {
@@ -204,6 +212,7 @@
                                                 this.vacTypeList[ind].factor = this.newVacType.factor;
                                                 break;
                                             }
+                                        this.populateVacType(this.newVacType.id);
                                     });
                 }
             },
@@ -213,11 +222,13 @@
                         this.populateVacType();
                     });
             },
-            populateVacType() {
+            populateVacType(ind) {
                 this.$http.get('http://localhost:8082/vacationTypes')
                     .then(response => {
                         this.vacTypeList = response.body;
                         this.chosenVT = this.vacTypeList[0].id;
+                        if (ind != null)
+                            this.chosenVT = ind;
                     });
             }
         },
@@ -232,23 +243,24 @@
                   return 0;
                 }
                 return this.vacList.sort(compare).filter((va) => {
+                    var fullName = va.user.firstName + ' ' + va.user.lastName;
                     switch(this.filterBy) {
+                        case 'My Vacations': 
+                            return fullName.toLowerCase() == this.myFullName.toLowerCase();
+                            break;
                         case 'User': 
-                            return va.user.id.toString().toLowerCase().includes(this.keyword);
+                            return fullName.toString().toLowerCase().includes(this.keyword);
+                            break;
+                        case 'Vacation Type': 
+                            return va.vacationType.description.toLowerCase().includes(this.keyword);
                             break;
                     }
                 })
             }
         },
         created() {
-            switch (localStorage.getItem('Role')) {
-                    case 'ADMIN': 
-                        this.admin = 'true';
-                        break;
-                    case 'HR':
-                        this.hr = 'true';
-                        break;
-                }
+            this.myFullName = localStorage.getItem('Fullname');
+            
                 
             this.$http.get('http://localhost:8082/vacations')
                 .then(response => {
