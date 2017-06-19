@@ -106,6 +106,12 @@ public class UsersService {
 		this.updateUser(header, user);
 	}
 	
+	public void changePassword(String password, String email) {
+		User user = usersRepository.findByEmail(email);
+		user.setPassword(password);
+		usersRepository.save(user);
+	}
+	
 	public void deleteUser(String header, Long id) {
 		usersRepository.delete(id);
 		

@@ -22,14 +22,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests()
-				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-				.antMatchers("/").permitAll()
-				.antMatchers("/urk/**").permitAll()
-				.antMatchers(HttpMethod.POST, "/login").permitAll()
-				.anyRequest().authenticated().and()
-				.addFilterBefore(new JWTLoginFilter("/login", authenticationManager()),
-						UsernamePasswordAuthenticationFilter.class)
-				.addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+			.antMatchers("/").permitAll()
+			.antMatchers("/urk/**").permitAll()
+			.antMatchers(HttpMethod.POST, "/users/sendemail/**").permitAll()
+			.antMatchers(HttpMethod.POST, "/users/resetpassword/**").permitAll()
+			.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+			.antMatchers(HttpMethod.POST, "/login").permitAll()
+			.anyRequest().authenticated()
+			.and()
+			.addFilterBefore(new JWTLoginFilter("/login", authenticationManager()),
+				UsernamePasswordAuthenticationFilter.class)
+			.addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 
 	@Autowired

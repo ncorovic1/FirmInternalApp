@@ -22,18 +22,12 @@ public class MailService {
 		this.templateMessage = templateMessage;
 	}
 
-	public void sendMail() {
-		SimpleMailMessage msg = new SimpleMailMessage();
-		msg.setTo("hadziarapovica@gmail.com");
-		msg.setText("Proba");
-		msg.setReplyTo("fia@noreply.com");
-		msg.setFrom("fia@noreply.com");
-		try {
-			mailSender.send(msg);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	/*
+	 * public void sendMail() { SimpleMailMessage msg = new SimpleMailMessage();
+	 * msg.setTo("hadziarapovica@gmail.com"); msg.setText("Proba");
+	 * msg.setReplyTo("fia@noreply.com"); msg.setFrom("fia@noreply.com"); try {
+	 * mailSender.send(msg); } catch (Exception e) { e.printStackTrace(); } }
+	 */
 
 	public void sendResetPasswordMail(String email, String password) {
 		SimpleMailMessage msg = new SimpleMailMessage();
