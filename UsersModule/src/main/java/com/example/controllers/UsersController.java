@@ -134,7 +134,7 @@ public class UsersController {
 
 			mailService.sendResetPasswordMail(email, key.getValue().toString());
 			//user.setPassword(key.getValue().toString());
-			usersService.changePassword(key.toString(), email);
+			usersService.changePassword(key.getValue().toString(), email);
 			uniqueRandomKeyService.validateUrk(key.getValue(), email);
 		}
 
