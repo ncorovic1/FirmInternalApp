@@ -6,10 +6,10 @@
 
         $scope.tempTeamToAddUsers = 0;
         $scope.newTeam = {
-            id: 0,
+            id:0,
             handle: '',
             info: '',
-            name:''
+            name: ''
         }
         $scope.loadTeams = function () {
             $scope.waitUsers = true;
@@ -49,6 +49,8 @@
         };
         $scope.addUserToTeam = function (user) {
             user.team = $scope.tempTeamToAddUsers;
+            $http.defaults.headers.common.Authorization = $window.localStorage.token;
+
             dataService.update("users", user.id, user, function (data) {
                 if (data) {
                     alert("User updated");
@@ -57,6 +59,8 @@
         };
 
         $scope.addTeam = function (team) {
+            $http.defaults.headers.common.Authorization = $window.localStorage.token;
+
             dataService.create("teams", team, function (data) {
                 if (data) {
                     $scope.loadTeams();

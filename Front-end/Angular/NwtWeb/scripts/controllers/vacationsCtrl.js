@@ -26,31 +26,53 @@
             id: 1
         }
         $scope.requestItem = {
-            id: 0,
-            user: 
+            user:
             {
                 id: 0
             },
-            eventType: 0,
+            vacationType:
+                {
+                    id: 0
+                },
             beginDate: new Date(),
             endDate: new Date(),
-            note: "",
-            status: false,
-            isCanceled: false
         };
         $scope.back = function () {
             $scope.addMonths = $scope.addMonths - 1;
             if (d.getMonth() + $scope.addMonths < 0) $scope.addMonths = 12 + $scope.addMonths;
             $scope.selectedMonth = month[d.getMonth() + $scope.addMonths];
+            $scope.getVacations();
         }
         $scope.next = function () {
             $scope.addMonths = $scope.addMonths + 1;
             if (d.getMonth() + $scope.addMonths >= 12) $scope.addMonths = $scope.addMonths - 12;
             $scope.selectedMonth = month[d.getMonth() + $scope.addMonths];
+            $scope.getVacations();
         }
-
+        $scope.approveVacation = function (vacation) {
+            vacation.status = "APPROVED";
+            vacationService.update("vacations", vacation.id, vacation,
+            function (data) {
+                if (data === "") {
+                    alert("Vacation approved");
+                } else {
+                    $scope.processingRequest = false;
+                }
+            });
+        }
+        $scope.rejectVacation = function (vacation) {
+            vacation.status = "REJECTED";
+            vacationService.update("vacations", vacation.id, vacation,
+            function (data) {
+                if (data === "") {
+                    alert("Vacation denied");
+                } else {
+                    $scope.processingRequest = false;
+                }
+            });
+        }
         $scope.getVacations = function () {
-            vacationService.list("vacations",
+            vacationService.list("vacations/bymonth/" + $scope.addMonths,
             function (data) {
                 if (data) {
                     $scope.vacations = data;
@@ -71,7 +93,7 @@
 
         $scope.createRequest = function () {
             $scope.requestItem.user.id = $window.localStorage.currentUserId;
-            $scope.requestItem.vacationType = $scope.selectedType;
+            $scope.requestItem.vacationType.id = $scope.selectedType.id;
             vacationService.create("vacations", $scope.requestItem,
             function (data) {
                 if (data) {
@@ -91,14 +113,16 @@
 
         $scope.clearRequest = function () {
             $scope.requestItem = {
-                id: 0,
-                employeeId: 0,
-                eventType: 0,
-                startDate: null,
-                endDate: null,
-                note: "",
-                approved: false,
-                isCanceled: false
+                user:
+                {
+                    id: 0
+                },
+                vacationType:
+                    {
+                        id: 0
+                    },
+                beginDate: new Date(),
+                endDate: new Date(),
             }
             $scope.showDescription = false;
         };

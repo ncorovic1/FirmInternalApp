@@ -6,6 +6,7 @@
 
         var source = "http://localhost:8083/";
         $http.defaults.headers.common.Authorization = $window.localStorage.token;
+
         return {
 
             list: function (dataSet, callback) {

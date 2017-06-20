@@ -9,7 +9,9 @@
             $rootScope.loggedIn = false;
         };
 
-        $scope.isAdmin = $window.localStorage.role == "ADMIN";
+        $rootScope.isAdmin = $window.localStorage.role == "ADMIN";
+        $rootScope.isHR = $window.localStorage.role == "HR";
+        $rootScope.isEmployee = $window.localStorage.role == "EMPLOYEE";
 
     }]);
 
