@@ -53,23 +53,25 @@
                                     <th>Author      </th>                                    
                                     <th>Created At  </th>
                                     <th>Modified At </th>
+                                    <th>Read        </th>
                                     <th v-show="admin || hr">Edit   </th>
                                     <th v-show="admin || hr">Delete </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="(d, key) in filteredDocumentList">
-                                    <td>{{ key + 1                                      }}</td>
-                                    <td>{{ d.title                                      }}</td>
-                                    <td>{{ d.author.firstName + ' ' + d.author.lastName }}</td>          
-                                    <td>{{ createDate(d.createdAt)                      }}</td>
-                                    <td>{{ createDate(d.modifiedAt)                     }}</td>
-                                    <td v-show="admin || hr">
+                                    <td>{{ key + 1                                      }}                       </td>
+                                    <td>{{ d.title                                      }}                       </td>
+                                    <td>{{ d.author.firstName + ' ' + d.author.lastName }}                       </td>   
+                                    <td>{{ createDate(d.createdAt)                      }}                       </td>
+                                    <td>{{ createDate(d.modifiedAt)                     }}                       </td>
+                                    <td><router-link v-bind:to="'document/' + d.id" class="go"> Go </router-link></td>
+                                    <td>
                                         <p data-placement="top" data-toggle="tooltip" title="Edit">
                                             <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" @click="populateDocument(key)"><span class="glyphicon glyphicon-pencil"></span></button>
                                         </p>
                                     </td>
-                                    <td v-show="admin || hr">
+                                    <td>
                                         <p data-placement="top" data-toggle="tooltip" title="Delete">
                                             <button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" @click="populateDocument(key)"><span class="glyphicon glyphicon-trash"></span></button>
                                         </p>
@@ -241,3 +243,15 @@
         }
     }
 </script>
+
+<style>
+    .go {
+        color: black;
+        border: 2px solid black;
+        border-radius: 5px;
+    }
+    .go:hover {
+        color: green;
+        font-weight: 800;
+    }
+</style>

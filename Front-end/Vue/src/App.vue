@@ -70,6 +70,8 @@
 
                 if (url == 'http://localhost:8080' || url == 'http://localhost:8080/')
                     route = 'main';
+                else if (url.includes('document/'))
+                    route = 'document';
                 else {
                     var split = url.split('/');
                     var route = '';
@@ -94,6 +96,9 @@
                     case 'documents':
                         this.act = '7';
                         break;
+                    case 'document':
+                        this.act = '8';
+                        break;
                     case 'profile':
                         this.act = '50';
                         break;
@@ -112,9 +117,6 @@
                     return;
                 else if (role == null && path != 'login')
                     window.location.href="/login";
-                /*else if (role == 'EMPLOYEE' && path == 'vacations') {
-                    window.location.href="/profile";
-                }*/
             }
         },
         watch: {

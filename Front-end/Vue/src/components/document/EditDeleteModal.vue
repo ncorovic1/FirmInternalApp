@@ -73,7 +73,6 @@
                 this.$emit('update', this.document);
             },
             deleteDocument() {
-                alert(JSON.stringify(this.document));
                 this.$http.delete('http://localhost:8084/documents/' + this.document.id)
                 this.$emit('deleteDocument', event.target.value);
             }

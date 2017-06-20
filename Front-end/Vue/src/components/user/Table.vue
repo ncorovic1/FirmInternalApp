@@ -167,7 +167,11 @@
                 admin: false,
                 hr: false,
                 userList: [],
-                user: []
+                user: {
+                    team: {
+                        id: ''
+                    }
+                }
             }
         },
         methods: {

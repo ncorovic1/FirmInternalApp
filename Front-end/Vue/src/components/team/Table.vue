@@ -53,7 +53,7 @@
                                     <th>Info     </th>
                                     <th>Name     </th>
                                     <th>Members  </th>
-                                    <th v-show="admin || hr">Edit   </th>
+                                    <th>Edit   </th>
                                     <th v-show="admin || hr">Delete </th>
                                 </tr>
                             </thead>
@@ -71,7 +71,7 @@
                                             <span class="glyphicon glyphicon-th-list"></span></button>
                                         </p>
                                     </td>
-                                    <td v-show="admin || hr">
+                                    <td>
                                         <p data-placement="top" data-toggle="tooltip" title="Edit">
                                             <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" @click="populateTeam(key)"><span class="glyphicon glyphicon-pencil"></span></button>
                                         </p>

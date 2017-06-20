@@ -13,6 +13,7 @@ import Users     from './components/user/Table';
 import Teams     from './components/team/Table';
 import Vacations from './components/vacation/Table';
 import Documents from './components/document/Table';
+import Render    from './components/document/Render';
 import Profile   from './components/profile/Preview';
 import NotFound  from './components/error/NotFound';
 import MainPage  from './components/Index';
@@ -33,7 +34,7 @@ Vue.use(VueResource);
 Vue.use(VeeValidate);
 Vue.http.options.emulateJSON = true;
 Vue.http.interceptors.push((request, next) => {
-    if(!request.url.includes("login") && !request.url.includes("sendemail") && !request.url.includes("resetpassword")) {
+    if( request.url != 'http://localhost:8085/login') {
         request.headers.set('Content-Type', 'application/json');
         request.headers.set('Accept', 'application/json');
         request.headers.set('Authorization', localStorage.getItem('Authorization'));
@@ -52,6 +53,7 @@ const routes = [
     { path:'/teams',         component: Teams },
     { path:'/vacations',     component: Vacations },
     { path:'/documents',     component: Documents },
+    { path:'/document/:id',  component: Render },
     { path:'/profile',       component: Profile },
     { path:'/404_not_found', component: NotFound },
     { path:'/Message',       component: Message }

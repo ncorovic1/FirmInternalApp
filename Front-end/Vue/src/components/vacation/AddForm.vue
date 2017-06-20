@@ -64,7 +64,7 @@
                 noUsers: '',
                 vacation: {
                     id: '',
-                    status: 'Pending',
+                    status: 'PENDING',
                     beginDate: '',
                     endDate: '',
                     vacationType: {
